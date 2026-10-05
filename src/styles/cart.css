@@ -1,0 +1,103 @@
+.cart-line {
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-3);
+}
+
+.cart-thumb-link {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.cart-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.cart-line-body {
+  min-width: 0;
+}
+
+.cart-line-body p,
+.cart-line-name {
+  overflow-wrap: anywhere;
+}
+
+.cart-line-name {
+  color: var(--color-primary-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cart-qty-value {
+  min-width: 1.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.cart-actions {
+  align-items: stretch;
+}
+
+/* Narrow text pages (FAQ, legal) */
+.narrow-page { display: grid; gap: var(--space-6); max-width: 50rem; }
+.legal-page { gap: var(--space-4); color: var(--color-text); }
+.legal-page .section-heading { margin-bottom: var(--space-3); }
+
+.cart-page,
+.checkout-page { max-width: 52rem; gap: var(--space-5); }
+
+.cart-thumb-link { background: var(--color-surface); padding: 0.25rem; }
+
+[data-testid="cart-totals"] {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+[data-testid="cart-total"] { color: var(--color-ink); font-weight: 700; font-size: 1.05rem; }
+
+.cart-page > [data-testid="delivery-picker"],
+.checkout-page [data-testid="delivery-picker"] {
+  padding: var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+/* Checkout sections as cards */
+.checkout-page form { gap: var(--space-4); }
+
+.checkout-page [data-checkout-step] {
+  padding: var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+}
+
+.checkout-page [data-checkout-step] > .section-heading {
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-1);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.checkout-page [data-checkout-step] > .section-heading h2 {
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.checkout-page [data-checkout-step] [data-testid="delivery-picker"] { padding: 0; border: 0; }
+
+.checkout-page form > .btn,
+.checkout-page form > button[type="submit"] { justify-self: start; min-width: 14rem; }
+
+@media (max-width: 767px) {
+  .checkout-page [data-checkout-step] { padding: var(--space-4); }
+  .checkout-page form > .btn,
+  .checkout-page form > button[type="submit"] { width: 100%; }
+}

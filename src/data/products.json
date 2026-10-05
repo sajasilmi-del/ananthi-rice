@@ -1,0 +1,1826 @@
+[
+  {
+    "id": "ponni-boiled-rice",
+    "brand": "ananthi",
+    "category": "everyday",
+    "nameTamil": "பொன்னி புழுங்கல் அரிசி",
+    "nameEnglish": "Ponni Boiled Rice",
+    "descriptionTamil": "தரமான பொன்னி புழுங்கல் அரிசி – தினசரி சமையலுக்கு ஏற்றது.",
+    "descriptionEnglish": "Quality Ponni boiled rice, suited to everyday cooking.",
+    "images": [
+      "/products/001_Ponni_Boiled_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": true,
+    "active": true
+  },
+  {
+    "id": "ponni-raw-rice",
+    "brand": "ananthi",
+    "category": "everyday",
+    "nameTamil": "பொன்னி பச்சரிசி",
+    "nameEnglish": "Ponni Raw Rice",
+    "descriptionTamil": "தினசரி சமையலுக்கான அரிசி வகை.",
+    "descriptionEnglish": "A rice variety for everyday cooking.",
+    "images": [
+      "/products/002_Ponni_Raw_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "idli-rice",
+    "brand": "ananthi",
+    "category": "everyday",
+    "nameTamil": "இட்லி அரிசி",
+    "nameEnglish": "Idli Rice",
+    "descriptionTamil": "தினசரி சமையலுக்கான அரிசி வகை.",
+    "descriptionEnglish": "A rice variety for everyday cooking.",
+    "images": [
+      "/products/003_Idli_Rice_SANTOSH.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "sona-masuri-raw-rice",
+    "brand": "ananthi",
+    "category": "everyday",
+    "nameTamil": "சோனா மதிரி பச்சரிசி",
+    "nameEnglish": "Sona Masuri Raw Rice",
+    "descriptionTamil": "தினசரி சமையலுக்கான அரிசி வகை.",
+    "descriptionEnglish": "A rice variety for everyday cooking.",
+    "images": [
+      "/products/004_Sona_Masuri_Raw_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "sona-masuri-steam-rice",
+    "brand": "ananthi",
+    "category": "everyday",
+    "nameTamil": "சோனா மதிரி ஸ்டீம் அரிசி",
+    "nameEnglish": "Sona Masuri Steam Rice",
+    "descriptionTamil": "தினசரி சமையலுக்கான அரிசி வகை.",
+    "descriptionEnglish": "A rice variety for everyday cooking.",
+    "images": [
+      "/products/005_Sona_Masuri_Steam_Rice_SANTOSH.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "seeraga-samba-rice",
+    "brand": "ananthi",
+    "category": "biryani",
+    "nameTamil": "சீரக சம்பா அரிசி",
+    "nameEnglish": "Seeraga Samba Rice",
+    "descriptionTamil": "பிரியாணிக்குப் பயன்படும் அரிசி வகை.",
+    "descriptionEnglish": "A rice variety used for biryani.",
+    "images": [
+      "/products/008_Seeraga_Samba_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": true,
+    "active": true
+  },
+  {
+    "id": "basmati-rice",
+    "brand": "ananthi",
+    "category": "biryani",
+    "nameTamil": "பாஸ்மதி அரிசி",
+    "nameEnglish": "Basmati Rice",
+    "descriptionTamil": "பிரியாணிக்குப் பயன்படும் அரிசி வகை.",
+    "descriptionEnglish": "A rice variety used for biryani.",
+    "images": [
+      "/products/009_Basmati_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": true,
+    "active": true
+  },
+  {
+    "id": "hand-pounded-ponni-boiled-rice",
+    "brand": "arthy",
+    "category": "hand-pounded",
+    "nameTamil": "கைக்குத்தல் பொன்னி புழுங்கல் அரிசி",
+    "nameEnglish": "Hand-Pounded Ponni Boiled Rice",
+    "descriptionTamil": "பாரம்பரிய முறையில் தயாரிக்கப்படும் கைக்குத்தல் அரிசி.",
+    "descriptionEnglish": "Hand-pounded rice prepared in the traditional way.",
+    "images": [
+      "/products/011_Hand_Pounded_Ponni_Boiled_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "hand-pounded-ponni-raw-rice",
+    "brand": "arthy",
+    "category": "hand-pounded",
+    "nameTamil": "கைக்குத்தல் பொன்னி பச்சரிசி",
+    "nameEnglish": "Hand-Pounded Ponni Raw Rice",
+    "descriptionTamil": "பாரம்பரிய முறையில் தயாரிக்கப்படும் கைக்குத்தல் அரிசி.",
+    "descriptionEnglish": "Hand-pounded rice prepared in the traditional way.",
+    "images": [
+      "/products/012_Hand_Pounded_Ponni_Raw_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "hand-pounded-sona-masuri-raw-rice",
+    "brand": "arthy",
+    "category": "hand-pounded",
+    "nameTamil": "சோனா மதிரி கைக்குத்தல் பச்சரிசி",
+    "nameEnglish": "Hand-Pounded Sona Masuri Raw Rice",
+    "descriptionTamil": "பாரம்பரிய முறையில் தயாரிக்கப்படும் கைக்குத்தல் அரிசி.",
+    "descriptionEnglish": "Hand-pounded rice prepared in the traditional way.",
+    "images": [
+      "/products/013_Hand_Pounded_Sona_Masuri_Raw_Rice_SANTOSH.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "hand-pounded-basmati-rice",
+    "brand": "arthy",
+    "category": "hand-pounded",
+    "nameTamil": "பாஸ்மதி கைக்குத்தல் அரிசி",
+    "nameEnglish": "Hand-Pounded Basmati Rice",
+    "descriptionTamil": "பாரம்பரிய முறையில் தயாரிக்கப்படும் கைக்குத்தல் அரிசி.",
+    "descriptionEnglish": "Hand-pounded rice prepared in the traditional way.",
+    "images": [
+      "/products/014_Hand_Pounded_Basmati_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "mapillai-samba-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "மாப்பிள்ளை சம்பா அரிசி",
+    "nameEnglish": "Mapillai Samba Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/015_Mapillai_Samba_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": true,
+    "active": true
+  },
+  {
+    "id": "kudaivaalai-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "குடைவாழை அரிசி",
+    "nameEnglish": "Kudaivaalai Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/016_Kudaivaalai_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "red-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "சிவப்பு அரிசி",
+    "nameEnglish": "Red Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/017_Red_Rice_ARTHY.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "poongar-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "பூங்கார் அரிசி",
+    "nameEnglish": "Poongar Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/018_Poongar_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "thanga-samba-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "தங்க சம்பா அரிசி",
+    "nameEnglish": "Thanga Samba Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/019_Thanga_Samba_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "karuppu-kavuni-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "கருப்பு கவுனி அரிசி",
+    "nameEnglish": "Karuppu Kavuni Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகைகளில் பிரபலமான கருப்பு கவுனி அரிசி.",
+    "descriptionEnglish": "Karuppu Kavuni rice, a well-known traditional rice variety.",
+    "images": [
+      "/products/020_Karuppu_Kavuni_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": true,
+    "active": true
+  },
+  {
+    "id": "kattuyanam-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "காட்டுயாணம் அரிசி",
+    "nameEnglish": "Kattuyanam Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/021_Kattuyanam_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": true,
+    "active": true
+  },
+  {
+    "id": "bamboo-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "மூங்கில் அரிசி",
+    "nameEnglish": "Bamboo Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/022_Bamboo_Rice_ARTHY.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "thooya-malli-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "தூய மல்லி அரிசி",
+    "nameEnglish": "Thooya Malli Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/023_Thooya_Malli_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "kichadi-samba-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "கிச்சடி சம்பா அரிசி",
+    "nameEnglish": "Kichadi Samba Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/024_Kichadi_Samba_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "kullakar-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "குள்ளக்கார் அரிசி",
+    "nameEnglish": "Kullakar Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/025_Kullakar_Rice_ARTHY.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "kar-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "கார் அரிசி",
+    "nameEnglish": "Kar Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/026_Kar_Rice_ARTHY.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "rajamudi-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "ராஜமுடி அரிசி",
+    "nameEnglish": "Rajamudi Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/027_Rajamudi_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "arubatham-kuruvai-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "அறுபதாம் குறுவை அரிசி",
+    "nameEnglish": "Arubatham Kuruvai Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/028_Arubatham_Kuruvai_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "kuzhiyadichan-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "குழியடிச்சான் அரிசி",
+    "nameEnglish": "Kuzhiyadichan Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/029_Kuzhiyadichan_Rice_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "salem-sanna-rice",
+    "brand": "mahi",
+    "category": "traditional",
+    "nameTamil": "சேலம் சன்னா அரிசி",
+    "nameEnglish": "Salem Sanna Rice",
+    "descriptionTamil": "பாரம்பரிய அரிசி வகை.",
+    "descriptionEnglish": "A traditional rice variety.",
+    "images": [
+      "/products/030_Salem_Sanna_Rice_SANTOSH.png"
+    ],
+    "variants": [
+      {
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "25kg",
+        "packSize": "25 kg",
+        "packSizeTamil": "25 கிலோ",
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "hand-pounded-rice-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "கைக்குத்தல் அரிசி சேவை",
+    "nameEnglish": "Hand-Pounded Rice Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/031_Hand_Pounded_Rice_Sevai_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "rice-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "அரிசி சேவை",
+    "nameEnglish": "Rice Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/032_Rice_Sevai_SANTOSH.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "red-rice-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "சிவப்பு அரிசி சேவை",
+    "nameEnglish": "Red Rice Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/033_Red_Rice_Sevai_ARTHY.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "ragi-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "ராகி சேவை",
+    "nameEnglish": "Ragi Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/034_Ragi_Sevai_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "kambu-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "கம்பு சேவை",
+    "nameEnglish": "Kambu Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/035_Kambu_Sevai_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "samai-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "சாமை சேவை",
+    "nameEnglish": "Samai Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/036_Samai_Sevai_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "varagu-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "வரகு சேவை",
+    "nameEnglish": "Varagu Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/037_Varagu_Sevai_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "thinai-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "தினை சேவை",
+    "nameEnglish": "Thinai Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/038_Thinai_Sevai_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "multi-grain-sevai",
+    "brand": "santosh",
+    "category": "sevai",
+    "nameTamil": "பலதானிய சேவை",
+    "nameEnglish": "Multi-Grain Sevai",
+    "descriptionTamil": "சேவை வகை.",
+    "descriptionEnglish": "A sevai product.",
+    "images": [
+      "/products/039_Multi_Grain_Sevai_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": true,
+    "active": true
+  },
+  {
+    "id": "panivaragu",
+    "brand": "arthy",
+    "category": "millets",
+    "nameTamil": "பனிவரகு",
+    "nameEnglish": "Panivaragu",
+    "descriptionTamil": "பாரம்பரிய சிறுதானிய வகை.",
+    "descriptionEnglish": "A traditional millet variety.",
+    "images": [
+      "/products/040_Panivaragu_ARTHY.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "thinai",
+    "brand": "arthy",
+    "category": "millets",
+    "nameTamil": "தினை",
+    "nameEnglish": "Thinai / Foxtail Millet",
+    "descriptionTamil": "பாரம்பரிய சிறுதானிய வகை.",
+    "descriptionEnglish": "A traditional millet variety.",
+    "images": [
+      "/products/041_Thinai_Foxtail_Millet_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "varagu",
+    "brand": "arthy",
+    "category": "millets",
+    "nameTamil": "வரகு",
+    "nameEnglish": "Varagu / Kodo Millet",
+    "descriptionTamil": "பாரம்பரிய சிறுதானிய வகை.",
+    "descriptionEnglish": "A traditional millet variety.",
+    "images": [
+      "/products/042_Varagu_Kodo_Millet_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "samai",
+    "brand": "arthy",
+    "category": "millets",
+    "nameTamil": "சாமை",
+    "nameEnglish": "Samai / Little Millet",
+    "descriptionTamil": "பாரம்பரிய சிறுதானிய வகை.",
+    "descriptionEnglish": "A traditional millet variety.",
+    "images": [
+      "/products/043_Samai_Little_Millet_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "kuthiraivali",
+    "brand": "arthy",
+    "category": "millets",
+    "nameTamil": "குதிரைவாலி",
+    "nameEnglish": "Kuthiraivali / Barnyard Millet",
+    "descriptionTamil": "பாரம்பரிய சிறுதானிய வகை.",
+    "descriptionEnglish": "A traditional millet variety.",
+    "images": [
+      "/products/044_Kuthiraivali_Barnyard_Millet_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "rice-flour",
+    "brand": "ananthi",
+    "category": "flour",
+    "nameTamil": "அரிசி மாவு",
+    "nameEnglish": "Rice Flour",
+    "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகை.",
+    "descriptionEnglish": "A flour product for everyday cooking and traditional recipes.",
+    "images": [
+      "/products/045_Rice_Flour_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "white-rice-idiyappam-flour",
+    "brand": "ananthi",
+    "category": "flour",
+    "nameTamil": "வெள்ளை அரிசி இடியாப்பம் மாவு",
+    "nameEnglish": "White Rice Idiyappam Flour",
+    "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகை.",
+    "descriptionEnglish": "A flour product for everyday cooking and traditional recipes.",
+    "images": [
+      "/products/046_White_Rice_Idiyappam_Flour_SANTOSH.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "ragi-flour",
+    "brand": "ananthi",
+    "category": "flour",
+    "nameTamil": "ராகி மாவு",
+    "nameEnglish": "Ragi Flour",
+    "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகை.",
+    "descriptionEnglish": "A flour product for everyday cooking and traditional recipes.",
+    "images": [
+      "/products/047_Ragi_Flour_MAHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": true,
+    "active": true
+  },
+  {
+    "id": "red-rice-puttu-flour",
+    "brand": "ananthi",
+    "category": "flour",
+    "nameTamil": "சிவப்பு அரிசி புட்டு மாவு",
+    "nameEnglish": "Red Rice Puttu Flour",
+    "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகை.",
+    "descriptionEnglish": "A flour product for everyday cooking and traditional recipes.",
+    "images": [
+      "/products/048_Red_Rice_Puttu_Flour_ARTHY.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "white-rice-puttu-flour",
+    "brand": "ananthi",
+    "category": "flour",
+    "nameTamil": "வெள்ளை அரிசி புட்டு மாவு",
+    "nameEnglish": "White Rice Puttu Flour",
+    "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகை.",
+    "descriptionEnglish": "A flour product for everyday cooking and traditional recipes.",
+    "images": [
+      "/products/049_White_Rice_Puttu_Flour_SANTOSH.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "red-rice-idiyappam-flour",
+    "brand": "ananthi",
+    "category": "flour",
+    "nameTamil": "சிவப்பு அரிசி இடியாப்பம் மாவு",
+    "nameEnglish": "Red Rice Idiyappam Flour",
+    "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகை.",
+    "descriptionEnglish": "A flour product for everyday cooking and traditional recipes.",
+    "images": [
+      "/products/050_Red_Rice_Idiyappam_Flour_ARTHY.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "idli-rava",
+    "brand": "ananthi",
+    "category": "flour",
+    "nameTamil": "இட்லி ரவை",
+    "nameEnglish": "Idli Rava",
+    "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகை.",
+    "descriptionEnglish": "A flour product for everyday cooking and traditional recipes.",
+    "images": [
+      "/products/051_Idli_Rava_SANTOSH.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  },
+  {
+    "id": "kozhukattai-flour",
+    "brand": "ananthi",
+    "category": "flour",
+    "nameTamil": "கொழுக்கட்டை மாவு",
+    "nameEnglish": "Kozhukattai Flour",
+    "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகை.",
+    "descriptionEnglish": "A flour product for everyday cooking and traditional recipes.",
+    "images": [
+      "/products/052_Kozhukattai_Flour_ANANTHI.png"
+    ],
+    "variants": [
+      {
+        "id": "unspecified",
+        "packSize": null,
+        "packSizeTamil": null,
+        "price": null,
+        "salePrice": null,
+        "stock": null
+      }
+    ],
+    "featured": false,
+    "active": true
+  }
+]

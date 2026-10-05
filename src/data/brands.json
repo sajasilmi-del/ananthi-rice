@@ -1,0 +1,46 @@
+[
+  {
+    "id": "ananthi",
+    "role": "main",
+    "nameEnglish": "ANANTHI",
+    "nameTamil": "ஆனந்தி",
+    "productLine": "ANANTHI RICE",
+    "taglineEnglish": "RICH HERITAGE. PURE TASTE.",
+    "descriptionTamil": "தரமான அரிசி வகைகளின் நம்பகமான தேர்வு.",
+    "descriptionEnglish": "A trusted choice for quality rice varieties.",
+    "logo": "/logos/Ananthi_Logo.png"
+  },
+  {
+    "id": "arthy",
+    "role": "sub",
+    "nameEnglish": "ARTHY",
+    "nameTamil": "ஆர்த்தி",
+    "productLine": "ARTHY RICE",
+    "taglineEnglish": "GOODNESS FROM NATURE",
+    "descriptionTamil": "கைக்குத்தல் அரிசி மற்றும் பாரம்பரிய சிறுதானிய வகைகள்.",
+    "descriptionEnglish": "Hand-pounded rice and traditional millets.",
+    "logo": "/logos/Aarthi_Logo.png"
+  },
+  {
+    "id": "santosh",
+    "role": "sub",
+    "nameEnglish": "SANTOSH",
+    "nameTamil": "சந்தோஷ்",
+    "productLine": "SANTOSH RICE",
+    "taglineEnglish": "TASTE YOU CAN TRUST",
+    "descriptionTamil": "விரைவான, சத்தான உணவுக்கான சேவை வகைகள்.",
+    "descriptionEnglish": "Sevai varieties for quick, wholesome meals.",
+    "logo": "/logos/Santosh_Logo.png"
+  },
+  {
+    "id": "mahi",
+    "role": "sub",
+    "nameEnglish": "MAHI",
+    "nameTamil": "மஹி",
+    "productLine": "MAHI RICE",
+    "taglineEnglish": "HEALTHY CHOICE FOR TOMORROW",
+    "descriptionTamil": "தமிழ் உணவு மரபின் பாரம்பரிய அரிசி வகைகள்.",
+    "descriptionEnglish": "Traditional rice varieties from Tamil food heritage.",
+    "logo": "/logos/Mahi_Logo.png"
+  }
+]

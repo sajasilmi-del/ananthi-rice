@@ -1,0 +1,62 @@
+[
+  {
+    "id": "privacy",
+    "titleTamil": "தனியுரிமைக் கொள்கை",
+    "titleEnglish": "Privacy Policy",
+    "bodyTamil": [
+      "AR Traders / ANANTHI RICE இந்தப் பக்கத்தில் தரப்பட்டுள்ள தொடர்பு விவரங்களைப் பயன்படுத்துகிறது.",
+      "இந்த டெவலப்மென்ட் பதிப்பில் கணக்கு விவரங்கள் உங்கள் உலாவியில் மட்டுமே இருக்கும். அவை ஒரு சேவையகத்திற்கு அனுப்பப்படவில்லை.",
+      "வணிகம் ஒரு முழு தனியுரிமைக் கொள்கை உரையை இன்னும் தரவில்லை."
+    ],
+    "bodyEnglish": [
+      "AR Traders / ANANTHI RICE uses the contact details published on this site.",
+      "In this development build, account details stay in your browser. They are not sent to a server.",
+      "The business has not supplied a full privacy policy text yet."
+    ]
+  },
+  {
+    "id": "terms",
+    "titleTamil": "விதிமுறைகள் மற்றும் நிபந்தனைகள்",
+    "titleEnglish": "Terms & Conditions",
+    "bodyTamil": [
+      "ஆர்டர் கோரிக்கை ஒரு கட்டண உறுதிப்படுத்தல் அல்ல.",
+      "விலை தரப்படாத பொருட்களுக்கு விலை செக்அவுட்டில் தெரிவிக்கப்படும்.",
+      "வணிகம் ஒரு முழு விதிமுறை உரையை இன்னும் தரவில்லை."
+    ],
+    "bodyEnglish": [
+      "An order request is not a payment confirmation.",
+      "Where a price has not been supplied, the price is given at checkout.",
+      "The business has not supplied a full terms text yet."
+    ]
+  },
+  {
+    "id": "delivery",
+    "titleTamil": "டெலிவரி கொள்கை",
+    "titleEnglish": "Delivery Policy",
+    "bodyTamil": [
+      "டெலிவரி இயக்கத்தில் உள்ளது. ஆரம் 5 கி.மீ.",
+      "கடை தொடக்க இடத்தின் ஆயத்தொலைவுகள் இன்னும் தரப்படவில்லை. அவை அமைக்கப்படும் வரை டெலிவரியை உறுதிப்படுத்த முடியாது.",
+      "வணிகம் தேர்ந்தெடுத்த பகுதிகளில் இலவச வீட்டு டெலிவரி உண்டு என்று கூறுகிறது.",
+      "5 கி.மீ.க்கு வெளியே டெலிவரி இல்லை."
+    ],
+    "bodyEnglish": [
+      "Delivery is enabled. The radius is 5 km.",
+      "Store origin coordinates have not been supplied yet. Delivery cannot be confirmed until they are configured.",
+      "The business states that free door delivery is available in selected areas.",
+      "There is no delivery outside 5 km."
+    ]
+  },
+  {
+    "id": "returns",
+    "titleTamil": "திரும்பப்பெறுதல் / ரத்து கொள்கை",
+    "titleEnglish": "Return / Cancellation Policy",
+    "bodyTamil": [
+      "திரும்பப்பெறும் கால அளவு அல்லது ரத்து விதிகள் வணிகத்தால் இன்னும் தரப்படவில்லை.",
+      "தற்போதைய ஆர்டருக்கு இந்த தளத்தில் வெளியிடப்பட்ட தொலைபேசி எண்களில் AR Traders-ஐத் தொடர்பு கொள்ளுங்கள்."
+    ],
+    "bodyEnglish": [
+      "The business has not supplied a return window or cancellation rules yet.",
+      "For a current order, contact AR Traders on the phone numbers published on this site."
+    ]
+  }
+]

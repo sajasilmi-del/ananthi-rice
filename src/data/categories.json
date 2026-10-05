@@ -1,0 +1,64 @@
+{
+  "ricePackSizes": {
+    "noteTamil": "அச்சிடப்பட்ட விளம்பரத்தில் அரிசி 1 கிலோ, 5 கிலோ, 10 கிலோ, 25 கிலோ அளவுகளில் விற்கப்படுகிறது என்று உள்ளது. சேவை, சிறுதானியம், மாவுக்கு அளவு தரப்படவில்லை.",
+    "noteEnglish": "The printed brochure states that rice is sold in 1 kg, 5 kg, 10 kg and 25 kg. No pack size was supplied for sevai, millets or flour."
+  },
+  "categories": [
+    {
+      "id": "everyday",
+      "nameTamil": "தினசரி அரிசி",
+      "nameEnglish": "Everyday Rice",
+      "descriptionTamil": "தினசரி பயன்பாட்டு அரிசி வகைகள்.",
+      "descriptionEnglish": "Everyday rice varieties.",
+      "image": "/categories/everyday.webp"
+    },
+    {
+      "id": "biryani",
+      "nameTamil": "பிரியாணி அரிசி",
+      "nameEnglish": "Biryani Rice",
+      "descriptionTamil": "பிரியாணிக்குப் பயன்படும் அரிசி வகைகள்.",
+      "descriptionEnglish": "Rice varieties used for biryani.",
+      "image": "/categories/biryani.webp"
+    },
+    {
+      "id": "hand-pounded",
+      "nameTamil": "கைக்குத்தல் அரிசி",
+      "nameEnglish": "Hand-Pounded Rice",
+      "descriptionTamil": "பாரம்பரிய முறையில் தயாரிக்கப்படும் கைக்குத்தல் அரிசி வகைகள்.",
+      "descriptionEnglish": "Traditional hand-pounded rice varieties.",
+      "image": "/categories/hand-pounded.webp"
+    },
+    {
+      "id": "traditional",
+      "nameTamil": "பாரம்பரிய அரிசி",
+      "nameEnglish": "Traditional Rice",
+      "descriptionTamil": "தமிழ் உணவு மரபில் இடம்பெற்ற பாரம்பரிய அரிசி வகைகள்.",
+      "descriptionEnglish": "Traditional rice varieties that have been part of Tamil food traditions.",
+      "image": "/categories/traditional.webp"
+    },
+    {
+      "id": "sevai",
+      "nameTamil": "சேவை மற்றும் ஆரோக்கிய உணவுகள்",
+      "nameEnglish": "Sevai & Healthy Foods",
+      "descriptionTamil": "சேவை வகைகள்.",
+      "descriptionEnglish": "Sevai products.",
+      "image": "/categories/sevai.webp"
+    },
+    {
+      "id": "millets",
+      "nameTamil": "சிறுதானியங்கள்",
+      "nameEnglish": "Millets",
+      "descriptionTamil": "பாரம்பரிய சிறுதானிய வகைகள்.",
+      "descriptionEnglish": "Traditional millet varieties.",
+      "image": "/categories/millets.webp"
+    },
+    {
+      "id": "flour",
+      "nameTamil": "மாவு வகைகள்",
+      "nameEnglish": "Flour Products",
+      "descriptionTamil": "தினசரி சமையலுக்கும் பாரம்பரிய உணவுகளுக்கும் ஏற்ற மாவு வகைகள்.",
+      "descriptionEnglish": "Flour and meal products for everyday cooking and traditional recipes.",
+      "image": "/categories/flour.webp"
+    }
+  ]
+}

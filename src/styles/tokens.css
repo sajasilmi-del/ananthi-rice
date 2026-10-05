@@ -1,0 +1,69 @@
+:root {
+  /* Brand — ANANTHI logo burgundy. Used for primary actions and accents only. */
+  --color-primary: #600030;
+  --color-primary-deep: #300018;
+  --color-primary-mid: #480018;
+  --color-primary-soft: #480030;
+  --color-primary-tint: #f7eef2;
+
+  /* Neutrals — the site is mostly white with warm greys. */
+  --color-paper: #ffffff;
+  --color-surface: #faf8f5;
+  --color-mist: #f0f0f0;
+  --color-cream: #f0f0d8;
+  --color-line: #e8e3dc;
+  --color-line-strong: #d6cfc6;
+  --color-ink: #1f1a17;
+  --color-text: #3a332e;
+  --color-muted: #736a62;
+
+  /* Wheat gold sampled from the ANANTHI logo. Small accents only. */
+  --color-gold: #e0a000;
+  --color-gold-bright: #f0c020;
+  --color-gold-deep: #c07000;
+  --color-gold-text: #9a5a00;
+
+  /* Errors. */
+  --color-danger: #a1122c;
+  --color-success: #1f7a4d;
+
+  /* Sub-brand marks only: ARTHY, SANTOSH, MAHI logos. */
+  --color-arthy: #004818;
+  --color-santosh: #f06000;
+  --color-santosh-text: #b24400;
+  --color-mahi: #003090;
+  /* WhatsApp brand green. Used only on WhatsApp controls. */
+  --color-whatsapp: #128c7e;
+
+  --font-heading: var(--font-display), var(--font-display-tamil), "Nirmala UI", serif;
+  --font-ui: var(--font-sans), var(--font-sans-tamil), "Nirmala UI", "Segoe UI", sans-serif;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1px 2px rgba(31, 26, 23, 0.04), 0 4px 16px rgba(31, 26, 23, 0.04);
+  --shadow-hover: 0 2px 4px rgba(31, 26, 23, 0.05), 0 12px 28px rgba(31, 26, 23, 0.08);
+  --shadow-drawer: -12px 0 40px rgba(31, 26, 23, 0.16);
+  --shadow-float: 0 8px 24px rgba(18, 140, 126, 0.32);
+
+  --page-width: 76rem;
+  --header-height: 4.5rem;
+  --bp-xs: 360px;
+  --bp-sm: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1440px;
+}

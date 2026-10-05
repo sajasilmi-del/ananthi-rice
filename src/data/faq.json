@@ -1,0 +1,44 @@
+[
+  {
+    "id": "varieties",
+    "questionTamil": "என்ன அரிசி வகைகளை விற்கிறீர்கள்?",
+    "questionEnglish": "What rice varieties do you sell?",
+    "answerTamil": "தினசரி அரிசி, பாரம்பரிய அரிசி, பிரியாணி அரிசி, கைக்குத்தல் அரிசி உள்ளிட்ட வகைகளை வழங்குகிறோம்.",
+    "answerEnglish": "We offer everyday rice, traditional rice, biryani rice, hand-pounded rice and more."
+  },
+  {
+    "id": "pack-sizes",
+    "questionTamil": "என்ன பொதி அளவுகள் கிடைக்கும்?",
+    "questionEnglish": "What pack sizes are available?",
+    "answerTamil": "அரிசி 1 கிலோ, 5 கிலோ, 10 கிலோ, 25 கிலோ அளவுகளில் விற்கப்படுகிறது. பிற பொருட்களின் அளவுகள் தரப்படவில்லை. தற்போதைய இருப்புக்கு எங்களைத் தொடர்பு கொள்ளுங்கள்.",
+    "answerEnglish": "Rice is sold in 1 kg, 5 kg, 10 kg and 25 kg. Pack sizes for other products were not listed. Contact us for current availability."
+  },
+  {
+    "id": "home-delivery",
+    "questionTamil": "வீட்டு டெலிவரி உண்டா?",
+    "questionEnglish": "Do you provide home delivery?",
+    "answerTamil": "ஆம். தேர்ந்தெடுத்த பகுதிகளில் இலவச வீட்டு டெலிவரி உண்டு. இது அமைக்கப்பட்ட கடை தொடக்க இடத்திலிருந்து 5 கி.மீ.க்குள் மட்டுமே.",
+    "answerEnglish": "Yes. Free door delivery is available in selected areas, and only within 5 km of the configured store origin."
+  },
+  {
+    "id": "whatsapp",
+    "questionTamil": "WhatsApp மூலம் ஆர்டர் செய்யலாமா?",
+    "questionEnglish": "Can I order through WhatsApp?",
+    "answerTamil": "ஆம்.",
+    "answerEnglish": "Yes."
+  },
+  {
+    "id": "shop-location",
+    "questionTamil": "கடை எங்கே உள்ளது?",
+    "questionEnglish": "Where is the shop located?",
+    "answerTamil": "நேரடி விற்பனை நிலையமும் தலைமை அலுவலகமும் ராமநாதபுரம் மாவட்டம் பரமக்குடியில் உள்ளன. கிளை அலுவலகம் சென்னை இராமபுரத்தில் உள்ளது.",
+    "answerEnglish": "The direct sales outlet and head office are in Paramakudi, Ramanathapuram District, Tamil Nadu. A branch office is in Ramapuram, Chennai."
+  },
+  {
+    "id": "delivery-distance",
+    "questionTamil": "எவ்வளவு தூரத்திற்கு டெலிவரி செய்வீர்கள்?",
+    "questionEnglish": "How far do you deliver?",
+    "answerTamil": "டெலிவரி, அமைக்கப்பட்ட கடை தொடக்க இடத்திலிருந்து 5 கி.மீ. தொலைவுக்குள் மட்டுமே கிடைக்கும்.",
+    "answerEnglish": "Delivery is available only within 5 km of the configured store origin."
+  }
+]

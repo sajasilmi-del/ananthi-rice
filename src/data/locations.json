@@ -1,0 +1,52 @@
+[
+  {
+    "id": "paramakudi",
+    "role": "head_office_direct_sales",
+    "businessName": "AR Traders",
+    "nameTamil": "பரமக்குடி — தலைமை அலுவலகம் / நேரடி விற்பனை",
+    "nameEnglish": "Paramakudi — Head Office / Direct Sales",
+    "addressTamil": [
+      "AR Traders",
+      "2/22B, காந்திஜி ரோடு",
+      "ஒட்டப்பாளையம்",
+      "பரமக்குடி – 623707",
+      "ராமநாதபுரம் மாவட்டம்",
+      "தமிழ்நாடு, இந்தியா"
+    ],
+    "addressEnglish": [
+      "AR Traders",
+      "2/22B, Gandhiji Road",
+      "Ottapalam",
+      "Paramakudi – 623707",
+      "Ramanathapuram District",
+      "Tamil Nadu, India"
+    ],
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "id": "chennai",
+    "role": "branch_office",
+    "businessName": "AR Traders",
+    "nameTamil": "சென்னை — கிளை அலுவலகம்",
+    "nameEnglish": "Chennai — Branch Office",
+    "addressTamil": [
+      "AR Traders",
+      "பிளாட் எண் 60, கதவு எண் 4/43 F",
+      "முதல் தளம், எஸ்.ஆர். ஹில்க்ரெஸ்ட் அபார்ட்மெண்ட்ஸ்",
+      "ராயலா நகர் 2-வது மெயின் ரோடு",
+      "இராமபுரம், சென்னை – 600089",
+      "தமிழ்நாடு, இந்தியா"
+    ],
+    "addressEnglish": [
+      "AR Traders",
+      "Plot No. 60, Door No. 4/43 F",
+      "First Floor, S.R. Hillcrest Apartments",
+      "Royala Nagar 2nd Main Road",
+      "Ramapuram, Chennai – 600089",
+      "Tamil Nadu, India"
+    ],
+    "latitude": null,
+    "longitude": null
+  }
+]
