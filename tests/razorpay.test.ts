@@ -20,6 +20,14 @@ describe("razorpay test keys", () => {
     expect(readRazorpayConfig({ RAZORPAY_KEY_ID: "rzp_live_example", RAZORPAY_KEY_SECRET: "secret" } as NodeJS.ProcessEnv)?.mode).toBe("live");
     expect(readRazorpayConfig({ RAZORPAY_KEY_ID: "", RAZORPAY_KEY_SECRET: "secret" } as NodeJS.ProcessEnv)).toBeNull();
     expect(readRazorpayConfig({ RAZORPAY_KEY_ID: "key_example", RAZORPAY_KEY_SECRET: "secret" } as NodeJS.ProcessEnv)).toBeNull();
+    expect(readRazorpayConfig({ RAZORPAY_KEY_ID: '"rzp_test_example"', RAZORPAY_KEY_SECRET: "'secret'" } as NodeJS.ProcessEnv)).toMatchObject({
+      keyId: "rzp_test_example",
+      keySecret: "secret",
+      mode: "test",
+    });
+    expect(
+      readRazorpayConfig({ RAZORPAY_KEY_ID: "key_id,key_secret\nrzp_test_example,secret" } as NodeJS.ProcessEnv),
+    ).toMatchObject({ keyId: "rzp_test_example", keySecret: "secret", mode: "test" });
   });
 
   it("creates an order only when Razorpay echoes the same paise amount", async () => {

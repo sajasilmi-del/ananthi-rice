@@ -15,9 +15,48 @@ export type RazorpayProof = {
   signature: string;
 };
 
+const KEY_ID_NAMES = ["RAZORPAY_KEY_ID", "NEXT_PUBLIC_RAZORPAY_KEY_ID", "RAZORPAY_KEY"] as const;
+const KEY_SECRET_NAMES = ["RAZORPAY_KEY_SECRET", "RAZORPAY_SECRET", "NEXT_PUBLIC_RAZORPAY_KEY_SECRET"] as const;
+
+function unwrapEnv(value: string): string {
+  let text = value.replace(/^\uFEFF/, "").trim();
+  if ((text.startsWith('"') && text.endsWith('"')) || (text.startsWith("'") && text.endsWith("'"))) {
+    text = text.slice(1, -1).trim();
+  }
+  return text;
+}
+
+function envValue(env: NodeJS.ProcessEnv, names: readonly string[]): string {
+  for (const name of names) {
+    const raw = env[name];
+    if (typeof raw !== "string") continue;
+    const value = unwrapEnv(raw);
+    if (value) return value;
+  }
+  return "";
+}
+
+function parseKeyCsv(text: string): { keyId: string; keySecret: string } | null {
+  const line = text
+    .split(/\r?\n/)
+    .map((entry) => entry.trim())
+    .find((entry) => entry.includes("rzp_test_") || entry.includes("rzp_live_"));
+  if (!line || !line.includes(",")) return null;
+  const [keyId, keySecret] = line.split(",").map((part) => unwrapEnv(part));
+  if (!keyId || !keySecret) return null;
+  return { keyId, keySecret };
+}
+
 export function readRazorpayConfig(env: NodeJS.ProcessEnv = process.env): RazorpayConfig | null {
-  const keyId = env.RAZORPAY_KEY_ID?.trim() ?? "";
-  const keySecret = env.RAZORPAY_KEY_SECRET?.trim() ?? "";
+  let keyId = envValue(env, KEY_ID_NAMES);
+  let keySecret = envValue(env, KEY_SECRET_NAMES);
+  if ((!keyId.startsWith("rzp_test_") && !keyId.startsWith("rzp_live_")) || !keySecret) {
+    const pasted = parseKeyCsv(`${keyId}\n${keySecret}`);
+    if (pasted) {
+      keyId = pasted.keyId;
+      keySecret = pasted.keySecret;
+    }
+  }
   if (!keyId || !keySecret) return null;
   if (keyId.startsWith("rzp_test_")) return { keyId, keySecret, mode: "test" };
   if (keyId.startsWith("rzp_live_")) return { keyId, keySecret, mode: "live" };

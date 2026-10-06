@@ -3,6 +3,8 @@ import { resolveDeliveryConfig } from "@/lib/delivery";
 import { createRazorpayOrder, readRazorpayConfig } from "@/lib/payment/razorpay";
 import { PAYMENT_METHODS, type PaymentMethod } from "@/lib/payment/types";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const config = readRazorpayConfig();
   if (!config) return Response.json({ enabled: false, mode: null });
