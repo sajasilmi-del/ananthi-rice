@@ -46,7 +46,9 @@
       "Ramapuram, Chennai – 600089",
       "Tamil Nadu, India"
     ],
-    "latitude": null,
-    "longitude": null
+    "latitude": 13.0280447,
+    "longitude": 80.1868165,
+    "mapUrl": "https://www.google.com/maps/place/Ananthi+Rice+Traders/@13.0281051,80.1866738,164m/data=!3m1!1e3!4m6!3m5!1s0x3a5261003db39c41:0x860bf2e1f0be587c!8m2!3d13.0280447!4d80.1868165!16s%2Fg%2F11p1kmn_v8!18m1!1e1",
+    "mapCid": "9659080878046730364"
   }
 ]

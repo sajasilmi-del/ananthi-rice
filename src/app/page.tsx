@@ -14,8 +14,10 @@ import {
 } from "@/lib/catalog";
 import { DELIVERY_RADIUS_KM } from "@/lib/delivery";
 import { formatMessage, t } from "@/lib/i18n";
+import { locationDirectionsUrl } from "@/lib/maps";
 import { cartWhatsAppUrl } from "@/lib/whatsapp";
 import { DeliveryPicker } from "@/components/DeliveryPicker";
+import { StoreMap } from "@/components/StoreMap";
 import { ProductPurchase } from "@/components/ProductPurchase";
 import { useAuth, useCart, useDeliveryLocation, useLanguage } from "@/components/Providers";
 import { Badge } from "@/components/ui/Badge";
@@ -237,14 +239,13 @@ export default function HomePage() {
           <div className="place-grid">
             {locations.map((location) => {
               const linesForPlace = locale === "ta" ? location.addressTamil : location.addressEnglish;
-              const query = location.addressEnglish.join(", ");
               return (
                 <article key={location.id} className="place-card">
                   <LineIcon name="pin" />
                   <div className="place-copy">
                     <h4>{locale === "ta" ? location.nameTamil : location.nameEnglish}</h4>
                     <address>{linesForPlace.join(", ")}</address>
-                    <a className="arrow-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`} target="_blank" rel="noreferrer">
+                    <a className="arrow-link" href={locationDirectionsUrl(location)} target="_blank" rel="noreferrer">
                       {t(locale, "contact.directions")}
                     </a>
                   </div>
@@ -256,6 +257,11 @@ export default function HomePage() {
         <div className="visit-picker">
           <DeliveryPicker heading="h3" />
         </div>
+        {locations.filter((location) => location.latitude != null).map((location) => (
+          <div className="visit-map" key={`map-${location.id}`}>
+            <StoreMap location={location} />
+          </div>
+        ))}
       </section>
 
       {/* FAQ */}

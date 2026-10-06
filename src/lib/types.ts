@@ -65,6 +65,10 @@ export type LocationRecord = {
   addressEnglish: string[];
   latitude: number | null;
   longitude: number | null;
+  /** Google Maps place link. Directions open this listing when it is set. */
+  mapUrl?: string;
+  /** Google Maps customer id. Kept as a string so the value is not rounded. */
+  mapCid?: string;
 };
 
 export type FaqItem = {

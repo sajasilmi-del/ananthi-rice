@@ -2,7 +2,9 @@
 
 import { locations, site } from "@/lib/catalog";
 import { t } from "@/lib/i18n";
+import { locationDirectionsUrl } from "@/lib/maps";
 import { cartWhatsAppUrl } from "@/lib/whatsapp";
+import { StoreMap } from "@/components/StoreMap";
 import { useAuth, useCart, useDeliveryLocation, useLanguage } from "@/components/Providers";
 import { LineIcon } from "@/components/ui/LineIcon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -62,10 +64,13 @@ export default function ContactPage() {
 
       <p className="banner">{locale === "ta" ? site.freeDeliveryTamil : site.freeDeliveryEnglish}</p>
 
-      <section className="location-grid" aria-label={t(locale, "home.locationsTitle")}>
+      <section className="stack" aria-label={t(locale, "home.locationsTitle")}>
+        {locations.filter((location) => location.latitude != null).map((location) => (
+          <StoreMap key={`map-${location.id}`} location={location} />
+        ))}
+        <div className="location-grid">
         {locations.map((location) => {
           const addressLines = locale === "ta" ? location.addressTamil : location.addressEnglish;
-          const query = location.addressEnglish.join(", ");
           return (
             <article key={location.id} className="location-card">
               <LineIcon name="pin" />
@@ -75,12 +80,13 @@ export default function ContactPage() {
                   <span key={line}>{line}</span>
                 ))}
               </address>
-              <a className="arrow-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`} target="_blank" rel="noreferrer">
+              <a className="arrow-link" href={locationDirectionsUrl(location)} target="_blank" rel="noreferrer">
                 {t(locale, "contact.directions")}
               </a>
             </article>
           );
         })}
+        </div>
       </section>
     </div>
   );

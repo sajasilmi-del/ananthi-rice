@@ -282,6 +282,9 @@ html[lang="ta"] .hero h1 { font-size: clamp(1.9rem, 3.8vw, 3rem); line-height: 1
 
 .place-grid { display: grid; gap: var(--space-3); width: 100%; }
 
+.visit-map { grid-column: 1 / -1; min-width: 0; }
+.visit-map .store-map { height: 420px; }
+
 .place-card {
   display: flex;
   gap: var(--space-3);
@@ -408,6 +411,7 @@ html[lang="ta"] .hero h1 { font-size: clamp(1.9rem, 3.8vw, 3rem); line-height: 1
 
   .about { padding: var(--space-6) var(--space-4); }
   .visit-picker { padding: var(--space-4); }
+  .visit-map .store-map { height: 260px; }
   .stat { padding: var(--space-4); }
   .cta-band { padding: var(--space-6) var(--space-4); }
   .cta-actions { display: grid; grid-template-columns: 1fr; width: 100%; }

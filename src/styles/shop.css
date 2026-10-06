@@ -261,6 +261,7 @@ button.gallery-thumb[aria-pressed="true"] { border-color: var(--color-primary); 
 .contact-value a:hover { color: var(--color-primary); }
 
 .location-grid { display: grid; gap: var(--space-4); }
+.contact-page .store-map { height: 420px; }
 .location-card { display: grid; gap: var(--space-3); align-content: start; }
 .location-card h2 { font-family: var(--font-ui); font-size: 1.05rem; letter-spacing: 0; }
 .location-card address { display: grid; font-style: normal; color: var(--color-muted); line-height: 1.6; }
@@ -283,6 +284,7 @@ button.gallery-thumb[aria-pressed="true"] { border-color: var(--color-primary); 
 }
 
 @media (max-width: 767px) {
+  .contact-page .store-map { height: 260px; }
   .shop-search .btn { flex: none; }
   .shop-filters { grid-template-columns: 1fr 1fr; }
   .shop-filters select:first-child { grid-column: 1 / -1; }

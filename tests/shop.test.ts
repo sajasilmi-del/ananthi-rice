@@ -1,7 +1,8 @@
 import { readdirSync, realpathSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { brands, categories, products } from "@/lib/catalog";
+import { brands, categories, locations, products } from "@/lib/catalog";
+import { locationDirectionsUrl, locationEmbedUrl } from "@/lib/maps";
 import { brandFitsCategory, displayPrice, formatInr, productSortPrice, queryProducts, shopPath, SHOP_PAGE_SIZE } from "@/lib/shop";
 import type { Product, Variant } from "@/lib/types";
 
@@ -10,6 +11,23 @@ function priced(product: Product, variants: Variant[]): Product {
 }
 
 describe("shop catalog", () => {
+  it("opens the Chennai shop on the published Google listing", () => {
+    const chennai = locations.find((location) => location.id === "chennai");
+    const paramakudi = locations.find((location) => location.id === "paramakudi");
+    expect(chennai).toMatchObject({ latitude: 13.0280447, longitude: 80.1868165, mapCid: "9659080878046730364" });
+    expect(locationDirectionsUrl(chennai!)).toBe(
+      "https://www.google.com/maps/place/Ananthi+Rice+Traders/@13.0281051,80.1866738,164m/data=!3m1!1e3!4m6!3m5!1s0x3a5261003db39c41:0x860bf2e1f0be587c!8m2!3d13.0280447!4d80.1868165!16s%2Fg%2F11p1kmn_v8!18m1!1e1",
+    );
+    expect(locationDirectionsUrl(chennai!)).not.toContain("maps/search");
+    expect(locationEmbedUrl(chennai!, "en")).toBe(
+      "https://maps.google.com/maps?cid=9659080878046730364&hl=en&z=17&output=embed",
+    );
+    expect(locationEmbedUrl(chennai!, "ta")).toContain("hl=ta");
+    expect(locationEmbedUrl(paramakudi!, "en")).toBeNull();
+    expect(locationDirectionsUrl(paramakudi!)).toContain("maps/search");
+    expect(locationDirectionsUrl(paramakudi!)).toContain("Paramakudi");
+  });
+
   it("maps every product to its own existing pack image", () => {
     const imageDir = realpathSync(path.join(process.cwd(), "public", "products"));
     expect(imageDir.toLowerCase()).toContain("rice_product_images");
