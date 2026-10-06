@@ -4,7 +4,7 @@ import { checkoutAllowed, evaluateDelivery, isValidLatLng } from "@/lib/delivery
 import type { DeliveryResult } from "@/lib/delivery";
 import type { OrderLine, OrderRequest } from "@/lib/orders";
 import { createUnconfiguredPaymentProvider } from "@/lib/payment/unconfigured";
-import { PAYMENT_METHODS, type PaymentMethod, type PaymentProvider } from "@/lib/payment/types";
+import { PAYMENT_METHODS, type PaymentIntent, type PaymentMethod, type PaymentProvider } from "@/lib/payment/types";
 import type { CartLine, ConfirmedLocation, DeliveryConfig } from "@/lib/types";
 import { validateCustomer } from "@/lib/validation";
 
@@ -85,22 +85,26 @@ function paymentUnconfirmed(intent: { status?: string; reason?: string; method?:
   return intent?.status === "not_confirmed" && intent.reason === "provider_not_configured" && typeof intent.method === "string";
 }
 
-/**
- * Re-checks the cart, customer, 5 km delivery rule, and payment provider.
- * Client flags, prices, and payment claims are ignored.
- */
-export async function reviewCheckout(options: {
-  draft: unknown;
-  config: DeliveryConfig;
-  provider?: PaymentProvider;
-  now?: () => string;
-  createId?: () => string;
-}): Promise<CheckoutReview> {
-  const record = options.draft && typeof options.draft === "object" ? (options.draft as Record<string, unknown>) : {};
+export type CheckoutQuote =
+  | { ok: false; issues: string[]; delivery: DeliveryResult }
+  | {
+      ok: true;
+      customer: { name: string; mobile: string; email: string; address: string };
+      location: ConfirmedLocation;
+      lines: CartLine[];
+      delivery: Extract<DeliveryResult, { status: "available" }>;
+      method: PaymentMethod;
+      subtotal: number;
+      fee: number;
+      total: number;
+    };
+
+export function prepareCheckout(draft: unknown, config: DeliveryConfig): CheckoutQuote {
+  const record = draft && typeof draft === "object" ? (draft as Record<string, unknown>) : {};
   const customer = readCustomer(record.customer);
   const location = readLocation(record.location);
   const lines = readLines(record.lines);
-  const delivery = evaluateDelivery(options.config, location);
+  const delivery = evaluateDelivery(config, location);
   const issues: string[] = [];
   const fieldErrors = validateCustomer(customer, "en", { password: false });
   issues.push(...Object.keys(fieldErrors));
@@ -112,43 +116,87 @@ export async function reviewCheckout(options: {
   if (!location || issues.length > 0 || delivery.status !== "available") {
     return { ok: false, issues, delivery };
   }
-
-  const provider = options.provider ?? createUnconfiguredPaymentProvider();
-  let intent: { status?: string; reason?: string; method?: string } | null = null;
-  try {
-    intent = await provider.createIntent(method as PaymentMethod);
-  } catch {
-    intent = null;
-  }
-  if (!paymentUnconfirmed(intent)) {
+  const productSubtotal = subtotal(lines);
+  const fee = deliveryFee(delivery, config);
+  const total = cartTotal(productSubtotal, fee);
+  if (productSubtotal == null || fee == null || total == null) {
     return { ok: false, issues: ["payment"], delivery };
   }
+  return {
+    ok: true,
+    customer: {
+      name: customer.name.trim(),
+      mobile: customer.mobile.replace(/\s+/g, ""),
+      email: customer.email.trim(),
+      address: customer.address.trim(),
+    },
+    location,
+    lines,
+    delivery,
+    method: method as PaymentMethod,
+    subtotal: productSubtotal,
+    fee,
+    total,
+  };
+}
 
-  const productSubtotal = subtotal(lines);
-  const fee = deliveryFee(delivery, options.config);
+/**
+ * Re-checks the cart, customer, 5 km delivery rule, and payment provider.
+ * Client flags, prices, and payment claims are ignored.
+ */
+export async function reviewCheckout(options: {
+  draft: unknown;
+  config: DeliveryConfig;
+  provider?: PaymentProvider;
+  confirmPayment?: (quote: { totalPaise: number; method: Exclude<PaymentMethod, "cod"> }) => Promise<PaymentIntent | null>;
+  now?: () => string;
+  createId?: () => string;
+}): Promise<CheckoutReview> {
+  const quote = prepareCheckout(options.draft, options.config);
+  if (!quote.ok) return quote;
+
+  let payment: PaymentIntent;
+  if (options.confirmPayment && quote.method !== "cod") {
+    const confirmed = await options.confirmPayment({
+      totalPaise: Math.round(quote.total * 100),
+      method: quote.method,
+    });
+    if (!confirmed || confirmed.status !== "captured" || confirmed.method !== quote.method) {
+      return { ok: false, issues: ["payment"], delivery: quote.delivery };
+    }
+    payment = confirmed;
+  } else {
+    const provider = options.provider ?? createUnconfiguredPaymentProvider();
+    let intent: { status?: string; reason?: string; method?: string } | null = null;
+    try {
+      intent = await provider.createIntent(quote.method);
+    } catch {
+      intent = null;
+    }
+    if (!paymentUnconfirmed(intent)) {
+      return { ok: false, issues: ["payment"], delivery: quote.delivery };
+    }
+    payment = {
+      method: quote.method,
+      status: "not_confirmed",
+      reason: "provider_not_configured",
+    };
+  }
+
   return {
     ok: true,
     order: {
       id: (options.createId ?? (() => crypto.randomUUID()))(),
       createdAt: (options.now ?? (() => new Date().toISOString()))(),
-      customer: {
-        name: customer.name.trim(),
-        mobile: customer.mobile.replace(/\s+/g, ""),
-        email: customer.email.trim(),
-        address: customer.address.trim(),
-      },
-      location,
-      distanceKm: delivery.distanceKm,
-      lines: orderLines(lines),
-      subtotal: productSubtotal,
-      deliveryFee: fee,
-      total: cartTotal(productSubtotal, fee),
-      payment: {
-        method: method as PaymentMethod,
-        status: "not_confirmed",
-        reason: "provider_not_configured",
-      },
-      status: "request_only",
+      customer: quote.customer,
+      location: quote.location,
+      distanceKm: quote.delivery.distanceKm,
+      lines: orderLines(quote.lines),
+      subtotal: quote.subtotal,
+      deliveryFee: quote.fee,
+      total: quote.total,
+      payment,
+      status: payment.status === "captured" ? "paid" : "request_only",
     },
   };
 }

@@ -30,7 +30,7 @@ export type OrderRequest = {
   deliveryFee: number | null;
   total: number | null;
   payment: PaymentIntent;
-  status: "request_only";
+  status: "request_only" | "paid";
 };
 
 export function readOrders(storage: Pick<Storage, "getItem">): OrderRequest[] {

@@ -116,6 +116,11 @@
     "paymentNotTaken": "Payment was not taken.",
     "requestSaved": "Order request saved on this device. Payment was not taken.",
     "notPaid": "This is not a paid order.",
+    "continueRazorpay": "Continue to Razorpay",
+    "paymentCaptured": "Razorpay confirmed this test payment.",
+    "liveCaptured": "Razorpay confirmed the payment.",
+    "testRecorded": "The test payment is saved on this device.",
+    "liveRecorded": "The payment reference is saved on this device.",
     "selectMethod": "Payment method",
     "empty": "Add a product before checkout."
   },
@@ -243,7 +248,11 @@
     "card": "Card",
     "netbanking": "Net Banking",
     "cod": "Cash on Delivery",
-    "notConfigured": "No payment provider is connected. Choosing a method does not take payment."
+    "notConfigured": "No payment provider is connected. Choosing a method does not take payment.",
+    "testMode": "Razorpay test mode is connected. UPI, card, and net banking open a test checkout. Real money is not charged. Cash on delivery remains an order request.",
+    "liveMode": "Razorpay is connected. UPI, card, and net banking take payment in the Razorpay window. Cash on delivery remains an order request.",
+    "cancelled": "The payment window was closed before confirmation.",
+    "failed": "The payment could not be confirmed."
   },
   "brands": {
     "title": "Our Brands",

@@ -135,4 +135,54 @@ describe("checkout route", () => {
       else process.env.DELIVERY_ORIGIN_LONGITUDE = previousLongitude;
     }
   });
+
+  it("keeps a client razorpay payload unpaid unless the server signature matches", async () => {
+    const previousLatitude = process.env.DELIVERY_ORIGIN_LATITUDE;
+    const previousLongitude = process.env.DELIVERY_ORIGIN_LONGITUDE;
+    const previousKey = process.env.RAZORPAY_KEY_ID;
+    const previousSecret = process.env.RAZORPAY_KEY_SECRET;
+    process.env.DELIVERY_ORIGIN_LATITUDE = "9.5";
+    process.env.DELIVERY_ORIGIN_LONGITUDE = "78.6";
+    delete process.env.RAZORPAY_KEY_ID;
+    delete process.env.RAZORPAY_KEY_SECRET;
+    const forged = {
+      ...draft(4),
+      razorpay: { orderId: "order_forged", paymentId: "pay_forged", signature: "forged" },
+    };
+    try {
+      const unpaid = await POST(
+        new Request("http://localhost/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(forged),
+        }),
+      );
+      const unpaidBody = (await unpaid.json()) as { ok: boolean; order?: { status?: string; payment?: { status?: string } } };
+      expect(unpaidBody.ok).toBe(true);
+      expect(unpaidBody.order?.status).toBe("request_only");
+      expect(unpaidBody.order?.payment?.status).toBe("not_confirmed");
+
+      process.env.RAZORPAY_KEY_ID = "rzp_test_example";
+      process.env.RAZORPAY_KEY_SECRET = "test-secret";
+      const rejected = await POST(
+        new Request("http://localhost/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(forged),
+        }),
+      );
+      const rejectedBody = (await rejected.json()) as { ok: boolean; issues?: string[] };
+      expect(rejectedBody.ok).toBe(false);
+      expect(rejectedBody.issues).toContain("payment");
+    } finally {
+      if (previousLatitude === undefined) delete process.env.DELIVERY_ORIGIN_LATITUDE;
+      else process.env.DELIVERY_ORIGIN_LATITUDE = previousLatitude;
+      if (previousLongitude === undefined) delete process.env.DELIVERY_ORIGIN_LONGITUDE;
+      else process.env.DELIVERY_ORIGIN_LONGITUDE = previousLongitude;
+      if (previousKey === undefined) delete process.env.RAZORPAY_KEY_ID;
+      else process.env.RAZORPAY_KEY_ID = previousKey;
+      if (previousSecret === undefined) delete process.env.RAZORPAY_KEY_SECRET;
+      else process.env.RAZORPAY_KEY_SECRET = previousSecret;
+    }
+  });
 });

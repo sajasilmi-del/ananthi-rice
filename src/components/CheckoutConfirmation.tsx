@@ -69,10 +69,17 @@ export function CheckoutConfirmation({ order, locale }: { order: OrderRequest; l
         {t(locale, "cart.total")}: {money(order.total, locale)}
       </p>
       <p data-testid="confirmation-payment">
-        {t(locale, "checkout.paymentStatus")}: {t(locale, "checkout.paymentNotTaken")} {t(locale, `payment.${order.payment.method}`)}
+        {t(locale, "checkout.paymentStatus")}:{" "}
+        {order.payment.status === "captured"
+          ? t(locale, order.payment.reason === "razorpay_live" ? "checkout.liveCaptured" : "checkout.paymentCaptured")
+          : t(locale, "checkout.paymentNotTaken")}{" "}
+        {t(locale, `payment.${order.payment.method}`)}
       </p>
       <p data-testid="confirmation-status">
-        {t(locale, "checkout.orderStatus")}: {t(locale, "checkout.statusRequest")}. {t(locale, "checkout.notPaid")}
+        {t(locale, "checkout.orderStatus")}:{" "}
+        {order.payment.status === "captured"
+          ? t(locale, order.payment.reason === "razorpay_live" ? "checkout.liveRecorded" : "checkout.testRecorded")
+          : `${t(locale, "checkout.statusRequest")}. ${t(locale, "checkout.notPaid")}`}
       </p>
       <WhatsAppButton href={href} testId="checkout-whatsapp">
         {t(locale, "checkout.whatsappOrder")}

@@ -9,6 +9,7 @@ import type { DeliveryResult } from "@/lib/delivery";
 import { formatMessage, t } from "@/lib/i18n";
 import type { OrderRequest } from "@/lib/orders";
 import { saveOrderRequest } from "@/lib/orders";
+import { openRazorpayCheckout } from "@/lib/payment/checkout-widget";
 import { createUnconfiguredPaymentProvider } from "@/lib/payment/unconfigured";
 import type { PaymentMethod } from "@/lib/payment/types";
 import { formatInr } from "@/lib/shop";
@@ -76,12 +77,21 @@ function readReview(value: unknown): CheckoutReview | null {
   return null;
 }
 
+const onlineMethods = new Set<PaymentMethod>(["upi", "card", "netbanking"]);
+
 function isAccepted(value: CheckoutReview | null): value is { ok: true; order: OrderRequest } {
-  return Boolean(
-    value?.ok &&
-      value.order.status === "request_only" &&
-      value.order.payment.status === "not_confirmed" &&
-      value.order.payment.reason === "provider_not_configured",
+  if (!value?.ok) return false;
+  if (
+    value.order.status === "request_only" &&
+    value.order.payment.status === "not_confirmed" &&
+    value.order.payment.reason === "provider_not_configured"
+  ) {
+    return true;
+  }
+  return (
+    value.order.status === "paid" &&
+    value.order.payment.status === "captured" &&
+    (value.order.payment.reason === "razorpay_test" || value.order.payment.reason === "razorpay_live")
   );
 }
 
@@ -100,6 +110,7 @@ export default function CheckoutPage() {
   const [noticeKey, setNoticeKey] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [order, setOrder] = useState<OrderRequest | null>(null);
+  const [razorpayMode, setRazorpayMode] = useState<"test" | "live" | null>(null);
   const result = checkDelivery(confirmed);
   const allowed = checkoutAllowed(result) && lines.length > 0;
   const provider = createUnconfiguredPaymentProvider();
@@ -122,6 +133,20 @@ export default function CheckoutPage() {
     setAddress(user.address);
   }, [user]);
 
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/razorpay")
+      .then((response) => response.json())
+      .then((payload: { enabled?: boolean; mode?: string }) => {
+        if (cancelled) return;
+        if (payload.enabled && (payload.mode === "test" || payload.mode === "live")) setRazorpayMode(payload.mode);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   function edit<T>(update: (value: T) => void) {
     return (value: T) => {
       edited.current = true;
@@ -142,15 +167,59 @@ export default function CheckoutPage() {
 
     setSubmitting(true);
     try {
+      const draft = {
+        customer: { name, mobile, email, address },
+        location: confirmed,
+        lines,
+        method,
+      };
+      let razorpay: { orderId: string; paymentId: string; signature: string } | undefined;
+      if (razorpayMode && onlineMethods.has(method)) {
+        const createdResponse = await fetch("/api/razorpay", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(draft),
+        });
+        const created = (await createdResponse.json()) as {
+          ok?: boolean;
+          keyId?: string;
+          orderId?: string;
+          amount?: number;
+          currency?: string;
+        };
+        if (!createdResponse.ok || !created.ok || !created.keyId || !created.orderId || created.currency !== "INR" || typeof created.amount !== "number") {
+          setErrors({ payment: t(locale, "payment.failed") });
+          setNoticeKey("");
+          return;
+        }
+        const widget = await openRazorpayCheckout({
+          keyId: created.keyId,
+          orderId: created.orderId,
+          amount: created.amount,
+          name,
+          email,
+          contact: mobile,
+        });
+        if (widget === "cancelled") {
+          setErrors({ payment: t(locale, "payment.cancelled") });
+          setNoticeKey("");
+          return;
+        }
+        if (widget === "failed") {
+          setErrors({ payment: t(locale, "payment.failed") });
+          setNoticeKey("");
+          return;
+        }
+        razorpay = {
+          orderId: widget.razorpay_order_id,
+          paymentId: widget.razorpay_payment_id,
+          signature: widget.razorpay_signature,
+        };
+      }
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customer: { name, mobile, email, address },
-          location: confirmed,
-          lines,
-          method,
-        }),
+        body: JSON.stringify({ ...draft, razorpay }),
       });
       const review = readReview(await response.json());
       if (!review || !isAccepted(review)) {
@@ -170,7 +239,8 @@ export default function CheckoutPage() {
       saveOrderRequest(window.localStorage, review.order);
       setOrder(review.order);
       clear();
-      setNoticeKey("checkout.requestSaved");
+      const captured = review.order.payment.status === "captured" ? review.order.payment : null;
+      setNoticeKey(captured ? (captured.reason === "razorpay_live" ? "checkout.liveRecorded" : "checkout.testRecorded") : "checkout.requestSaved");
     } catch {
       setErrors({ delivery: t(locale, "errors.network") });
     } finally {
@@ -246,7 +316,13 @@ export default function CheckoutPage() {
           </section>
           <section className="stack" data-checkout-step="payment">
             <SectionHeading title={t(locale, "checkout.payment")} />
-            <p>{t(locale, "payment.notConfigured")}</p>
+            <p data-testid="payment-note">
+              {razorpayMode === "test"
+                ? t(locale, "payment.testMode")
+                : razorpayMode === "live"
+                  ? t(locale, "payment.liveMode")
+                  : t(locale, "payment.notConfigured")}
+            </p>
             {provider.listMethods().map((item) => (
               <label key={item} className="choice">
                 <input
@@ -264,7 +340,7 @@ export default function CheckoutPage() {
             {errors.payment ? <p className="error">{errors.payment}</p> : null}
           </section>
           <Button type="submit" data-testid="checkout-submit" disabled={!allowed || submitting}>
-            {t(locale, "checkout.placeRequest")}
+            {razorpayMode && method && onlineMethods.has(method) ? t(locale, "checkout.continueRazorpay") : t(locale, "checkout.placeRequest")}
           </Button>
           {!allowed ? <p>{t(locale, "checkout.blocked")}</p> : null}
           <WhatsAppButton href={fallbackHref} testId="checkout-whatsapp">
@@ -274,7 +350,8 @@ export default function CheckoutPage() {
       )}
       {noticeKey ? (
         <p className="notice" data-testid="checkout-notice">
-          {t(locale, noticeKey)} {t(locale, "checkout.notPaid")}
+          {t(locale, noticeKey)}
+          {order?.payment.status === "captured" ? "" : ` ${t(locale, "checkout.notPaid")}`}
         </p>
       ) : null}
     </div>
