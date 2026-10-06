@@ -1,14 +1,14 @@
 import { prepareCheckout } from "@/lib/checkout-review";
 import { resolveDeliveryConfig } from "@/lib/delivery";
-import { createRazorpayOrder, readRazorpayConfig } from "@/lib/payment/razorpay";
+import { createRazorpayOrder, readRazorpayConfig, readRazorpayStatus } from "@/lib/payment/razorpay";
 import { PAYMENT_METHODS, type PaymentMethod } from "@/lib/payment/types";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const config = readRazorpayConfig();
-  if (!config) return Response.json({ enabled: false, mode: null });
-  return Response.json({ enabled: true, mode: config.mode });
+  const status = readRazorpayStatus();
+  if (!status.enabled) return Response.json(status);
+  return Response.json({ enabled: true, mode: status.mode });
 }
 
 export async function POST(request: Request) {

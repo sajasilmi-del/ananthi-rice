@@ -15,8 +15,15 @@ export type RazorpayProof = {
   signature: string;
 };
 
-const KEY_ID_NAMES = ["RAZORPAY_KEY_ID", "NEXT_PUBLIC_RAZORPAY_KEY_ID", "RAZORPAY_KEY"] as const;
-const KEY_SECRET_NAMES = ["RAZORPAY_KEY_SECRET", "RAZORPAY_SECRET", "NEXT_PUBLIC_RAZORPAY_KEY_SECRET"] as const;
+const KEY_ID_NAMES = ["RAZORPAY_KEY_ID", "NEXT_PUBLIC_RAZORPAY_KEY_ID", "RAZORPAY_KEY", "RZP_KEY_ID", "RZP_KEY", "KEY_ID"] as const;
+const KEY_SECRET_NAMES = [
+  "RAZORPAY_KEY_SECRET",
+  "RAZORPAY_SECRET",
+  "NEXT_PUBLIC_RAZORPAY_KEY_SECRET",
+  "RZP_KEY_SECRET",
+  "RZP_SECRET",
+  "KEY_SECRET",
+] as const;
 
 function unwrapEnv(value: string): string {
   let text = value.replace(/^\uFEFF/, "").trim();
@@ -27,13 +34,25 @@ function unwrapEnv(value: string): string {
 }
 
 function envValue(env: NodeJS.ProcessEnv, names: readonly string[]): string {
-  for (const name of names) {
-    const raw = env[name];
-    if (typeof raw !== "string") continue;
-    const value = unwrapEnv(raw);
-    if (value) return value;
+  const entries = Object.entries(env);
+  for (const wanted of names) {
+    for (const [name, raw] of entries) {
+      if (name.toLowerCase() !== wanted.toLowerCase() || typeof raw !== "string") continue;
+      const value = unwrapEnv(raw);
+      if (value) return value;
+    }
   }
   return "";
+}
+
+export function razorpayEnvNames(env: NodeJS.ProcessEnv = process.env): string[] {
+  return Object.keys(env)
+    .filter((name) => /razor|rzp|^key_id$|^key_secret$/i.test(name))
+    .filter((name) => {
+      const raw = env[name];
+      return typeof raw === "string" && unwrapEnv(raw).length > 0;
+    })
+    .sort();
 }
 
 function parseKeyCsv(text: string): { keyId: string; keySecret: string } | null {
@@ -47,7 +66,7 @@ function parseKeyCsv(text: string): { keyId: string; keySecret: string } | null 
   return { keyId, keySecret };
 }
 
-export function readRazorpayConfig(env: NodeJS.ProcessEnv = process.env): RazorpayConfig | null {
+function readKeyPair(env: NodeJS.ProcessEnv): { keyId: string; keySecret: string } {
   let keyId = envValue(env, KEY_ID_NAMES);
   let keySecret = envValue(env, KEY_SECRET_NAMES);
   if ((!keyId.startsWith("rzp_test_") && !keyId.startsWith("rzp_live_")) || !keySecret) {
@@ -57,6 +76,28 @@ export function readRazorpayConfig(env: NodeJS.ProcessEnv = process.env): Razorp
       keySecret = pasted.keySecret;
     }
   }
+  return { keyId, keySecret };
+}
+
+export type RazorpayStatus =
+  | { enabled: true; mode: "test" | "live" }
+  | { enabled: false; mode: null; reason: "missing" | "missing_id" | "missing_secret" | "bad_prefix"; names: string[] };
+
+export function readRazorpayStatus(env: NodeJS.ProcessEnv = process.env): RazorpayStatus {
+  const { keyId, keySecret } = readKeyPair(env);
+  if (keyId.startsWith("rzp_test_") && keySecret) return { enabled: true, mode: "test" };
+  if (keyId.startsWith("rzp_live_") && keySecret) return { enabled: true, mode: "live" };
+  const names = razorpayEnvNames(env);
+  if (keyId && !keyId.startsWith("rzp_test_") && !keyId.startsWith("rzp_live_")) {
+    return { enabled: false, mode: null, reason: "bad_prefix", names };
+  }
+  if (!keyId && !keySecret) return { enabled: false, mode: null, reason: "missing", names };
+  if (!keyId) return { enabled: false, mode: null, reason: "missing_id", names };
+  return { enabled: false, mode: null, reason: "missing_secret", names };
+}
+
+export function readRazorpayConfig(env: NodeJS.ProcessEnv = process.env): RazorpayConfig | null {
+  const { keyId, keySecret } = readKeyPair(env);
   if (!keyId || !keySecret) return null;
   if (keyId.startsWith("rzp_test_")) return { keyId, keySecret, mode: "test" };
   if (keyId.startsWith("rzp_live_")) return { keyId, keySecret, mode: "live" };

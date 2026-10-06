@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   createRazorpayOrder,
   readRazorpayConfig,
+  readRazorpayStatus,
   signRazorpayPayment,
   verifyRazorpayPayment,
 } from "@/lib/payment/razorpay";
@@ -28,6 +29,24 @@ describe("razorpay test keys", () => {
     expect(
       readRazorpayConfig({ RAZORPAY_KEY_ID: "key_id,key_secret\nrzp_test_example,secret" } as NodeJS.ProcessEnv),
     ).toMatchObject({ keyId: "rzp_test_example", keySecret: "secret", mode: "test" });
+    expect(readRazorpayConfig({ razorpay_key_id: "rzp_test_example", razorpay_key_secret: "secret" } as NodeJS.ProcessEnv)?.mode).toBe(
+      "test",
+    );
+    expect(readRazorpayConfig({ KEY_ID: "rzp_test_example", KEY_SECRET: "secret" } as NodeJS.ProcessEnv)?.mode).toBe("test");
+    expect(readRazorpayStatus({} as NodeJS.ProcessEnv)).toEqual({ enabled: false, mode: null, reason: "missing", names: [] });
+    expect(readRazorpayStatus({ RAZORPAY_KEY_ID: "rzp_test_example" } as NodeJS.ProcessEnv)).toMatchObject({
+      enabled: false,
+      reason: "missing_secret",
+      names: ["RAZORPAY_KEY_ID"],
+    });
+    expect(readRazorpayStatus({ RAZORPAY_KEY_SECRET: "secret" } as NodeJS.ProcessEnv)).toMatchObject({
+      enabled: false,
+      reason: "missing_id",
+    });
+    expect(readRazorpayStatus({ RAZORPAY_KEY_ID: "key_example", RAZORPAY_KEY_SECRET: "secret" } as NodeJS.ProcessEnv)).toMatchObject({
+      enabled: false,
+      reason: "bad_prefix",
+    });
   });
 
   it("creates an order only when Razorpay echoes the same paise amount", async () => {
