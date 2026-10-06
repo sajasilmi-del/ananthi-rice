@@ -2,7 +2,7 @@ import { readdirSync, realpathSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { brands, categories, locations, products } from "@/lib/catalog";
-import { locationDirectionsUrl, locationEmbedUrl } from "@/lib/maps";
+import { locationDirectionsUrl, locationEmbedUrl, mapViewCenter } from "@/lib/maps";
 import { brandFitsCategory, displayPrice, formatInr, productSortPrice, queryProducts, shopPath, SHOP_PAGE_SIZE } from "@/lib/shop";
 import type { Product, Variant } from "@/lib/types";
 
@@ -26,6 +26,16 @@ describe("shop catalog", () => {
     expect(locationEmbedUrl(paramakudi!, "en")).toBeNull();
     expect(locationDirectionsUrl(paramakudi!)).toContain("maps/search");
     expect(locationDirectionsUrl(paramakudi!)).toContain("Paramakudi");
+    expect(mapViewCenter(null, { latitude: chennai!.latitude!, longitude: chennai!.longitude! })).toEqual({
+      latitude: 13.0280447,
+      longitude: 80.1868165,
+      zoom: 15,
+    });
+    expect(mapViewCenter({ latitude: 9.5, longitude: 78.6 }, { latitude: 13, longitude: 80 })).toEqual({
+      latitude: 9.5,
+      longitude: 78.6,
+      zoom: 12,
+    });
   });
 
   it("maps every product to its own existing pack image", () => {

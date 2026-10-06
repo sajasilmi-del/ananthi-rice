@@ -159,7 +159,7 @@
     "signupExists": "An account with this email already exists in the development store.",
     "checkoutBlocked": "Checkout is not available for this location.",
     "originNotConfigured": "Delivery origin coordinates are not configured yet.",
-    "permissionDenied": "Location permission was denied.",
+    "permissionDenied": "Location permission was denied. Enter the address or choose the point on the map. Allow location for this site in the browser to use current location.",
     "locationUnavailable": "Location is unavailable.",
     "browserUnsupported": "This browser cannot read your location.",
     "invalidAddress": "A map pin or current location is required. Typed text alone is not a verified location.",

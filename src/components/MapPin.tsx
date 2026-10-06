@@ -5,17 +5,20 @@ import type { Map as LeafletMap, CircleMarker } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { DELIVERY_RADIUS_KM } from "@/lib/delivery";
 import { t } from "@/lib/i18n";
+import { mapViewCenter } from "@/lib/maps";
 import type { LatLng } from "@/lib/types";
 import { useLanguage } from "@/components/Providers";
 
 export function MapPin({
   value,
   origin = null,
+  fallback = null,
   onChange,
   onError,
 }: {
   value: LatLng | null;
   origin?: LatLng | null;
+  fallback?: LatLng | null;
   onChange: (value: LatLng) => void;
   onError?: () => void;
 }) {
@@ -28,9 +31,12 @@ export function MapPin({
   const onChangeRef = useRef(onChange);
   const onErrorRef = useRef(onError);
   const originRef = useRef(origin);
+  const fallbackRef = useRef(fallback);
   onChangeRef.current = onChange;
   onErrorRef.current = onError;
   originRef.current = origin;
+  fallbackRef.current = fallback;
+  const view = mapViewCenter(origin, fallback);
 
   useEffect(() => {
     let cancelled = false;
@@ -39,13 +45,14 @@ export function MapPin({
       .then((leaflet) => {
         if (cancelled || !node || mapRef.current) return;
         const serviceOrigin = originRef.current;
+        const view = mapViewCenter(serviceOrigin, fallbackRef.current);
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const map = leaflet.map(node, {
           zoomAnimation: !reduced,
           fadeAnimation: !reduced,
           markerZoomAnimation: !reduced,
-          center: serviceOrigin ? [serviceOrigin.latitude, serviceOrigin.longitude] : [20, 0],
-          zoom: serviceOrigin ? 12 : 2,
+          center: [view.latitude, view.longitude],
+          zoom: view.zoom,
         });
         mapRef.current = map;
         leaflet
@@ -130,5 +137,15 @@ export function MapPin({
     };
   }, [value]);
 
-  return <div ref={holder} className="delivery-map" data-testid="delivery-map" role="application" aria-label={t(locale, "delivery.pickOnMap")} />;
+  return (
+    <div
+      ref={holder}
+      className="delivery-map"
+      data-testid="delivery-map"
+      data-map-center={`${view.latitude},${view.longitude}`}
+      data-map-zoom={view.zoom}
+      role="application"
+      aria-label={t(locale, "delivery.pickOnMap")}
+    />
+  );
 }

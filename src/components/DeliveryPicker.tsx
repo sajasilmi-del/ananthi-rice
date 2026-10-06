@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { locations } from "@/lib/catalog";
 import {
   acceptGeolocationFix,
   checkDelivery,
@@ -43,6 +44,23 @@ export function DeliveryPicker({ heading = "h2" }: { heading?: "h2" | "h3" }) {
     origin.latitude == null || origin.longitude == null
       ? null
       : { latitude: origin.latitude, longitude: origin.longitude };
+  const shop = locations.find((location) => location.latitude != null && location.longitude != null);
+  const shopPin = shop?.latitude != null && shop.longitude != null ? { latitude: shop.latitude, longitude: shop.longitude } : null;
+
+  useEffect(() => {
+    let cancelled = false;
+    const permissions = navigator.permissions;
+    if (!permissions?.query) return;
+    permissions
+      .query({ name: "geolocation" })
+      .then((status) => {
+        if (!cancelled && status.state === "denied") setError(t(locale, "errors.permissionDenied"));
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [locale]);
 
   const activePoint = draft ?? (editing ? null : confirmed);
   const result = checkDelivery(activePoint);
@@ -143,6 +161,7 @@ export function DeliveryPicker({ heading = "h2" }: { heading?: "h2" | "h3" }) {
           <MapPin
             value={draft}
             origin={serviceOrigin}
+            fallback={shopPin}
             onChange={(point) => {
               setDraft({ ...point, source: "map" });
               setError("");

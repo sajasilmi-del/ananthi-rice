@@ -1,4 +1,11 @@
-import type { Locale, LocationRecord } from "@/lib/types";
+import type { LatLng, Locale, LocationRecord } from "@/lib/types";
+
+/** Delivery radius uses the store origin. Otherwise the map opens on the shop pin. */
+export function mapViewCenter(origin: LatLng | null, shop: LatLng | null): LatLng & { zoom: number } {
+  if (origin) return { latitude: origin.latitude, longitude: origin.longitude, zoom: 12 };
+  if (shop) return { latitude: shop.latitude, longitude: shop.longitude, zoom: 15 };
+  return { latitude: 20, longitude: 0, zoom: 2 };
+}
 
 /** Opens the published Google listing, or a pin, or an address search. */
 export function locationDirectionsUrl(location: LocationRecord): string {
