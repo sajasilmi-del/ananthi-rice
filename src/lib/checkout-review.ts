@@ -1,43 +1,43 @@
 import { addLine, cartTotal, deliveryFee, lineAmount, subtotal } from "@/lib/cart";
 import { getProduct, getVariant } from "@/lib/catalog";
-import { checkoutAllowed, evaluateDelivery, isValidLatLng } from "@/lib/delivery";
-import type { DeliveryResult } from "@/lib/delivery";
 import type { OrderLine, OrderRequest } from "@/lib/orders";
 import { createUnconfiguredPaymentProvider } from "@/lib/payment/unconfigured";
 import { PAYMENT_METHODS, type PaymentIntent, type PaymentMethod, type PaymentProvider } from "@/lib/payment/types";
-import type { CartLine, ConfirmedLocation, DeliveryConfig } from "@/lib/types";
-import { validateCustomer } from "@/lib/validation";
+import {
+  assessPincode,
+  composeDeliveryAddress,
+  normalizePhone,
+  type DeliveryAddressInput,
+  type PincodeDelivery,
+  validateDeliveryAddress,
+} from "@/lib/service-area";
+import type { CartLine, DeliveryConfig, Locale } from "@/lib/types";
 
 export type CheckoutReview =
   | { ok: true; order: OrderRequest }
-  | { ok: false; issues: string[]; delivery: DeliveryResult };
+  | { ok: false; issues: string[]; delivery: PincodeDelivery };
 
-const locationSources = new Set(["browser", "map", "address"]);
+function text(record: Record<string, unknown>, key: string): string {
+  const value = record[key];
+  return typeof value === "string" ? value : "";
+}
 
-function readCustomer(value: unknown): { name: string; mobile: string; email: string; address: string } {
+function readAddress(value: unknown): DeliveryAddressInput {
   const record = value && typeof value === "object" ? (value as Record<string, unknown>) : {};
+  const mobile = text(record, "mobile");
   return {
-    name: typeof record.name === "string" ? record.name : "",
-    mobile: typeof record.mobile === "string" ? record.mobile : "",
-    email: typeof record.email === "string" ? record.email : "",
-    address: typeof record.address === "string" ? record.address : "",
+    name: text(record, "name"),
+    door: text(record, "door"),
+    building: text(record, "building"),
+    street: text(record, "street"),
+    locality: text(record, "locality"),
+    phone: mobile || text(record, "phone"),
+    pincode: text(record, "pincode"),
   };
 }
 
-function readLocation(value: unknown): ConfirmedLocation | null {
-  if (!value || typeof value !== "object") return null;
-  const record = value as Record<string, unknown>;
-  const latitude = Number(record.latitude);
-  const longitude = Number(record.longitude);
-  if (!isValidLatLng({ latitude, longitude })) return null;
-  if (typeof record.source !== "string" || !locationSources.has(record.source)) return null;
-  return {
-    latitude,
-    longitude,
-    source: record.source as ConfirmedLocation["source"],
-    addressLabel: typeof record.addressLabel === "string" ? record.addressLabel : "",
-    confirmedAt: typeof record.confirmedAt === "string" ? record.confirmedAt : "",
-  };
+function readLocale(value: unknown): Locale {
+  return value === "ta" ? "ta" : "en";
 }
 
 function readLines(value: unknown): CartLine[] {
@@ -86,13 +86,13 @@ function paymentUnconfirmed(intent: { status?: string; reason?: string; method?:
 }
 
 export type CheckoutQuote =
-  | { ok: false; issues: string[]; delivery: DeliveryResult }
+  | { ok: false; issues: string[]; delivery: PincodeDelivery }
   | {
       ok: true;
       customer: { name: string; mobile: string; email: string; address: string };
-      location: ConfirmedLocation;
+      serviceArea: OrderRequest["serviceArea"];
       lines: CartLine[];
-      delivery: Extract<DeliveryResult, { status: "available" }>;
+      delivery: Extract<PincodeDelivery, { status: "available" }>;
       method: PaymentMethod;
       subtotal: number;
       fee: number;
@@ -101,19 +101,18 @@ export type CheckoutQuote =
 
 export function prepareCheckout(draft: unknown, config: DeliveryConfig): CheckoutQuote {
   const record = draft && typeof draft === "object" ? (draft as Record<string, unknown>) : {};
-  const customer = readCustomer(record.customer);
-  const location = readLocation(record.location);
+  const address = readAddress(record.customer);
+  const locale = readLocale(record.locale);
   const lines = readLines(record.lines);
-  const delivery = evaluateDelivery(config, location);
+  const delivery = assessPincode(address.pincode);
   const issues: string[] = [];
-  const fieldErrors = validateCustomer(customer, "en", { password: false });
+  const fieldErrors = validateDeliveryAddress(address, "en");
   issues.push(...Object.keys(fieldErrors));
-  if (!location) issues.push("location");
   if (lines.length === 0) issues.push("empty");
-  if (!checkoutAllowed(delivery)) issues.push("delivery");
+  if (delivery.status !== "available") issues.push("delivery");
   const method = typeof record.method === "string" ? record.method : "";
   if (!PAYMENT_METHODS.includes(method as PaymentMethod)) issues.push("method");
-  if (!location || issues.length > 0 || delivery.status !== "available") {
+  if (issues.length > 0 || delivery.status !== "available") {
     return { ok: false, issues, delivery };
   }
   const productSubtotal = subtotal(lines);
@@ -125,12 +124,17 @@ export function prepareCheckout(draft: unknown, config: DeliveryConfig): Checkou
   return {
     ok: true,
     customer: {
-      name: customer.name.trim(),
-      mobile: customer.mobile.replace(/\s+/g, ""),
-      email: customer.email.trim(),
-      address: customer.address.trim(),
+      name: address.name.trim(),
+      mobile: normalizePhone(address.phone),
+      email: "",
+      address: composeDeliveryAddress(address, locale),
     },
-    location,
+    serviceArea: {
+      source: "pincode",
+      pincode: delivery.pincode,
+      areasEnglish: delivery.areasEnglish,
+      areasTamil: delivery.areasTamil,
+    },
     lines,
     delivery,
     method: method as PaymentMethod,
@@ -141,8 +145,8 @@ export function prepareCheckout(draft: unknown, config: DeliveryConfig): Checkou
 }
 
 /**
- * Re-checks the cart, customer, 5 km delivery rule, and payment provider.
- * Client flags, prices, and payment claims are ignored.
+ * Re-checks the cart, Chennai pincode, delivery address, and payment provider.
+ * Client coordinates, composed address text, prices, and payment claims are ignored.
  */
 export async function reviewCheckout(options: {
   draft: unknown;
@@ -189,8 +193,7 @@ export async function reviewCheckout(options: {
       id: (options.createId ?? (() => crypto.randomUUID()))(),
       createdAt: (options.now ?? (() => new Date().toISOString()))(),
       customer: quote.customer,
-      location: quote.location,
-      distanceKm: quote.delivery.distanceKm,
+      serviceArea: quote.serviceArea,
       lines: orderLines(quote.lines),
       subtotal: quote.subtotal,
       deliveryFee: quote.fee,

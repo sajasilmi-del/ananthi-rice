@@ -129,6 +129,16 @@ export type ConfirmedLocation = LatLng & {
   confirmedAt: string;
 };
 
+/** A Chennai pincode the shop can deliver to. Coordinates are not part of this check. */
+export type ConfirmedServiceArea = {
+  source: "pincode";
+  pincode: string;
+  areasEnglish: string;
+  areasTamil: string;
+  addressLabel: string;
+  confirmedAt: string;
+};
+
 export type CartLine = {
   productId: string;
   variantId: string;

@@ -2,13 +2,12 @@
 
 import { CatalogImage } from "@/components/ui/CatalogImage";
 import Link from "next/link";
-import { cartTotal, deliveryFee, lineAmount, subtotal } from "@/lib/cart";
-import { getProduct, getVariant, productName, variantPackLabel } from "@/lib/catalog";
-import { checkDelivery, deliveryStatusText, resolveDeliveryConfig } from "@/lib/delivery";
+import { cartTotal, lineAmount, subtotal } from "@/lib/cart";
+import { deliveryConfig, getProduct, getVariant, productName, variantPackLabel } from "@/lib/catalog";
 import { t } from "@/lib/i18n";
 import { displayPrice, formatInr } from "@/lib/shop";
 import type { Locale } from "@/lib/types";
-import { useCart, useDeliveryLocation, useLanguage } from "@/components/Providers";
+import { useCart, useLanguage } from "@/components/Providers";
 import { Button, ButtonLink } from "@/components/ui/Button";
 
 function money(amount: number | null, locale: Locale): string {
@@ -19,17 +18,10 @@ function money(amount: number | null, locale: Locale): string {
 export function CartTotals() {
   const { locale } = useLanguage();
   const { lines } = useCart();
-  const { confirmed } = useDeliveryLocation();
-  const result = checkDelivery(confirmed);
   const productSubtotal = subtotal(lines);
-  const fee = deliveryFee(result, resolveDeliveryConfig());
+  const fee = deliveryConfig.feeWhenAvailableInr;
   const total = cartTotal(productSubtotal, fee);
-  const deliveryLabel =
-    result.status === "available" && fee === 0
-      ? t(locale, "cart.freeDelivery")
-      : result.status === "available" && fee != null
-        ? formatInr(fee, locale)
-        : deliveryStatusText(result, locale);
+  const deliveryLabel = fee === 0 ? t(locale, "cart.freeDelivery") : fee == null ? t(locale, "cart.pincodeNote") : formatInr(fee, locale);
 
   return (
     <div className="stack" data-testid="cart-totals">
@@ -39,7 +31,7 @@ export function CartTotals() {
       <p data-testid="cart-delivery">
         {t(locale, "cart.deliveryFee")}: {deliveryLabel}
       </p>
-      {result.status === "available" ? <p data-testid="delivery-distance">{deliveryStatusText(result, locale)}</p> : null}
+      <p data-testid="cart-delivery-note">{t(locale, "cart.pincodeNote")}</p>
       <p data-testid="cart-total">
         {t(locale, "cart.total")}: {money(total, locale)}
       </p>
@@ -56,8 +48,6 @@ export function CartPanel({
 }) {
   const { locale } = useLanguage();
   const { lines, updateQuantity, remove, clear, setDrawerOpen } = useCart();
-  const { confirmed } = useDeliveryLocation();
-  const outsideRadius = checkDelivery(confirmed).status === "unavailable";
   const closeDrawer = () => setDrawerOpen(false);
   const visibleLines = lines.flatMap((line) => {
     const product = getProduct(line.productId);
@@ -170,15 +160,10 @@ export function CartPanel({
             {t(locale, "cart.viewCart")}
           </ButtonLink>
         ) : null}
-        {showCheckoutLink && !outsideRadius ? (
+        {showCheckoutLink ? (
           <ButtonLink href="/checkout" variant="primary" data-testid="cart-checkout" onClick={closeDrawer}>
             {t(locale, "cart.checkout")}
           </ButtonLink>
-        ) : null}
-        {showCheckoutLink && outsideRadius ? (
-          <Button variant="primary" disabled data-testid="cart-checkout">
-            {t(locale, "cart.checkout")}
-          </Button>
         ) : null}
         {!showCheckoutLink && !showCartLink ? (
           <ButtonLink href="/cart" data-testid="view-cart" onClick={closeDrawer}>

@@ -80,6 +80,7 @@ export default function ContactPage() {
                   <span key={line}>{line}</span>
                 ))}
               </address>
+              <p className="muted">{t(locale, location.role === "head_office_direct_sales" ? "delivery.paramakudiOffice" : "delivery.chennaiBranch")}</p>
               <a className="arrow-link" href={locationDirectionsUrl(location)} target="_blank" rel="noreferrer">
                 {t(locale, "contact.directions")}
               </a>

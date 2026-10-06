@@ -3,7 +3,6 @@
 import { t } from "@/lib/i18n";
 import { cartWhatsAppUrl } from "@/lib/whatsapp";
 import { CartPanel } from "@/components/CartPanel";
-import { DeliveryPicker } from "@/components/DeliveryPicker";
 import { useAuth, useCart, useDeliveryLocation, useLanguage } from "@/components/Providers";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
@@ -23,7 +22,7 @@ export default function CartPage() {
           {t(locale, "products.whatsappOrder")}
         </WhatsAppButton>
       </div>
-      <DeliveryPicker />
+      <p className="muted" data-testid="delivery-note">{t(locale, "delivery.checkoutNote")}</p>
     </div>
   );
 }

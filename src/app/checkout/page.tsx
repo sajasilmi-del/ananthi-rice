@@ -3,22 +3,27 @@
 import { useEffect, useRef, useState } from "react";
 import { cartTotal, deliveryFee, lineAmount, subtotal } from "@/lib/cart";
 import type { CheckoutReview } from "@/lib/checkout-review";
-import { getProduct, getVariant, productName, variantPackLabel } from "@/lib/catalog";
-import { checkDelivery, checkoutAllowed, DELIVERY_RADIUS_KM, deliveryStatusText, resolveDeliveryConfig } from "@/lib/delivery";
-import type { DeliveryResult } from "@/lib/delivery";
-import { formatMessage, t } from "@/lib/i18n";
+import { deliveryConfig, getProduct, getVariant, productName, variantPackLabel } from "@/lib/catalog";
+import { t } from "@/lib/i18n";
 import type { OrderRequest } from "@/lib/orders";
 import { saveOrderRequest } from "@/lib/orders";
 import { openRazorpayCheckout } from "@/lib/payment/checkout-widget";
 import { createUnconfiguredPaymentProvider } from "@/lib/payment/unconfigured";
 import type { PaymentMethod } from "@/lib/payment/types";
+import {
+  areaLabel,
+  assessPincode,
+  cityLabel,
+  composeDeliveryAddress,
+  pincodeStatusText,
+  type PincodeDelivery,
+  validateDeliveryAddress,
+} from "@/lib/service-area";
 import { formatInr } from "@/lib/shop";
 import type { CartLine, Locale } from "@/lib/types";
-import { validateCustomer } from "@/lib/validation";
 import { cartWhatsAppUrl } from "@/lib/whatsapp";
 import { CartPanel } from "@/components/CartPanel";
 import { CheckoutConfirmation } from "@/components/CheckoutConfirmation";
-import { DeliveryPicker } from "@/components/DeliveryPicker";
 import { useAuth, useCart, useDeliveryLocation, useLanguage } from "@/components/Providers";
 import { Button } from "@/components/ui/Button";
 import { FormField } from "@/components/ui/FormField";
@@ -27,9 +32,7 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 const steps = [
   "checkout.flowCart",
-  "checkout.flowCustomer",
-  "checkout.flowLocation",
-  "checkout.flowRadius",
+  "checkout.flowPincode",
   "checkout.flowAddress",
   "checkout.flowSummary",
   "checkout.flowPayment",
@@ -66,13 +69,13 @@ function SummaryLines({ lines }: { lines: CartLine[] }) {
 
 function readReview(value: unknown): CheckoutReview | null {
   if (!value || typeof value !== "object") return null;
-  const record = value as { ok?: boolean; order?: OrderRequest; issues?: unknown; delivery?: DeliveryResult };
+  const record = value as { ok?: boolean; order?: OrderRequest; issues?: unknown; delivery?: PincodeDelivery };
   if (record.ok === true && record.order) return { ok: true, order: record.order };
   if (record.ok === false && Array.isArray(record.issues) && record.delivery && typeof record.delivery === "object") {
     return { ok: false, issues: record.issues.filter((issue) => typeof issue === "string"), delivery: record.delivery };
   }
   if (record.ok === false && Array.isArray(record.issues)) {
-    return { ok: false, issues: record.issues.filter((issue) => typeof issue === "string"), delivery: { status: "invalid_location" } };
+    return { ok: false, issues: record.issues.filter((issue) => typeof issue === "string"), delivery: { status: "invalid" } };
   }
   return null;
 }
@@ -98,40 +101,78 @@ function isAccepted(value: CheckoutReview | null): value is { ok: true; order: O
 export default function CheckoutPage() {
   const { locale } = useLanguage();
   const { lines, clear } = useCart();
-  const { confirmed } = useDeliveryLocation();
+  const { confirmed, confirm, clearLocation } = useDeliveryLocation();
   const { user } = useAuth();
   const edited = useRef(false);
+  const prefilled = useRef(false);
+  const savedLabel = useRef("");
   const [name, setName] = useState(user?.name ?? "");
-  const [mobile, setMobile] = useState(user?.mobile ?? "");
-  const [email, setEmail] = useState(user?.email ?? "");
-  const [address, setAddress] = useState(user?.address ?? "");
+  const [phone, setPhone] = useState(user?.mobile ?? "");
+  const [pincode, setPincode] = useState("");
+  const [door, setDoor] = useState("");
+  const [building, setBuilding] = useState("");
+  const [street, setStreet] = useState("");
+  const [locality, setLocality] = useState("");
   const [method, setMethod] = useState<PaymentMethod | "">("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [noticeKey, setNoticeKey] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [order, setOrder] = useState<OrderRequest | null>(null);
   const [razorpayMode, setRazorpayMode] = useState<"test" | "live" | null>(null);
-  const result = checkDelivery(confirmed);
-  const allowed = checkoutAllowed(result) && lines.length > 0;
+  const assessed = assessPincode(pincode);
+  const address = { name, door, building, street, locality, phone, pincode };
+  const fieldErrors = validateDeliveryAddress(address, locale);
+  const addressReady = assessed.status === "available" && Object.keys(fieldErrors).length === 0;
+  const allowed = addressReady && lines.length > 0 && method !== "";
   const provider = createUnconfiguredPaymentProvider();
   const productSubtotal = subtotal(lines);
-  const fee = deliveryFee(result, resolveDeliveryConfig());
+  const fee = deliveryFee(assessed, deliveryConfig);
   const total = cartTotal(productSubtotal, fee);
-  const feeLabel =
-    result.status === "available" && fee === 0
-      ? t(locale, "cart.freeDelivery")
-      : result.status === "available" && fee != null
-        ? formatInr(fee, locale)
-        : deliveryStatusText(result, locale);
-  const fallbackHref = cartWhatsAppUrl(locale, name, lines, address || confirmed?.addressLabel || "");
+  const feeLabel = assessed.status === "available" && fee === 0 ? t(locale, "cart.freeDelivery") : pincodeStatusText(assessed, locale);
+  const fallbackAddress =
+    assessed.status === "available"
+      ? addressReady
+        ? composeDeliveryAddress(address, locale)
+        : `${areaLabel(assessed, locale)}, ${cityLabel(locale)} ${assessed.pincode}`
+      : "";
+  const fallbackHref = cartWhatsAppUrl(locale, name, lines, fallbackAddress);
+  const statusClass = assessed.status === "available" ? "notice" : assessed.status === "required" ? "muted" : "error";
 
   useEffect(() => {
     if (!user || edited.current) return;
     setName(user.name);
-    setMobile(user.mobile);
-    setEmail(user.email);
-    setAddress(user.address);
+    setPhone(user.mobile);
   }, [user]);
+
+  useEffect(() => {
+    if (prefilled.current || !confirmed?.pincode) return;
+    prefilled.current = true;
+    setPincode((current) => current || confirmed.pincode);
+  }, [confirmed]);
+
+  useEffect(() => {
+    if (assessed.status !== "available") return;
+    const label = addressReady
+      ? composeDeliveryAddress(address, locale)
+      : `${areaLabel(assessed, locale)}, ${cityLabel(locale)} ${assessed.pincode}`;
+    const token = `${assessed.pincode}|${label}`;
+    if (savedLabel.current === token) return;
+    savedLabel.current = token;
+    confirm({
+      source: "pincode",
+      pincode: assessed.pincode,
+      areasEnglish: assessed.areasEnglish,
+      areasTamil: assessed.areasTamil,
+      addressLabel: label,
+      confirmedAt: new Date().toISOString(),
+    });
+  }, [address, addressReady, assessed, confirm, locale]);
+
+  useEffect(() => {
+    if (assessed.status !== "unavailable") return;
+    savedLabel.current = "";
+    clearLocation();
+  }, [assessed, clearLocation]);
 
   useEffect(() => {
     let cancelled = false;
@@ -156,20 +197,27 @@ export default function CheckoutPage() {
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
-    const fresh = checkDelivery(confirmed);
-    const nextErrors = validateCustomer({ name, mobile, email, address }, locale, { password: false });
-    if (!confirmed) nextErrors.location = t(locale, "validation.locationRequired");
+    const fresh = assessPincode(pincode);
+    const nextErrors = validateDeliveryAddress(address, locale);
     if (!method) nextErrors.method = t(locale, "validation.methodRequired");
     if (lines.length === 0) nextErrors.cart = t(locale, "checkout.empty");
-    if (!checkoutAllowed(fresh)) nextErrors.delivery = deliveryStatusText(fresh, locale);
+    if (fresh.status !== "available") nextErrors.delivery = pincodeStatusText(fresh, locale);
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0 || !method || !confirmed || !checkoutAllowed(fresh)) return;
+    if (Object.keys(nextErrors).length > 0 || !method || fresh.status !== "available") return;
 
     setSubmitting(true);
     try {
       const draft = {
-        customer: { name, mobile, email, address },
-        location: confirmed,
+        locale,
+        customer: {
+          name,
+          mobile: phone,
+          door,
+          building,
+          street,
+          locality,
+          pincode: fresh.pincode,
+        },
         lines,
         method,
       };
@@ -197,8 +245,8 @@ export default function CheckoutPage() {
           orderId: created.orderId,
           amount: created.amount,
           name,
-          email,
-          contact: mobile,
+          email: "",
+          contact: phone,
         });
         if (widget === "cancelled") {
           setErrors({ payment: t(locale, "payment.cancelled") });
@@ -223,13 +271,12 @@ export default function CheckoutPage() {
       });
       const review = readReview(await response.json());
       if (!review || !isAccepted(review)) {
-        const rejected = validateCustomer({ name, mobile, email, address }, locale, { password: false });
+        const rejected = validateDeliveryAddress(address, locale);
         const issues = review && !review.ok ? review.issues : ["invalid"];
-        if (issues.includes("location")) rejected.location = t(locale, "validation.locationRequired");
         if (issues.includes("method")) rejected.method = t(locale, "validation.methodRequired");
         if (issues.includes("empty")) rejected.cart = t(locale, "checkout.empty");
         if (issues.includes("delivery") && review && !review.ok) {
-          rejected.delivery = deliveryStatusText(review.delivery, locale);
+          rejected.delivery = pincodeStatusText(review.delivery, locale);
         }
         if (issues.includes("payment") || issues.includes("invalid")) rejected.payment = t(locale, "payment.notConfigured");
         setErrors(rejected);
@@ -267,35 +314,74 @@ export default function CheckoutPage() {
             <SectionHeading title={t(locale, "cart.title")} />
             <CartPanel showCheckoutLink={false} />
           </section>
-          <section className="stack" data-checkout-step="customer">
-            <SectionHeading title={t(locale, "checkout.customerDetails")} />
-            <FormField label={t(locale, "forms.name")} error={errors.name}>
-              <input value={name} autoComplete="name" onChange={(event) => edit(setName)(event.target.value)} />
-            </FormField>
-            <FormField label={t(locale, "forms.mobile")} error={errors.mobile}>
-              <input type="tel" value={mobile} autoComplete="tel" inputMode="numeric" onChange={(event) => edit(setMobile)(event.target.value)} />
-            </FormField>
-            <FormField label={t(locale, "forms.email")} error={errors.email}>
-              <input type="email" value={email} autoComplete="email" onChange={(event) => edit(setEmail)(event.target.value)} />
-            </FormField>
-          </section>
-          <section className="stack" data-checkout-step="location">
-            <SectionHeading title={t(locale, "checkout.locationVerification")} />
-            <DeliveryPicker heading="h3" />
-            {errors.location ? <p className="error">{errors.location}</p> : null}
-          </section>
-          <section className="stack" data-checkout-step="radius">
-            <SectionHeading title={formatMessage(t(locale, "checkout.radiusCheck"), { km: String(DELIVERY_RADIUS_KM) })} />
-            <p data-testid="checkout-delivery">{deliveryStatusText(result, locale)}</p>
+          <section className="stack" data-checkout-step="pincode">
+            <SectionHeading title={t(locale, "checkout.pincodeTitle")} />
+            <div className="pincode-check">
+              <FormField label={t(locale, "forms.pincode")} error={errors.pincode}>
+                <input
+                  value={pincode}
+                  data-testid="delivery-pincode"
+                  inputMode="numeric"
+                  autoComplete="postal-code"
+                  maxLength={6}
+                  onChange={(event) => {
+                    edited.current = true;
+                    setPincode(event.target.value.replace(/\D/g, "").slice(0, 6));
+                    setErrors((current) => ({ ...current, pincode: "", delivery: "" }));
+                  }}
+                />
+              </FormField>
+              <Button
+                type="button"
+                variant="secondary"
+                data-testid="check-pincode"
+                onClick={() => setPincode((current) => current.replace(/\D/g, "").slice(0, 6))}
+              >
+                {t(locale, "forms.checkPincode")}
+              </Button>
+            </div>
+            <p data-testid="checkout-delivery" className={statusClass}>
+              {errors.delivery || pincodeStatusText(assessed, locale)}
+            </p>
             <p>{t(locale, "checkout.recheck")}</p>
-            {errors.delivery ? <p className="error">{errors.delivery}</p> : null}
           </section>
-          <section className="stack" data-checkout-step="address">
-            <SectionHeading title={t(locale, "checkout.deliveryAddress")} />
-            <FormField label={t(locale, "forms.address")} error={errors.address}>
-              <textarea value={address} autoComplete="street-address" onChange={(event) => edit(setAddress)(event.target.value)} />
-            </FormField>
-          </section>
+          {assessed.status === "available" ? (
+            <section className="stack" data-checkout-step="address">
+              <SectionHeading title={t(locale, "checkout.deliveryAddress")} />
+              <FormField label={t(locale, "forms.name")} error={errors.name}>
+                <input data-testid="address-name" value={name} autoComplete="name" onChange={(event) => edit(setName)(event.target.value)} />
+              </FormField>
+              <FormField label={t(locale, "forms.door")} error={errors.door}>
+                <input data-testid="address-door" value={door} autoComplete="address-line1" onChange={(event) => edit(setDoor)(event.target.value)} />
+              </FormField>
+              <FormField label={t(locale, "forms.building")} error={errors.building}>
+                <input data-testid="address-building" value={building} autoComplete="address-line2" onChange={(event) => edit(setBuilding)(event.target.value)} />
+              </FormField>
+              <FormField label={t(locale, "forms.street")} error={errors.street}>
+                <input data-testid="address-street" value={street} autoComplete="address-line3" onChange={(event) => edit(setStreet)(event.target.value)} />
+              </FormField>
+              <FormField label={t(locale, "forms.locality")} error={errors.locality}>
+                <input data-testid="address-locality" value={locality} autoComplete="address-level3" onChange={(event) => edit(setLocality)(event.target.value)} />
+              </FormField>
+              <FormField label={t(locale, "forms.city")}>
+                <input data-testid="address-city" value={cityLabel(locale)} readOnly autoComplete="address-level2" />
+              </FormField>
+              <FormField label={t(locale, "forms.pincode")}>
+                <input data-testid="address-pincode" value={assessed.pincode} readOnly autoComplete="postal-code" />
+              </FormField>
+              <FormField label={t(locale, "forms.phone")} error={errors.mobile}>
+                <input
+                  data-testid="address-phone"
+                  type="tel"
+                  value={phone}
+                  autoComplete="tel"
+                  inputMode="numeric"
+                  onChange={(event) => edit(setPhone)(event.target.value)}
+                />
+              </FormField>
+              {addressReady ? null : <p className="muted">{t(locale, "checkout.addressNext")}</p>}
+            </section>
+          ) : null}
           <section className="stack" data-checkout-step="summary">
             <SectionHeading title={t(locale, "checkout.orderSummary")} />
             <SummaryLines lines={lines} />
@@ -314,35 +400,37 @@ export default function CheckoutPage() {
             ) : null}
             {errors.cart ? <p className="error">{errors.cart}</p> : null}
           </section>
-          <section className="stack" data-checkout-step="payment">
-            <SectionHeading title={t(locale, "checkout.payment")} />
-            <p data-testid="payment-note">
-              {razorpayMode === "test"
-                ? t(locale, "payment.testMode")
-                : razorpayMode === "live"
-                  ? t(locale, "payment.liveMode")
-                  : t(locale, "payment.notConfigured")}
-            </p>
-            {provider.listMethods().map((item) => (
-              <label key={item} className="choice">
-                <input
-                  type="radio"
-                  name="payment"
-                  value={item}
-                  data-testid={`payment-${item}`}
-                  checked={method === item}
-                  onChange={() => setMethod(item)}
-                />
-                {t(locale, `payment.${item}`)}
-              </label>
-            ))}
-            {errors.method ? <p className="error">{errors.method}</p> : null}
-            {errors.payment ? <p className="error">{errors.payment}</p> : null}
-          </section>
+          {addressReady ? (
+            <section className="stack" data-checkout-step="payment">
+              <SectionHeading title={t(locale, "checkout.payment")} />
+              <p data-testid="payment-note">
+                {razorpayMode === "test"
+                  ? t(locale, "payment.testMode")
+                  : razorpayMode === "live"
+                    ? t(locale, "payment.liveMode")
+                    : t(locale, "payment.notConfigured")}
+              </p>
+              {provider.listMethods().map((item) => (
+                <label key={item} className="choice">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value={item}
+                    data-testid={`payment-${item}`}
+                    checked={method === item}
+                    onChange={() => setMethod(item)}
+                  />
+                  {t(locale, `payment.${item}`)}
+                </label>
+              ))}
+              {errors.method ? <p className="error">{errors.method}</p> : null}
+              {errors.payment ? <p className="error">{errors.payment}</p> : null}
+            </section>
+          ) : null}
           <Button type="submit" data-testid="checkout-submit" disabled={!allowed || submitting}>
             {razorpayMode && method && onlineMethods.has(method) ? t(locale, "checkout.continueRazorpay") : t(locale, "checkout.placeRequest")}
           </Button>
-          {!allowed ? <p>{t(locale, "checkout.blocked")}</p> : null}
+          {!addressReady ? <p>{t(locale, "checkout.blocked")}</p> : null}
           <WhatsAppButton href={fallbackHref} testId="checkout-whatsapp">
             {t(locale, "checkout.whatsappOrder")}
           </WhatsAppButton>

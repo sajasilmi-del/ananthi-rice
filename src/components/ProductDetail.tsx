@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { DeliveryPicker } from "@/components/DeliveryPicker";
 import { ProductPurchase } from "@/components/ProductPurchase";
 import { useLanguage } from "@/components/Providers";
 import { CatalogImage } from "@/components/ui/CatalogImage";
@@ -38,7 +37,7 @@ export function ProductDetail({ product, related }: { product: Product; related:
       </nav>
       <ProductPurchase key={product.id} product={product} detail />
       <section className="detail-delivery">
-        <DeliveryPicker />
+        <p className="muted" data-testid="delivery-note">{t(locale, "delivery.checkoutNote")}</p>
       </section>
       <section className="stack related" data-testid="related-products">
         <SectionHeading title={t(locale, "products.related")} />

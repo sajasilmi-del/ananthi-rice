@@ -1,0 +1,46 @@
+{
+  "cityEnglish": "Chennai",
+  "cityTamil": "சென்னை",
+  "areas": [
+    {
+      "pincode": "600032",
+      "areasEnglish": "Guindy, Ekkatuthangal",
+      "areasTamil": "கிண்டி, எக்கட்டுத்தாங்கல்"
+    },
+    {
+      "pincode": "600078",
+      "areasEnglish": "K.K. Nagar, MGR Nagar, Nesapakkam",
+      "areasTamil": "கே.கே. நகர், எம்.ஜி.ஆர். நகர், நேசபாக்கம்"
+    },
+    {
+      "pincode": "600083",
+      "areasEnglish": "Ashok Nagar",
+      "areasTamil": "அசோக் நகர்"
+    },
+    {
+      "pincode": "600087",
+      "areasEnglish": "Valasaravakkam",
+      "areasTamil": "வளசரவாக்கம்"
+    },
+    {
+      "pincode": "600089",
+      "areasEnglish": "Ramapuram, Nandambakkam",
+      "areasTamil": "இராமபுரம், நந்தம்பாக்கம்"
+    },
+    {
+      "pincode": "600095",
+      "areasEnglish": "Maduravoyal",
+      "areasTamil": "மதுரவாயல்"
+    },
+    {
+      "pincode": "600116",
+      "areasEnglish": "Porur",
+      "areasTamil": "பூரூர்"
+    },
+    {
+      "pincode": "600125",
+      "areasEnglish": "Manapakkam",
+      "areasTamil": "மணப்பாக்கம்"
+    }
+  ]
+}

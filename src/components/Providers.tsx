@@ -4,9 +4,10 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { createAuthAdapter } from "@/lib/auth";
 import type { AuthAdapter, AuthUser } from "@/lib/auth/types";
 import { addLine, clearCart, itemCount, readCart, removeLine, setQuantity, writeCart } from "@/lib/cart";
-import { DELIVERY_LOCATION_KEY, readConfirmedLocation, writeConfirmedLocation } from "@/lib/delivery";
+import { DELIVERY_LOCATION_KEY } from "@/lib/delivery";
 import { detectBrowserLocale, parseLocale, persistLocale, readStoredLocale } from "@/lib/language";
-import type { CartLine, ConfirmedLocation, Locale } from "@/lib/types";
+import { readConfirmedServiceArea, writeConfirmedServiceArea } from "@/lib/service-area";
+import type { CartLine, ConfirmedServiceArea, Locale } from "@/lib/types";
 import { AppShell } from "@/components/AppShell";
 
 type LanguageValue = {
@@ -26,8 +27,8 @@ type CartValue = {
 };
 
 type DeliveryValue = {
-  confirmed: ConfirmedLocation | null;
-  confirm: (location: ConfirmedLocation) => void;
+  confirmed: ConfirmedServiceArea | null;
+  confirm: (area: ConfirmedServiceArea) => void;
   clearLocation: () => void;
 };
 
@@ -71,7 +72,7 @@ export function Providers({ children, initialLocale = "en" }: { children: React.
   const [lines, setLines] = useState<CartLine[]>([]);
   const [cartReady, setCartReady] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [confirmed, setConfirmed] = useState<ConfirmedLocation | null>(null);
+  const [confirmed, setConfirmed] = useState<ConfirmedServiceArea | null>(null);
   const [adapter, setAdapter] = useState<AuthAdapter | null>(null);
   const [user, setUser] = useState<AuthUser | null>(null);
 
@@ -84,7 +85,7 @@ export function Providers({ children, initialLocale = "en" }: { children: React.
     else persistLocale(next);
     setLines(readCart(window.localStorage));
     setCartReady(true);
-    setConfirmed(readConfirmedLocation(window.localStorage));
+    setConfirmed(readConfirmedServiceArea(window.localStorage));
     const auth = createAuthAdapter(window.localStorage);
     setAdapter(auth);
     void auth.getSession().then(setUser);
@@ -132,9 +133,9 @@ export function Providers({ children, initialLocale = "en" }: { children: React.
   const delivery = useMemo<DeliveryValue>(
     () => ({
       confirmed,
-      confirm(location) {
-        writeConfirmedLocation(window.localStorage, location);
-        setConfirmed(location);
+      confirm(area) {
+        writeConfirmedServiceArea(window.localStorage, area);
+        setConfirmed(area);
       },
       clearLocation() {
         window.localStorage.removeItem(DELIVERY_LOCATION_KEY);

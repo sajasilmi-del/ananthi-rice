@@ -1,7 +1,6 @@
 "use client";
 
 import { t } from "@/lib/i18n";
-import { formatDistanceKm } from "@/lib/delivery";
 import type { OrderRequest } from "@/lib/orders";
 import { formatInr } from "@/lib/shop";
 import type { Locale } from "@/lib/types";
@@ -38,13 +37,13 @@ export function CheckoutConfirmation({ order, locale }: { order: OrderRequest; l
         {t(locale, "checkout.orderId")}: {order.id}
       </p>
       <p data-testid="confirmation-customer">
-        {t(locale, "checkout.customerDetails")}: {order.customer.name}, {order.customer.mobile}, {order.customer.email}
+        {t(locale, "checkout.customerDetails")}: {order.customer.name}, {order.customer.mobile}
       </p>
       <p data-testid="confirmation-address">
         {t(locale, "checkout.deliveryAddress")}: {order.customer.address}
       </p>
-      <p data-testid="confirmation-distance">
-        {t(locale, "checkout.distance")}: {formatDistanceKm(order.distanceKm)} {t(locale, "checkout.kilometre")}
+      <p data-testid="confirmation-area">
+        {t(locale, "checkout.serviceArea")}: {locale === "ta" ? order.serviceArea.areasTamil : order.serviceArea.areasEnglish} ({order.serviceArea.pincode})
       </p>
       <div className="stack" data-testid="confirmation-products">
         <h3>{t(locale, "checkout.products")}</h3>

@@ -1,6 +1,5 @@
 import { getProduct, getVariant, isPurchasable, unitPrice } from "@/lib/catalog";
 import type { CartLine, DeliveryConfig, Variant } from "@/lib/types";
-import type { DeliveryResult } from "@/lib/delivery";
 
 export const CART_STORAGE_KEY = "ananthi.cart";
 
@@ -115,7 +114,7 @@ export function subtotal(lines: CartLine[]): number | null {
   return sum;
 }
 
-export function deliveryFee(result: DeliveryResult, config: DeliveryConfig): number | null {
+export function deliveryFee(result: { status: string }, config: DeliveryConfig): number | null {
   if (result.status !== "available") return null;
   return config.feeWhenAvailableInr;
 }

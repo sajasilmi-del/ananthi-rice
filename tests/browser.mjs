@@ -36,7 +36,7 @@ async function checkDetail(page, spec) {
   await page.getByRole("button", { name: "Add to Cart" }).waitFor();
   await page.getByRole("button", { name: "Buy Now" }).waitFor();
   await page.getByTestId("whatsapp-product").waitFor();
-  await page.getByTestId("delivery-map").waitFor();
+  check((await page.getByTestId("delivery-note").innerText()).includes("pincode"), `${spec.path} delivery note`);
   check((await page.getByTestId("related-products").locator("a").count()) > 0, `${spec.path} related products`);
 }
 
@@ -89,7 +89,7 @@ try {
   await page.goto(`${base}/account`, { waitUntil: "networkidle" });
   check((await page.locator("body").innerText()).includes("பதிவு செய்"), "Account page was not Tamil");
   await page.goto(`${base}/checkout`, { waitUntil: "networkidle" });
-  check((await page.locator("body").innerText()).includes("வாடிக்கையாளர் விவரங்கள்"), "Checkout was not Tamil");
+  check((await page.locator("body").innerText()).includes("வீட்டு டெலிவரி அஞ்சல் குறியீடு"), "Checkout was not Tamil");
   await page.goto(base, { waitUntil: "networkidle" });
   await page.getByRole("button", { name: "கார்ட்டில் சேர்" }).first().waitFor();
   check((await page.locator("html").getAttribute("lang")) === "ta", "Tamil did not persist across navigation");
@@ -161,8 +161,9 @@ try {
 
   const totals = await page.getByTestId("cart-totals").innerText();
   check(totals.includes("₹990.00"), `Cart subtotal was ${totals}`);
-  check(totals.includes("Price available at checkout"), `Cart total should stay unset until delivery is known: ${totals}`);
-  check(totals.includes("not configured"), `Cart delivery fee hid the empty origin: ${totals}`);
+  check(totals.includes("Free"), `Cart delivery fee was ${totals}`);
+  check(totals.includes("Chennai"), `Cart delivery note was ${totals}`);
+  check(!totals.includes("not configured"), `Cart still described an unset origin: ${totals}`);
   check(totals.includes("Subtotal") && totals.includes("Delivery fee") && totals.includes("Total"), `Cart totals were incomplete: ${totals}`);
 
   await page.reload({ waitUntil: "networkidle" });
@@ -188,7 +189,7 @@ try {
   check(!desktopCartOverflow, "Desktop cart overflowed");
   await page.getByTestId("cart-checkout").click();
   await page.waitForURL(/\/checkout/);
-  check(await page.getByTestId("checkout-submit").isDisabled(), "Checkout opened from the cart was available without a configured origin");
+  check(await page.getByTestId("checkout-submit").isDisabled(), "Checkout opened before a pincode was confirmed");
   await page.goto(`${base}/cart`, { waitUntil: "networkidle" });
 
   await page.setViewportSize({ width: 390, height: 844 });
@@ -210,39 +211,62 @@ try {
   await page.goto(base, { waitUntil: "networkidle" });
   await page.getByTestId("add-ponni-boiled-rice").click();
   await page.goto(`${base}/checkout`, { waitUntil: "networkidle" });
-  check(await page.getByTestId("checkout-submit").isDisabled(), "Checkout was available without a configured origin");
-  const deliveryText = await page.getByTestId("checkout-delivery").innerText();
-  check(deliveryText.includes("not configured"), `Unexpected delivery status: ${deliveryText}`);
-  check(!deliveryText.includes("Delivery available"), "Checkout showed delivery as available");
-  await page.getByTestId("payment-upi").check();
+  check(await page.getByTestId("checkout-submit").isDisabled(), "Checkout was available before a pincode");
+  check((await page.locator("[data-checkout-step='address']").count()) === 0, "Address fields showed before a pincode");
+  check((await page.locator("[data-checkout-step='payment']").count()) === 0, "Payment showed before a pincode");
+  await page.getByTestId("delivery-pincode").fill("623707");
+  const sorryText = await page.getByTestId("checkout-delivery").innerText();
+  check(sorryText.includes("can't deliver"), `Outside pincode status was ${sorryText}`);
+  check((await page.locator("[data-checkout-step='address']").count()) === 0, "Address fields showed for Paramakudi");
+  check(await page.getByTestId("checkout-submit").isDisabled(), "Paramakudi pincode unblocked checkout");
+  await page.getByTestId("delivery-pincode").fill("600089");
+  const confirmedText = await page.getByTestId("checkout-delivery").innerText();
+  check(confirmedText.includes("Ramapuram") && confirmedText.includes("600089"), `Confirmed pincode status was ${confirmedText}`);
+  check((await page.locator("[data-checkout-step='payment']").count()) === 0, "Payment showed before the address");
+  await page.getByTestId("address-name").fill("Anand");
+  await page.getByTestId("address-door").fill("12");
+  await page.getByTestId("address-building").fill("Hillcrest");
+  await page.getByTestId("address-street").fill("2nd Main Road");
+  await page.getByTestId("address-locality").fill("Ramapuram");
+  check((await page.getByTestId("address-city").inputValue()) === "Chennai", "City was not Chennai");
+  check((await page.getByTestId("address-pincode").inputValue()) === "600089", "Address pincode did not follow the check");
+  check((await page.locator("[data-checkout-step='payment']").count()) === 0, "Payment showed before the phone number");
+  await page.getByTestId("address-phone").fill("9876543210");
+  await page.getByTestId("payment-upi").waitFor();
   await page.getByTestId("payment-card").check();
   await page.getByTestId("payment-netbanking").check();
   await page.getByTestId("payment-cod").check();
-  check(await page.getByTestId("checkout-submit").isDisabled(), "Selecting a payment method unblocked checkout");
+  check(!(await page.getByTestId("checkout-submit").isDisabled()), "A complete Chennai address left checkout disabled");
   const checkoutText = await page.locator("body").innerText();
   check(!/payment successful|payment success|order paid|paid successfully/i.test(checkoutText), "Checkout claimed a payment success");
   check((await page.getByTestId("order-summary").innerText()).includes("Ponni Boiled Rice"), "Order summary hid the product");
   check((await page.getByTestId("summary-subtotal").innerText()).includes("₹160.00"), "Order summary hid the catalog price");
   const summaryFee = await page.getByTestId("summary-fee").innerText();
-  check(summaryFee.includes("not configured"), `Order summary hid the empty origin: ${summaryFee}`);
-  check(!summaryFee.includes("Delivery available"), "Order summary showed delivery as available");
+  check(summaryFee.includes("Free"), `Order summary fee was ${summaryFee}`);
+  check(!summaryFee.includes("not configured"), "Order summary still described an unset origin");
   const fallback = await page.getByTestId("checkout-whatsapp").getAttribute("href");
   check(fallback?.startsWith("https://wa.me/919942034428?text="), `Checkout WhatsApp fallback was ${fallback}`);
-  check(decodeURIComponent(fallback.split("text=")[1]).includes("Product:"), "Checkout WhatsApp fallback omitted the product");
+  const fallbackText = decodeURIComponent(fallback.split("text=")[1]);
+  check(fallbackText.includes("Product:"), "Checkout WhatsApp fallback omitted the product");
+  check(fallbackText.includes("600089"), "Checkout WhatsApp fallback omitted the pincode");
   const flow = await page.getByTestId("checkout-flow").innerText();
   check(
-    flow.includes("Cart") && flow.includes("Customer") && flow.includes("Delivery check") && flow.includes("Payment") && flow.includes("Confirmation"),
+    flow.includes("Cart") && flow.includes("Pincode") && flow.includes("Address") && flow.includes("Payment") && flow.includes("Confirmation"),
     `Checkout flow was ${flow}`,
   );
   const stepOrder = await page.locator("[data-checkout-step]").evaluateAll((nodes) => nodes.map((node) => node.getAttribute("data-checkout-step")));
-  check(stepOrder.join(",") === "cart,customer,location,radius,address,summary,payment", `Checkout steps were ${stepOrder.join(",")}`);
+  check(stepOrder.join(",") === "cart,pincode,address,summary,payment", `Checkout steps were ${stepOrder.join(",")}`);
   await page.getByTestId("lang-ta").click();
   await page.getByRole("heading", { name: "செக்அவுட்" }).waitFor();
   const tamilFlow = await page.getByTestId("checkout-flow").innerText();
   check(tamilFlow.includes("கார்ட்") && tamilFlow.includes("கட்டணம்"), `Tamil checkout flow was ${tamilFlow}`);
   const tamilDelivery = await page.getByTestId("checkout-delivery").innerText();
-  check(tamilDelivery.includes("அமைக்கப்படவில்லை"), `Tamil checkout delivery was ${tamilDelivery}`);
-  check(!tamilDelivery.includes("Delivery available"), "Tamil checkout used the English available sentence");
+  check(tamilDelivery.includes("இராமபுரம்") && tamilDelivery.includes("600089"), `Tamil checkout delivery was ${tamilDelivery}`);
+  check((await page.getByTestId("address-city").inputValue()) === "சென்னை", "Tamil city was not Chennai");
+  await page.getByTestId("delivery-pincode").fill("600001");
+  const tamilSorry = await page.getByTestId("checkout-delivery").innerText();
+  check(tamilSorry.includes("மன்னிக்கவும்"), `Tamil sorry message was ${tamilSorry}`);
+  check((await page.locator("[data-checkout-step='address']").count()) === 0, "Tamil address stayed open for an outside pincode");
   await page.setViewportSize({ width: 390, height: 844 });
   const checkoutOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
   check(!checkoutOverflow, "Checkout overflowed at 390px");
@@ -281,25 +305,18 @@ try {
   check(tamilText.includes("பொருள்:"), "Tamil WhatsApp message is missing the product line");
 
   await page.getByTestId("lang-en").click();
-  await page.getByTestId("delivery-map").waitFor();
-  await page.getByTestId("use-current-location").click();
-  await page.getByTestId("confirm-location").click();
-  await page.getByTestId("delivery-saved").waitFor();
-  const savedStatus = await page.getByTestId("delivery-status").innerText();
-  check(savedStatus.includes("not configured"), `Confirmed location did not keep the empty origin: ${savedStatus}`);
-  check(!savedStatus.includes("Delivery available"), "A saved pin was treated as inside the delivery radius");
-  await page.goto(`${base}/cart`, { waitUntil: "networkidle" });
-  check((await page.getByTestId("delivery-status").innerText()).includes("not configured"), "Cart did not reuse the delivery check");
-  await page.getByTestId("change-location").click();
-  await page.getByTestId("use-current-location").waitFor();
+  check((await page.getByTestId("delivery-note").innerText()).includes("pincode"), "Product page omitted the pincode note");
   await page.goto(base, { waitUntil: "networkidle" });
-  await page.getByTestId("delivery-picker").waitFor();
-  check((await page.getByTestId("delivery-status").innerText()).includes("not configured"), "Homepage did not reuse the delivery check");
+  await page.getByTestId("delivery-areas").waitFor();
+  const homeAreas = await page.getByTestId("delivery-areas").innerText();
+  check(homeAreas.includes("600089") && homeAreas.includes("Ramapuram"), `Home delivery areas were ${homeAreas}`);
+  check((await page.getByTestId("place-note-paramakudi").innerText()).includes("Head office"), "Paramakudi was not kept as the head office");
+  check((await page.getByTestId("place-note-chennai").innerText()).includes("Chennai"), "Chennai card omitted the delivery note");
   await page.goto(`${base}/checkout`, { waitUntil: "networkidle" });
-  const sharedDelivery = await page.getByTestId("checkout-delivery").innerText();
-  check(sharedDelivery.includes("not configured"), `Checkout lost the empty origin: ${sharedDelivery}`);
-  check(!sharedDelivery.includes("Delivery available"), "Checkout showed delivery as available");
-  check(await page.getByTestId("checkout-submit").isDisabled(), "Order placement was enabled without a configured origin");
+  await page.getByTestId("delivery-pincode").fill("600032");
+  const guindy = await page.getByTestId("checkout-delivery").innerText();
+  check(guindy.includes("Guindy") && guindy.includes("Ekkatuthangal"), `600032 status was ${guindy}`);
+  check(await page.getByTestId("checkout-submit").isDisabled(), "Pincode alone enabled payment");
   const productImage = await page.request.get(`${base}/products/001_Ponni_Boiled_Rice_ANANTHI.png`);
   const logoImage = await page.request.get(`${base}/logos/Ananthi_Logo.png`);
   check(productImage.status() === 200, `Product image status ${productImage.status()}`);
@@ -399,7 +416,9 @@ try {
   await page.goto(`${base}/faq`, { waitUntil: "networkidle" });
   check((await page.locator("body").innerText()).includes("What rice varieties do you sell?"), "FAQ did not render");
   await page.goto(`${base}/legal/delivery`, { waitUntil: "networkidle" });
-  check((await page.locator("body").innerText()).includes("5 km"), "Delivery policy did not render");
+  const policy = await page.locator("body").innerText();
+  check(policy.includes("600089") && policy.includes("Paramakudi") && policy.includes("not available"), `Delivery policy was ${policy.slice(0, 400)}`);
+  check(!policy.includes("5 km"), "Delivery policy still promised a 5 km radius");
 
   await page.setViewportSize({ width: 1280, height: 800 });
   page.setDefaultNavigationTimeout(60000);

@@ -71,6 +71,17 @@
 /* Checkout sections as cards */
 .checkout-page form { gap: var(--space-4); }
 
+.pincode-check {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: end;
+}
+
+.checkout-page input[readonly] {
+  background: var(--color-surface);
+}
+
 .checkout-page [data-checkout-step] {
   padding: var(--space-5);
   border: 1px solid var(--color-line);
@@ -97,6 +108,7 @@
 .checkout-page form > button[type="submit"] { justify-self: start; min-width: 14rem; }
 
 @media (max-width: 767px) {
+  .pincode-check { grid-template-columns: 1fr; }
   .checkout-page [data-checkout-step] { padding: var(--space-4); }
   .checkout-page form > .btn,
   .checkout-page form > button[type="submit"] { width: 100%; }

@@ -1,4 +1,3 @@
-import type { ConfirmedLocation } from "@/lib/types";
 import type { PaymentIntent } from "@/lib/payment/types";
 
 export const ORDER_STORAGE_KEY = "ananthi.orderRequests";
@@ -23,8 +22,12 @@ export type OrderRequest = {
     email: string;
     address: string;
   };
-  location: ConfirmedLocation;
-  distanceKm: number;
+  serviceArea: {
+    source: "pincode";
+    pincode: string;
+    areasEnglish: string;
+    areasTamil: string;
+  };
   lines: OrderLine[];
   subtotal: number | null;
   deliveryFee: number | null;

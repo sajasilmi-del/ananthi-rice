@@ -34,16 +34,18 @@
     "titleTamil": "டெலிவரி கொள்கை",
     "titleEnglish": "Delivery Policy",
     "bodyTamil": [
-      "டெலிவரி இயக்கத்தில் உள்ளது. ஆரம் 5 கி.மீ.",
-      "கடை தொடக்க இடத்தின் ஆயத்தொலைவுகள் இன்னும் தரப்படவில்லை. அவை அமைக்கப்படும் வரை டெலிவரியை உறுதிப்படுத்த முடியாது.",
-      "வணிகம் தேர்ந்தெடுத்த பகுதிகளில் இலவச வீட்டு டெலிவரி உண்டு என்று கூறுகிறது.",
-      "5 கி.மீ.க்கு வெளியே டெலிவரி இல்லை."
+      "வீட்டு டெலிவரி சென்னையில் மட்டும், இந்த அஞ்சல் குறியீடுகளுக்கு மட்டும்: 600032 கிண்டி, எக்கட்டுத்தாங்கல்; 600078 கே.கே. நகர், எம்.ஜி.ஆர். நகர், நேசபாக்கம்; 600083 அசோக் நகர்; 600087 வளசரவாக்கம்; 600089 இராமபுரம், நந்தம்பாக்கம்; 600095 மதுரவாயல்; 600116 பூரூர்; 600125 மணப்பாக்கம்.",
+      "செக்அவுட்டில் வீட்டு டெலிவரி அஞ்சல் குறியீட்டை உள்ளிடுங்கள். இந்தப் பட்டியலில் இருந்தால் டெலிவரி உறுதி செய்யப்படும். பிறகு முழு முகவரியையும் தொலைபேசி எண்ணையும் உள்ளிட்டு கட்டணத்திற்குச் செல்லுங்கள்.",
+      "வேறு அஞ்சல் குறியீட்டிற்கு இப்போது வீட்டு டெலிவரி இல்லை.",
+      "பரமக்குடி தலைமை அலுவலகம். பரமக்குடியிலிருந்து இப்போது வீட்டு டெலிவரி இல்லை.",
+      "மேலே உள்ள சென்னை அஞ்சல் குறியீடுகளுக்கு வீட்டு டெலிவரி இலவசம்."
     ],
     "bodyEnglish": [
-      "Delivery is enabled. The radius is 5 km.",
-      "Store origin coordinates have not been supplied yet. Delivery cannot be confirmed until they are configured.",
-      "The business states that free door delivery is available in selected areas.",
-      "There is no delivery outside 5 km."
+      "Home delivery is available only in Chennai, and only for these pincodes: 600032 Guindy, Ekkatuthangal; 600078 K.K. Nagar, MGR Nagar, Nesapakkam; 600083 Ashok Nagar; 600087 Valasaravakkam; 600089 Ramapuram, Nandambakkam; 600095 Maduravoyal; 600116 Porur; 600125 Manapakkam.",
+      "Enter the home delivery pincode at checkout. Delivery is confirmed when the pincode is on this list. Then enter the full address and phone number to continue to payment.",
+      "For any other pincode, home delivery is not available right now.",
+      "Paramakudi is the head office. Home delivery is not available from Paramakudi right now.",
+      "Door delivery is free for the Chennai pincodes listed above."
     ]
   },
   {

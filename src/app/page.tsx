@@ -12,11 +12,10 @@ import {
   site,
   visibleProducts,
 } from "@/lib/catalog";
-import { DELIVERY_RADIUS_KM } from "@/lib/delivery";
-import { formatMessage, t } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
 import { locationDirectionsUrl } from "@/lib/maps";
 import { cartWhatsAppUrl } from "@/lib/whatsapp";
-import { DeliveryPicker } from "@/components/DeliveryPicker";
+import { DeliveryAreas } from "@/components/DeliveryAreas";
 import { StoreMap } from "@/components/StoreMap";
 import { ProductPurchase } from "@/components/ProductPurchase";
 import { useAuth, useCart, useDeliveryLocation, useLanguage } from "@/components/Providers";
@@ -233,7 +232,7 @@ export default function HomePage() {
             <SectionHeading title={t(locale, "home.deliveryTitle")} />
           </div>
           <p className="lede">{locale === "ta" ? site.freeDeliveryTamil : site.freeDeliveryEnglish}</p>
-          <p className="muted">{formatMessage(t(locale, "home.deliveryRadius"), { km: DELIVERY_RADIUS_KM })}</p>
+          <p className="muted">{t(locale, "home.deliveryRadius")}</p>
           <Link className="arrow-link" href="/legal/delivery">{t(locale, "home.deliveryPolicy")}</Link>
           <h3 className="visit-subhead">{t(locale, "home.locationsTitle")}</h3>
           <div className="place-grid">
@@ -245,6 +244,9 @@ export default function HomePage() {
                   <div className="place-copy">
                     <h4>{locale === "ta" ? location.nameTamil : location.nameEnglish}</h4>
                     <address>{linesForPlace.join(", ")}</address>
+                    <p className="muted" data-testid={`place-note-${location.id}`}>
+                      {t(locale, location.role === "head_office_direct_sales" ? "delivery.paramakudiOffice" : "delivery.chennaiBranch")}
+                    </p>
                     <a className="arrow-link" href={locationDirectionsUrl(location)} target="_blank" rel="noreferrer">
                       {t(locale, "contact.directions")}
                     </a>
@@ -255,7 +257,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="visit-picker">
-          <DeliveryPicker heading="h3" />
+          <DeliveryAreas />
         </div>
         {locations.filter((location) => location.latitude != null).map((location) => (
           <div className="visit-map" key={`map-${location.id}`}>

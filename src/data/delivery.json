@@ -6,5 +6,5 @@
     "longitude": null
   },
   "feeWhenAvailableInr": 0,
-  "notes": "Origin latitude and longitude were not supplied. Production must set DELIVERY_ORIGIN_LATITUDE and DELIVERY_ORIGIN_LONGITUDE. Leave this file null until the business provides coordinates. Do not invent coordinates and do not copy a customer's location into the origin. The delivery radius is DELIVERY_RADIUS_KM = 5. feeWhenAvailableInr is 0 because the business states that door delivery is free in selected areas. No paid delivery fee was supplied."
+  "notes": "Customer home delivery is the Chennai pincode list in delivery-areas.json. Paramakudi is the head office and has no home delivery. Do not set an origin to unlock checkout, and do not invent coordinates. feeWhenAvailableInr is 0 because door delivery is free for the listed Chennai pincodes. radiusKm remains 5 only for the unused distance helper."
 }

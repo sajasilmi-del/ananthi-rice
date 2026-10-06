@@ -2,37 +2,38 @@ import { describe, expect, it } from "vitest";
 import { POST } from "@/app/api/checkout/route";
 import { getProduct } from "@/lib/catalog";
 import { reviewCheckout } from "@/lib/checkout-review";
-import { pointDueNorth } from "@/lib/delivery";
 import { PAYMENT_METHODS, type PaymentIntent, type PaymentMethod, type PaymentProvider } from "@/lib/payment/types";
 import type { DeliveryConfig } from "@/lib/types";
 
-const origin = { latitude: 9.5, longitude: 78.6 };
 const config: DeliveryConfig = {
   enabled: true,
   radiusKm: 5,
-  origin,
+  origin: { latitude: 9.5, longitude: 78.6 },
   feeWhenAvailableInr: 0,
 };
-const customer = {
-  name: "Anand",
-  mobile: "9876543210",
-  email: "anand@example.com",
-  address: "Paramakudi",
-};
 
-function location(distanceKm: number) {
+function draft(pincode = "600089", extra: Record<string, unknown> = {}) {
   return {
-    ...pointDueNorth(origin, distanceKm),
-    source: "map" as const,
-    addressLabel: "Pin",
-    confirmedAt: "2026-10-03T00:00:00.000Z",
-  };
-}
-
-function draft(distanceKm: number, extra: Record<string, unknown> = {}) {
-  return {
-    customer,
-    location: location(distanceKm),
+    locale: "en",
+    customer: {
+      name: "Anand",
+      mobile: "9876543210",
+      email: "anand@example.com",
+      address: "Paramakudi",
+      door: "12",
+      building: "Hillcrest",
+      street: "2nd Main Road",
+      locality: "Ramapuram",
+      city: "Mumbai",
+      pincode,
+    },
+    location: {
+      latitude: 13.0280447,
+      longitude: 80.1868165,
+      source: "map",
+      addressLabel: "Pin",
+      confirmedAt: "2026-10-03T00:00:00.000Z",
+    },
     lines: [{ productId: "ponni-boiled-rice", variantId: "1kg", quantity: 2, nameEnglish: "Fake name" }],
     method: "upi",
     payment: { status: "paid", reason: "captured" },
@@ -43,9 +44,9 @@ function draft(distanceKm: number, extra: Record<string, unknown> = {}) {
 }
 
 describe("checkout review", () => {
-  it("accepts an in-range order without taking payment or inventing a price", async () => {
+  it("accepts a listed Chennai pincode and ignores the client address, price, and payment claim", async () => {
     const review = await reviewCheckout({
-      draft: draft(4),
+      draft: draft(),
       config,
       createId: () => "order-1",
       now: () => "2026-10-03T00:00:00.000Z",
@@ -56,8 +57,19 @@ describe("checkout review", () => {
     expect(review.order.id).toBe("order-1");
     expect(review.order.status).toBe("request_only");
     expect(review.order.payment).toEqual({ method: "upi", status: "not_confirmed", reason: "provider_not_configured" });
-    expect(review.order.customer).toEqual(customer);
-    expect(review.order.distanceKm).toBeCloseTo(4, 5);
+    expect(review.order.customer).toEqual({
+      name: "Anand",
+      mobile: "9876543210",
+      email: "",
+      address: "12, Hillcrest, 2nd Main Road, Ramapuram, Chennai 600089, 9876543210",
+    });
+    expect(review.order.serviceArea).toEqual({
+      source: "pincode",
+      pincode: "600089",
+      areasEnglish: "Ramapuram, Nandambakkam",
+      areasTamil: "இராமபுரம், நந்தம்பாக்கம்",
+    });
+    expect(review.order).not.toHaveProperty("distanceKm");
     expect(review.order.subtotal).toBe(320);
     expect(review.order.deliveryFee).toBe(0);
     expect(review.order.total).toBe(320);
@@ -69,17 +81,31 @@ describe("checkout review", () => {
       nameTamil: product?.nameTamil,
       lineTotal: 320,
     });
-    expect(review.order.subtotal).not.toBe(999);
-    expect(JSON.stringify(review.order)).not.toContain("paid");
-    expect(JSON.stringify(review.order)).not.toContain("Fake name");
+    const saved = JSON.stringify(review.order);
+    expect(saved).not.toContain("999");
+    expect(saved).not.toContain("Fake name");
+    expect(saved).not.toContain("Paramakudi");
+    expect(saved).not.toContain("Mumbai");
+    expect(saved).not.toContain("anand@example.com");
+    expect(saved).not.toContain("paid");
   });
 
-  it("rejects a pin outside 5 km, an empty cart, and a payment result that is not the unconfigured state", async () => {
-    const outside = await reviewCheckout({ draft: draft(5.01), config });
+  it("rejects a pincode outside Chennai, an empty cart, and a payment result that is not the unconfigured state", async () => {
+    const outside = await reviewCheckout({ draft: draft("623707"), config });
     expect(outside.ok).toBe(false);
-    if (!outside.ok) expect(outside.issues).toContain("delivery");
+    if (!outside.ok) {
+      expect(outside.issues).toContain("delivery");
+      expect(outside.delivery.status).toBe("unavailable");
+    }
 
-    const empty = await reviewCheckout({ draft: draft(4, { lines: [] }), config });
+    const gpsOnly = await reviewCheckout({
+      draft: draft("600089", { customer: { name: "Anand", mobile: "9876543210", address: "Near the shop" } }),
+      config,
+    });
+    expect(gpsOnly.ok).toBe(false);
+    if (!gpsOnly.ok) expect(gpsOnly.issues).toContain("delivery");
+
+    const empty = await reviewCheckout({ draft: draft("600089", { lines: [] }), config });
     expect(empty.ok).toBe(false);
     if (!empty.ok) expect(empty.issues).toContain("empty");
 
@@ -90,20 +116,28 @@ describe("checkout review", () => {
         return { method, status: "captured", reason: "ok" } as unknown as PaymentIntent;
       },
     };
-    const paid = await reviewCheckout({ draft: draft(4), config, provider: liar });
+    const paid = await reviewCheckout({ draft: draft(), config, provider: liar });
     expect(paid).toMatchObject({ ok: false, issues: ["payment"] });
   });
 
-  it("keeps an order unavailable when the server origin is not configured", async () => {
+  it("accepts a listed pincode when the distance origin is unset and still rejects a map pin", async () => {
     const review = await reviewCheckout({
-      draft: draft(0.5),
+      draft: draft("600032"),
       config: { ...config, origin: { latitude: null, longitude: null } },
     });
-    expect(review.ok).toBe(false);
-    if (!review.ok) {
-      expect(review.delivery.status).toBe("origin_not_configured");
-      expect(review.issues).toContain("delivery");
+    expect(review.ok).toBe(true);
+    if (review.ok) {
+      expect(review.order.serviceArea.pincode).toBe("600032");
+      expect(review.order.serviceArea.areasEnglish).toBe("Guindy, Ekkatuthangal");
+      expect(review.order.customer.address).toContain("Chennai 600032");
     }
+
+    const pin = await reviewCheckout({
+      draft: { ...draft("600001"), eligible: true },
+      config: { ...config, origin: { latitude: 13.0280447, longitude: 80.1868165 } },
+    });
+    expect(pin.ok).toBe(false);
+    if (!pin.ok) expect(pin.delivery.status).toBe("unavailable");
   });
 });
 
@@ -114,20 +148,32 @@ describe("checkout route", () => {
 
     const previousLatitude = process.env.DELIVERY_ORIGIN_LATITUDE;
     const previousLongitude = process.env.DELIVERY_ORIGIN_LONGITUDE;
-    process.env.DELIVERY_ORIGIN_LATITUDE = "";
-    process.env.DELIVERY_ORIGIN_LONGITUDE = "";
+    delete process.env.DELIVERY_ORIGIN_LATITUDE;
+    delete process.env.DELIVERY_ORIGIN_LONGITUDE;
     try {
       const response = await POST(
         new Request("http://localhost/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(draft(1)),
+          body: JSON.stringify(draft()),
         }),
       );
-      const body = (await response.json()) as { ok: boolean; order?: { payment?: { status?: string } } };
+      const body = (await response.json()) as { ok: boolean; order?: { status?: string; payment?: { status?: string } } };
       expect(response.status).toBe(200);
-      expect(body.ok).toBe(false);
-      expect(body.order).toBeUndefined();
+      expect(body.ok).toBe(true);
+      expect(body.order?.status).toBe("request_only");
+      expect(body.order?.payment?.status).toBe("not_confirmed");
+
+      const blocked = await POST(
+        new Request("http://localhost/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(draft("623707")),
+        }),
+      );
+      const blockedBody = (await blocked.json()) as { ok: boolean; issues?: string[] };
+      expect(blockedBody.ok).toBe(false);
+      expect(blockedBody.issues).toContain("delivery");
     } finally {
       if (previousLatitude === undefined) delete process.env.DELIVERY_ORIGIN_LATITUDE;
       else process.env.DELIVERY_ORIGIN_LATITUDE = previousLatitude;
@@ -141,12 +187,12 @@ describe("checkout route", () => {
     const previousLongitude = process.env.DELIVERY_ORIGIN_LONGITUDE;
     const previousKey = process.env.RAZORPAY_KEY_ID;
     const previousSecret = process.env.RAZORPAY_KEY_SECRET;
-    process.env.DELIVERY_ORIGIN_LATITUDE = "9.5";
-    process.env.DELIVERY_ORIGIN_LONGITUDE = "78.6";
+    delete process.env.DELIVERY_ORIGIN_LATITUDE;
+    delete process.env.DELIVERY_ORIGIN_LONGITUDE;
     delete process.env.RAZORPAY_KEY_ID;
     delete process.env.RAZORPAY_KEY_SECRET;
     const forged = {
-      ...draft(4),
+      ...draft("600116"),
       razorpay: { orderId: "order_forged", paymentId: "pay_forged", signature: "forged" },
     };
     try {
@@ -157,10 +203,11 @@ describe("checkout route", () => {
           body: JSON.stringify(forged),
         }),
       );
-      const unpaidBody = (await unpaid.json()) as { ok: boolean; order?: { status?: string; payment?: { status?: string } } };
+      const unpaidBody = (await unpaid.json()) as { ok: boolean; order?: { status?: string; payment?: { status?: string }; serviceArea?: { pincode?: string } } };
       expect(unpaidBody.ok).toBe(true);
       expect(unpaidBody.order?.status).toBe("request_only");
       expect(unpaidBody.order?.payment?.status).toBe("not_confirmed");
+      expect(unpaidBody.order?.serviceArea?.pincode).toBe("600116");
 
       process.env.RAZORPAY_KEY_ID = "rzp_test_example";
       process.env.RAZORPAY_KEY_SECRET = "test-secret";
