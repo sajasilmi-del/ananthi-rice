@@ -33,6 +33,12 @@ describe("razorpay test keys", () => {
       "test",
     );
     expect(readRazorpayConfig({ KEY_ID: "rzp_test_example", KEY_SECRET: "secret" } as NodeJS.ProcessEnv)?.mode).toBe("test");
+    expect(readRazorpayConfig({ rzp_test_example: "secret" } as NodeJS.ProcessEnv)).toMatchObject({
+      keyId: "rzp_test_example",
+      keySecret: "secret",
+      mode: "test",
+    });
+    expect(readRazorpayConfig({ rzp_test_example: "rzp_test_example" } as NodeJS.ProcessEnv)).toBeNull();
     expect(readRazorpayStatus({} as NodeJS.ProcessEnv)).toEqual({ enabled: false, mode: null, reason: "missing", names: [] });
     expect(readRazorpayStatus({ RAZORPAY_KEY_ID: "rzp_test_example" } as NodeJS.ProcessEnv)).toMatchObject({
       enabled: false,

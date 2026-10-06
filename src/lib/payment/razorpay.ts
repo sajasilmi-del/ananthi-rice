@@ -52,6 +52,7 @@ export function razorpayEnvNames(env: NodeJS.ProcessEnv = process.env): string[]
       const raw = env[name];
       return typeof raw === "string" && unwrapEnv(raw).length > 0;
     })
+    .map((name) => (name.startsWith("rzp_test_") || name.startsWith("rzp_live_") ? "key id used as the name" : name))
     .sort();
 }
 
@@ -66,6 +67,18 @@ function parseKeyCsv(text: string): { keyId: string; keySecret: string } | null 
   return { keyId, keySecret };
 }
 
+function keyStoredAsName(env: NodeJS.ProcessEnv): { keyId: string; keySecret: string } | null {
+  for (const [name, raw] of Object.entries(env)) {
+    if (typeof raw !== "string") continue;
+    const keyId = unwrapEnv(name);
+    const keySecret = unwrapEnv(raw);
+    if (!keyId.startsWith("rzp_test_") && !keyId.startsWith("rzp_live_")) continue;
+    if (!keySecret || keySecret === keyId || keySecret.startsWith("rzp_test_") || keySecret.startsWith("rzp_live_")) continue;
+    return { keyId, keySecret };
+  }
+  return null;
+}
+
 function readKeyPair(env: NodeJS.ProcessEnv): { keyId: string; keySecret: string } {
   let keyId = envValue(env, KEY_ID_NAMES);
   let keySecret = envValue(env, KEY_SECRET_NAMES);
@@ -75,6 +88,10 @@ function readKeyPair(env: NodeJS.ProcessEnv): { keyId: string; keySecret: string
       keyId = pasted.keyId;
       keySecret = pasted.keySecret;
     }
+  }
+  if ((!keyId.startsWith("rzp_test_") && !keyId.startsWith("rzp_live_")) || !keySecret) {
+    const storedAsName = keyStoredAsName(env);
+    if (storedAsName) return storedAsName;
   }
   return { keyId, keySecret };
 }
