@@ -53,8 +53,9 @@ describe("production SEO", () => {
     expect(product).toBeDefined();
     const plain = productJsonLd(product as Product, "en");
     expect(plain.name).toBe(product?.nameEnglish);
-    expect(plain).not.toHaveProperty("offers");
-    expect(JSON.stringify(plain)).not.toMatch(/₹|\"price\"/);
+    const offers = plain.offers as { price: number; priceCurrency: string }[];
+    expect(offers.map((offer) => offer.price)).toEqual([160, 799, 1419, 2939]);
+    expect(offers.every((offer) => offer.priceCurrency === "INR" && !("availability" in offer))).toBe(true);
 
     const priced = {
       ...(product as Product),

@@ -8,7 +8,7 @@ function check(condition, message) {
 }
 
 async function checkDetail(page, spec) {
-  await page.goto(`${base}${spec.path}`, { waitUntil: "domcontentloaded" });
+  await page.goto(`${base}${spec.path}`, { waitUntil: "networkidle" });
   await page.getByTestId("product-breadcrumb").waitFor();
   await page.getByTestId("product-gallery").waitFor();
   const title = await page.title();
@@ -24,15 +24,14 @@ async function checkDetail(page, spec) {
   check((await page.getByTestId("product-description").innerText()).length > 0, `${spec.path} description`);
   const select = page.getByTestId("product-pack");
   check((await select.locator("option").count()) === spec.packCount, `${spec.path} pack count`);
+  check((await page.getByTestId("product-price").innerText()).includes(spec.price), `${spec.path} price`);
   if (spec.packValue) {
     await select.selectOption(spec.packValue);
     check((await select.inputValue()) === spec.packValue, `${spec.path} pack size did not change`);
   }
-  if (spec.unknownPack) {
-    check((await select.locator("option").first().innerText()).includes("Pack size not listed"), `${spec.path} pack label`);
-    check(!(await page.getByTestId(`product-${spec.id}`).innerText()).includes("printed brochure"), `${spec.path} showed a rice pack note`);
+  if (spec.packPrice) {
+    check((await page.getByTestId("product-price").innerText()).includes(spec.packPrice), `${spec.path} pack price`);
   }
-  check((await page.getByTestId("product-price").innerText()).includes("Price available at checkout"), `${spec.path} price`);
   check((await page.getByTestId("product-availability").innerText()).includes("Availability not listed"), `${spec.path} availability`);
   await page.getByRole("button", { name: "Add to Cart" }).waitFor();
   await page.getByRole("button", { name: "Buy Now" }).waitFor();
@@ -161,7 +160,8 @@ try {
   check((await page.getByTestId("cart-count").innerText()) === "5", "Remove did not update the badge");
 
   const totals = await page.getByTestId("cart-totals").innerText();
-  check(totals.includes("Price available at checkout"), `Cart totals invented a price: ${totals}`);
+  check(totals.includes("₹990.00"), `Cart subtotal was ${totals}`);
+  check(totals.includes("Price available at checkout"), `Cart total should stay unset until delivery is known: ${totals}`);
   check(totals.includes("not configured"), `Cart delivery fee hid the empty origin: ${totals}`);
   check(totals.includes("Subtotal") && totals.includes("Delivery fee") && totals.includes("Total"), `Cart totals were incomplete: ${totals}`);
 
@@ -222,7 +222,7 @@ try {
   const checkoutText = await page.locator("body").innerText();
   check(!/payment successful|payment success|order paid|paid successfully/i.test(checkoutText), "Checkout claimed a payment success");
   check((await page.getByTestId("order-summary").innerText()).includes("Ponni Boiled Rice"), "Order summary hid the product");
-  check((await page.getByTestId("summary-subtotal").innerText()).includes("Price available at checkout"), "Order summary invented a price");
+  check((await page.getByTestId("summary-subtotal").innerText()).includes("₹160.00"), "Order summary hid the catalog price");
   const summaryFee = await page.getByTestId("summary-fee").innerText();
   check(summaryFee.includes("not configured"), `Order summary hid the empty origin: ${summaryFee}`);
   check(!summaryFee.includes("Delivery available"), "Order summary showed delivery as available");
@@ -261,10 +261,11 @@ try {
   check((await page.getByTestId("related-products").locator("a").count()) > 0, "Related products missing");
   check(await page.locator(".gallery-thumb").count() === 0, "Gallery invented extra frames for a single image");
   const detailPrice = await page.getByTestId("product-price").innerText();
-  check(detailPrice.includes("Price available at checkout"), `Detail price state was ${detailPrice}`);
+  check(detailPrice.includes("₹160.00"), `Detail price state was ${detailPrice}`);
   const pack = page.getByTestId("product-pack");
   await pack.selectOption("5kg");
   check((await pack.inputValue()) === "5kg", "Pack size did not change");
+  check((await page.getByTestId("product-price").innerText()).includes("₹799.00"), "5 kg price did not follow the pack");
   check(await page.getByRole("button", { name: "Buy Now" }).isVisible(), "Buy Now was not visible");
   const englishHref = await page.getByTestId("whatsapp-product").getAttribute("href");
   check(englishHref?.startsWith("https://wa.me/919942034428?text="), `WhatsApp link was ${englishHref}`);
@@ -305,12 +306,12 @@ try {
   check(logoImage.status() === 200, `Logo image status ${logoImage.status()}`);
 
   const detailSamples = [
-    { id: "seeraga-samba-rice", path: "/products/seeraga-samba-rice", english: "Seeraga Samba Rice", tamil: "சீரக சம்பா அரிசி", category: "Biryani Rice", brand: "ANANTHI", packCount: 4, packValue: "10kg" },
-    { id: "karuppu-kavuni-rice", path: "/products/karuppu-kavuni-rice", english: "Karuppu Kavuni Rice", tamil: "கருப்பு கவுனி அரிசி", category: "Traditional Rice", brand: "MAHI", packCount: 4, packValue: "25kg" },
-    { id: "hand-pounded-ponni-boiled-rice", path: "/products/hand-pounded-ponni-boiled-rice", english: "Hand-Pounded Ponni Boiled Rice", tamil: "கைக்குத்தல் பொன்னி புழுங்கல் அரிசி", category: "Hand-Pounded Rice", brand: "ARTHY", packCount: 4, packValue: "1kg" },
-    { id: "ragi-sevai", path: "/products/ragi-sevai", english: "Ragi Sevai", tamil: "ராகி சேவை", category: "Sevai & Healthy Foods", brand: "SANTOSH", packCount: 1, unknownPack: true },
-    { id: "thinai", path: "/products/thinai", english: "Thinai / Foxtail Millet", tamil: "தினை", category: "Millets", brand: "ARTHY", packCount: 1, unknownPack: true },
-    { id: "rice-flour", path: "/products/rice-flour", english: "Rice Flour", tamil: "அரிசி மாவு", category: "Flour Products", brand: "ANANTHI", packCount: 1, unknownPack: true },
+    { id: "seeraga-samba-rice", path: "/products/seeraga-samba-rice", english: "Seeraga Samba Rice", tamil: "சீரக சம்பா அரிசி", category: "Biryani Rice", brand: "ANANTHI", packCount: 4, price: "₹420.00", packValue: "10kg", packPrice: "₹4,200.00" },
+    { id: "karuppu-kavuni-rice", path: "/products/karuppu-kavuni-rice", english: "Karuppu Kavuni Rice", tamil: "கருப்பு கவுனி அரிசி", category: "Traditional Rice", brand: "ANANTHI", packCount: 4, price: "₹320.00", packValue: "26kg", packPrice: "₹8,000.00" },
+    { id: "hand-pounded-ponni-boiled-rice", path: "/products/hand-pounded-ponni-boiled-rice", english: "Hand-Pounded Ponni Boiled Rice", tamil: "கைக்குத்தல் பொன்னி புழுங்கல் அரிசி", category: "Hand-Pounded Rice", brand: "ANANTHI", packCount: 4, price: "₹290.00", packValue: "1kg", packPrice: "₹290.00" },
+    { id: "ragi-sevai", path: "/products/ragi-sevai", english: "Ragi Sevai", tamil: "ராகி சேவை", category: "Sevai & Healthy Foods", brand: "MAHI", packCount: 4, price: "₹280.00", packValue: "5kg", packPrice: "₹1,400.00" },
+    { id: "thinai", path: "/products/thinai", english: "Thinai / Foxtail Millet", tamil: "தினை", category: "Millets", brand: "MAHI", packCount: 4, price: "₹320.00", packValue: "10kg", packPrice: "₹3,200.00" },
+    { id: "rice-flour", path: "/products/rice-flour", english: "Rice Flour", tamil: "அரிசி மாவு", category: "Flour Products", brand: "ANANTHI", packCount: 4, price: "₹100.00", packValue: "26kg", packPrice: "₹2,500.00" },
   ];
   for (const sample of detailSamples) await checkDetail(page, sample);
   const relatedHref = await page.getByTestId("related-products").locator("a").first().getAttribute("href");
@@ -406,7 +407,7 @@ try {
   check((await page.getByTestId("shop-category").inputValue()) === "everyday", "Category filter did not keep the query");
   await page.getByTestId("product-ponni-boiled-rice").waitFor();
   check((await page.getByTestId("product-ragi-sevai").count()) === 0, "Category filter showed a product from another category");
-  check((await page.getByTestId("product-ponni-boiled-rice").innerText()).includes("Price available at checkout"), "Shop card hid the checkout price state");
+  check((await page.getByTestId("product-ponni-boiled-rice").innerText()).includes("₹160.00"), "Shop card hid the 1 kg price");
 
   await page.goto(`${base}/products`, { waitUntil: "networkidle" });
   const countText = await page.getByTestId("shop-count").innerText();
@@ -440,9 +441,10 @@ try {
 
   await page.getByTestId("shop-brand").selectOption("mahi");
   await page.waitForURL(/brand=mahi/);
-  await page.getByTestId("product-karuppu-kavuni-rice").waitFor();
+  await page.getByTestId("product-ragi-sevai").waitFor();
   check((await page.getByTestId("product-ponni-boiled-rice").count()) === 0, "Brand filter kept another brand");
-  await page.getByTestId("add-karuppu-kavuni-rice").click();
+  check((await page.getByTestId("product-karuppu-kavuni-rice").count()) === 0, "MAHI filter kept an ANANTHI rice");
+  await page.getByTestId("add-ragi-sevai").click();
   await page.getByTestId("cart-drawer").waitFor();
 
   await page.goto(`${base}/products?sort=name-asc`, { waitUntil: "networkidle" });

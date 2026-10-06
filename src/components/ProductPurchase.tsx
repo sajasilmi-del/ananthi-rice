@@ -180,9 +180,7 @@ export function ProductPurchase({ product, detail = false }: { product: Product;
             />
           </label>
         </div>
-        {product.category !== "sevai" && product.category !== "millets" && product.category !== "flour" ? (
-          <p className="note">{locale === "ta" ? ricePackSizeNote.ta : ricePackSizeNote.en}</p>
-        ) : null}
+        <p className="note">{locale === "ta" ? ricePackSizeNote.ta : ricePackSizeNote.en}</p>
         <div className="product-actions">
           <Button data-brand={product.brand} data-testid={`add-${product.id}`} className="btn-lg" disabled={!purchasable} onClick={addCurrent}>
             {t(locale, "products.addToCart")}

@@ -42,7 +42,8 @@ describe("shop catalog", () => {
     }
     expect(queryProducts({ category: "not-a-category", brand: "not-a-brand" }).total).toBe(products.length);
     expect(queryProducts({ category: "millets", brand: "ananthi" }).total).toBe(0);
-    expect(queryProducts({ category: "millets", brand: "arthy" }).total).toBe(5);
+    expect(queryProducts({ category: "millets", brand: "arthy" }).total).toBe(1);
+    expect(queryProducts({ category: "millets", brand: "mahi" }).total).toBe(4);
     expect(brandFitsCategory("ananthi", "millets")).toBe(false);
     expect(brandFitsCategory("arthy", "millets")).toBe(true);
     expect(brandFitsCategory("ananthi", "flour")).toBe(true);
@@ -93,7 +94,11 @@ describe("shop catalog", () => {
       third.id,
     ]);
     expect(productSortPrice(sample[1])).toBe(80);
-    expect(products.every((product) => product.variants.every((variant) => variant.price == null && variant.salePrice == null))).toBe(true);
+    expect(
+      products.every((product) =>
+        product.variants.every((variant) => typeof variant.price === "number" && variant.price > 0 && variant.salePrice == null),
+      ),
+    ).toBe(true);
   });
 
   it("paginates the full catalog and clamps the page", () => {

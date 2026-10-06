@@ -60,8 +60,8 @@ describe("shopping cart", () => {
       `${basmati}:10kg`,
     ]);
     expect(itemCount(lines)).toBe(5);
-    expect(subtotal(lines)).toBeNull();
-    expect(lineAmount(lines[0])).toBeNull();
+    expect(lineAmount(lines[0])).toBe(480);
+    expect(subtotal(lines)).toBe(4779);
   });
 
   it("ignores invalid adds and unknown variants", () => {
@@ -70,21 +70,22 @@ describe("shopping cart", () => {
     expect(addLine(lines, { productId: ponni, variantId: "1kg", quantity: 1.2 })).toBe(lines);
     expect(addLine(lines, { productId: ponni, variantId: "no-such-pack", quantity: 1 })).toBe(lines);
     expect(addLine(lines, { productId: "missing-product", variantId: "1kg", quantity: 1 })).toEqual(lines);
-    expect(addLine([], { productId: flour, variantId: "unspecified", quantity: 1 })).toEqual([
-      { productId: flour, variantId: "unspecified", quantity: 1 },
+    expect(addLine([], { productId: flour, variantId: "1kg", quantity: 1 })).toEqual([
+      { productId: flour, variantId: "1kg", quantity: 1 },
     ]);
+    expect(addLine([], { productId: flour, variantId: "unspecified", quantity: 1 })).toEqual([]);
   });
 
   it("changes quantity, removes one pack, and clears the cart", () => {
     let lines = addLine([], { productId: ponni, variantId: "1kg", quantity: 1 });
-    lines = addLine(lines, { productId: ponni, variantId: "25kg", quantity: 2 });
+    lines = addLine(lines, { productId: ponni, variantId: "26kg", quantity: 2 });
     lines = setQuantity(lines, ponni, "1kg", 4);
     expect(lines[0].quantity).toBe(4);
     expect(setQuantity(lines, ponni, "1kg", 1.5)).toBe(lines);
     expect(setQuantity(lines, ponni, "1kg", Number.NaN)).toBe(lines);
     lines = setQuantity(lines, ponni, "1kg", 0);
-    expect(lines).toEqual([{ productId: ponni, variantId: "25kg", quantity: 2 }]);
-    lines = removeLine(lines, ponni, "25kg");
+    expect(lines).toEqual([{ productId: ponni, variantId: "26kg", quantity: 2 }]);
+    lines = removeLine(lines, ponni, "26kg");
     expect(lines).toEqual([]);
     expect(clearCart()).toEqual([]);
   });
@@ -93,7 +94,7 @@ describe("shopping cart", () => {
     const storage = new MemoryStorage();
     const lines = addLine(addLine([], { productId: ponni, variantId: "5kg", quantity: 2 }), {
       productId: flour,
-      variantId: "unspecified",
+      variantId: "1kg",
       quantity: 1,
     });
     writeCart(storage, lines);
@@ -105,12 +106,12 @@ describe("shopping cart", () => {
         { productId: ponni, variantId: "5kg", quantity: 2.2 },
         { productId: ponni, variantId: "10kg", quantity: -3 },
         { productId: "missing-product", variantId: "1kg", quantity: 4 },
-        { productId: flour, variantId: "unspecified", quantity: 1 },
+        { productId: flour, variantId: "1kg", quantity: 1 },
       ]),
     );
     expect(readCart(storage)).toEqual([
       { productId: ponni, variantId: "5kg", quantity: 2 },
-      { productId: flour, variantId: "unspecified", quantity: 1 },
+      { productId: flour, variantId: "1kg", quantity: 1 },
     ]);
     storage.setItem(CART_STORAGE_KEY, "{");
     expect(readCart(storage)).toEqual([]);

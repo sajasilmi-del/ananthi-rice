@@ -15,7 +15,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 160,
         "salePrice": null,
         "stock": null
       },
@@ -23,7 +23,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 799,
         "salePrice": null,
         "stock": null
       },
@@ -31,15 +31,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 1419,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 2939,
         "salePrice": null,
         "stock": null
       }
@@ -63,7 +63,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 289,
         "salePrice": null,
         "stock": null
       },
@@ -71,7 +71,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 859,
         "salePrice": null,
         "stock": null
       },
@@ -79,15 +79,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 2890,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7225,
         "salePrice": null,
         "stock": null
       }
@@ -97,7 +97,7 @@
   },
   {
     "id": "idli-rice",
-    "brand": "ananthi",
+    "brand": "santosh",
     "category": "everyday",
     "nameTamil": "இட்லி அரிசி",
     "nameEnglish": "Idli Rice",
@@ -111,7 +111,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 140,
         "salePrice": null,
         "stock": null
       },
@@ -119,7 +119,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 689,
         "salePrice": null,
         "stock": null
       },
@@ -127,15 +127,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 1199,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 2369,
         "salePrice": null,
         "stock": null
       }
@@ -159,7 +159,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 289,
         "salePrice": null,
         "stock": null
       },
@@ -167,7 +167,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 859,
         "salePrice": null,
         "stock": null
       },
@@ -175,15 +175,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 2890,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7225,
         "salePrice": null,
         "stock": null
       }
@@ -193,7 +193,7 @@
   },
   {
     "id": "sona-masuri-steam-rice",
-    "brand": "ananthi",
+    "brand": "santosh",
     "category": "everyday",
     "nameTamil": "சோனா மதிரி ஸ்டீம் அரிசி",
     "nameEnglish": "Sona Masuri Steam Rice",
@@ -207,7 +207,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 289,
         "salePrice": null,
         "stock": null
       },
@@ -215,7 +215,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 859,
         "salePrice": null,
         "stock": null
       },
@@ -223,15 +223,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 2890,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7225,
         "salePrice": null,
         "stock": null
       }
@@ -255,7 +255,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 420,
         "salePrice": null,
         "stock": null
       },
@@ -263,7 +263,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2100,
         "salePrice": null,
         "stock": null
       },
@@ -271,15 +271,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 4200,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 10500,
         "salePrice": null,
         "stock": null
       }
@@ -303,7 +303,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 350,
         "salePrice": null,
         "stock": null
       },
@@ -311,7 +311,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1750,
         "salePrice": null,
         "stock": null
       },
@@ -319,15 +319,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3500,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8750,
         "salePrice": null,
         "stock": null
       }
@@ -337,7 +337,7 @@
   },
   {
     "id": "hand-pounded-ponni-boiled-rice",
-    "brand": "arthy",
+    "brand": "ananthi",
     "category": "hand-pounded",
     "nameTamil": "கைக்குத்தல் பொன்னி புழுங்கல் அரிசி",
     "nameEnglish": "Hand-Pounded Ponni Boiled Rice",
@@ -351,7 +351,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 290,
         "salePrice": null,
         "stock": null
       },
@@ -359,7 +359,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1450,
         "salePrice": null,
         "stock": null
       },
@@ -367,15 +367,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 2900,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7250,
         "salePrice": null,
         "stock": null
       }
@@ -385,7 +385,7 @@
   },
   {
     "id": "hand-pounded-ponni-raw-rice",
-    "brand": "arthy",
+    "brand": "ananthi",
     "category": "hand-pounded",
     "nameTamil": "கைக்குத்தல் பொன்னி பச்சரிசி",
     "nameEnglish": "Hand-Pounded Ponni Raw Rice",
@@ -399,7 +399,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 350,
         "salePrice": null,
         "stock": null
       },
@@ -407,7 +407,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1750,
         "salePrice": null,
         "stock": null
       },
@@ -415,15 +415,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3500,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8750,
         "salePrice": null,
         "stock": null
       }
@@ -433,7 +433,7 @@
   },
   {
     "id": "hand-pounded-sona-masuri-raw-rice",
-    "brand": "arthy",
+    "brand": "santosh",
     "category": "hand-pounded",
     "nameTamil": "சோனா மதிரி கைக்குத்தல் பச்சரிசி",
     "nameEnglish": "Hand-Pounded Sona Masuri Raw Rice",
@@ -447,7 +447,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 389,
         "salePrice": null,
         "stock": null
       },
@@ -455,7 +455,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1945,
         "salePrice": null,
         "stock": null
       },
@@ -463,15 +463,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3890,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 9725,
         "salePrice": null,
         "stock": null
       }
@@ -481,7 +481,7 @@
   },
   {
     "id": "hand-pounded-basmati-rice",
-    "brand": "arthy",
+    "brand": "ananthi",
     "category": "hand-pounded",
     "nameTamil": "பாஸ்மதி கைக்குத்தல் அரிசி",
     "nameEnglish": "Hand-Pounded Basmati Rice",
@@ -495,7 +495,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 389,
         "salePrice": null,
         "stock": null
       },
@@ -503,7 +503,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1945,
         "salePrice": null,
         "stock": null
       },
@@ -511,15 +511,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3890,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 9725,
         "salePrice": null,
         "stock": null
       }
@@ -529,7 +529,7 @@
   },
   {
     "id": "mapillai-samba-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "மாப்பிள்ளை சம்பா அரிசி",
     "nameEnglish": "Mapillai Samba Rice",
@@ -543,7 +543,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 290,
         "salePrice": null,
         "stock": null
       },
@@ -551,7 +551,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1450,
         "salePrice": null,
         "stock": null
       },
@@ -559,15 +559,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 2900,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7250,
         "salePrice": null,
         "stock": null
       }
@@ -577,7 +577,7 @@
   },
   {
     "id": "kudaivaalai-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "குடைவாழை அரிசி",
     "nameEnglish": "Kudaivaalai Rice",
@@ -591,7 +591,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 390,
         "salePrice": null,
         "stock": null
       },
@@ -599,7 +599,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1950,
         "salePrice": null,
         "stock": null
       },
@@ -607,15 +607,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3900,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 9750,
         "salePrice": null,
         "stock": null
       }
@@ -625,7 +625,7 @@
   },
   {
     "id": "red-rice",
-    "brand": "mahi",
+    "brand": "arthy",
     "category": "traditional",
     "nameTamil": "சிவப்பு அரிசி",
     "nameEnglish": "Red Rice",
@@ -639,7 +639,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 420,
         "salePrice": null,
         "stock": null
       },
@@ -647,7 +647,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2100,
         "salePrice": null,
         "stock": null
       },
@@ -655,15 +655,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 4200,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 10500,
         "salePrice": null,
         "stock": null
       }
@@ -673,7 +673,7 @@
   },
   {
     "id": "poongar-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "பூங்கார் அரிசி",
     "nameEnglish": "Poongar Rice",
@@ -687,7 +687,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 350,
         "salePrice": null,
         "stock": null
       },
@@ -695,7 +695,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1750,
         "salePrice": null,
         "stock": null
       },
@@ -703,15 +703,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3500,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8750,
         "salePrice": null,
         "stock": null
       }
@@ -721,7 +721,7 @@
   },
   {
     "id": "thanga-samba-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "தங்க சம்பா அரிசி",
     "nameEnglish": "Thanga Samba Rice",
@@ -735,7 +735,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 450,
         "salePrice": null,
         "stock": null
       },
@@ -743,7 +743,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2250,
         "salePrice": null,
         "stock": null
       },
@@ -751,15 +751,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 4500,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 11250,
         "salePrice": null,
         "stock": null
       }
@@ -769,7 +769,7 @@
   },
   {
     "id": "karuppu-kavuni-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "கருப்பு கவுனி அரிசி",
     "nameEnglish": "Karuppu Kavuni Rice",
@@ -783,7 +783,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 320,
         "salePrice": null,
         "stock": null
       },
@@ -791,7 +791,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1600,
         "salePrice": null,
         "stock": null
       },
@@ -799,15 +799,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3200,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8000,
         "salePrice": null,
         "stock": null
       }
@@ -817,7 +817,7 @@
   },
   {
     "id": "kattuyanam-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "காட்டுயாணம் அரிசி",
     "nameEnglish": "Kattuyanam Rice",
@@ -831,7 +831,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 350,
         "salePrice": null,
         "stock": null
       },
@@ -839,7 +839,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1750,
         "salePrice": null,
         "stock": null
       },
@@ -847,15 +847,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3500,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8750,
         "salePrice": null,
         "stock": null
       }
@@ -865,7 +865,7 @@
   },
   {
     "id": "bamboo-rice",
-    "brand": "mahi",
+    "brand": "arthy",
     "category": "traditional",
     "nameTamil": "மூங்கில் அரிசி",
     "nameEnglish": "Bamboo Rice",
@@ -879,7 +879,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 500,
         "salePrice": null,
         "stock": null
       },
@@ -887,7 +887,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2500,
         "salePrice": null,
         "stock": null
       },
@@ -895,15 +895,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 5000,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 12500,
         "salePrice": null,
         "stock": null
       }
@@ -913,7 +913,7 @@
   },
   {
     "id": "thooya-malli-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "தூய மல்லி அரிசி",
     "nameEnglish": "Thooya Malli Rice",
@@ -927,7 +927,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 550,
         "salePrice": null,
         "stock": null
       },
@@ -935,7 +935,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2750,
         "salePrice": null,
         "stock": null
       },
@@ -943,15 +943,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 5500,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 13750,
         "salePrice": null,
         "stock": null
       }
@@ -961,7 +961,7 @@
   },
   {
     "id": "kichadi-samba-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "கிச்சடி சம்பா அரிசி",
     "nameEnglish": "Kichadi Samba Rice",
@@ -975,7 +975,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 420,
         "salePrice": null,
         "stock": null
       },
@@ -983,7 +983,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2100,
         "salePrice": null,
         "stock": null
       },
@@ -991,15 +991,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 4200,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 10500,
         "salePrice": null,
         "stock": null
       }
@@ -1009,7 +1009,7 @@
   },
   {
     "id": "kullakar-rice",
-    "brand": "mahi",
+    "brand": "arthy",
     "category": "traditional",
     "nameTamil": "குள்ளக்கார் அரிசி",
     "nameEnglish": "Kullakar Rice",
@@ -1023,7 +1023,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 390,
         "salePrice": null,
         "stock": null
       },
@@ -1031,7 +1031,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1950,
         "salePrice": null,
         "stock": null
       },
@@ -1039,15 +1039,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3900,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 9750,
         "salePrice": null,
         "stock": null
       }
@@ -1057,7 +1057,7 @@
   },
   {
     "id": "kar-rice",
-    "brand": "mahi",
+    "brand": "arthy",
     "category": "traditional",
     "nameTamil": "கார் அரிசி",
     "nameEnglish": "Kar Rice",
@@ -1071,7 +1071,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 380,
         "salePrice": null,
         "stock": null
       },
@@ -1079,7 +1079,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1900,
         "salePrice": null,
         "stock": null
       },
@@ -1087,15 +1087,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3800,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 9500,
         "salePrice": null,
         "stock": null
       }
@@ -1105,7 +1105,7 @@
   },
   {
     "id": "rajamudi-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "ராஜமுடி அரிசி",
     "nameEnglish": "Rajamudi Rice",
@@ -1119,7 +1119,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 425,
         "salePrice": null,
         "stock": null
       },
@@ -1127,7 +1127,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2125,
         "salePrice": null,
         "stock": null
       },
@@ -1135,15 +1135,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 4250,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 10625,
         "salePrice": null,
         "stock": null
       }
@@ -1153,7 +1153,7 @@
   },
   {
     "id": "arubatham-kuruvai-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "அறுபதாம் குறுவை அரிசி",
     "nameEnglish": "Arubatham Kuruvai Rice",
@@ -1167,7 +1167,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 415,
         "salePrice": null,
         "stock": null
       },
@@ -1175,7 +1175,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2075,
         "salePrice": null,
         "stock": null
       },
@@ -1183,15 +1183,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 4150,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 10375,
         "salePrice": null,
         "stock": null
       }
@@ -1201,7 +1201,7 @@
   },
   {
     "id": "kuzhiyadichan-rice",
-    "brand": "mahi",
+    "brand": "ananthi",
     "category": "traditional",
     "nameTamil": "குழியடிச்சான் அரிசி",
     "nameEnglish": "Kuzhiyadichan Rice",
@@ -1215,7 +1215,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 405,
         "salePrice": null,
         "stock": null
       },
@@ -1223,7 +1223,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 2025,
         "salePrice": null,
         "stock": null
       },
@@ -1231,15 +1231,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 4050,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 10125,
         "salePrice": null,
         "stock": null
       }
@@ -1249,7 +1249,7 @@
   },
   {
     "id": "salem-sanna-rice",
-    "brand": "mahi",
+    "brand": "santosh",
     "category": "traditional",
     "nameTamil": "சேலம் சன்னா அரிசி",
     "nameEnglish": "Salem Sanna Rice",
@@ -1263,7 +1263,7 @@
         "id": "1kg",
         "packSize": "1 kg",
         "packSizeTamil": "1 கிலோ",
-        "price": null,
+        "price": 395,
         "salePrice": null,
         "stock": null
       },
@@ -1271,7 +1271,7 @@
         "id": "5kg",
         "packSize": "5 kg",
         "packSizeTamil": "5 கிலோ",
-        "price": null,
+        "price": 1975,
         "salePrice": null,
         "stock": null
       },
@@ -1279,15 +1279,15 @@
         "id": "10kg",
         "packSize": "10 kg",
         "packSizeTamil": "10 கிலோ",
-        "price": null,
+        "price": 3950,
         "salePrice": null,
         "stock": null
       },
       {
-        "id": "25kg",
-        "packSize": "25 kg",
-        "packSizeTamil": "25 கிலோ",
-        "price": null,
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 9875,
         "salePrice": null,
         "stock": null
       }
@@ -1297,7 +1297,7 @@
   },
   {
     "id": "hand-pounded-rice-sevai",
-    "brand": "santosh",
+    "brand": "ananthi",
     "category": "sevai",
     "nameTamil": "கைக்குத்தல் அரிசி சேவை",
     "nameEnglish": "Hand-Pounded Rice Sevai",
@@ -1308,10 +1308,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 390,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1950,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3900,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 9750,
         "salePrice": null,
         "stock": null
       }
@@ -1332,10 +1356,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 350,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1750,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3500,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8750,
         "salePrice": null,
         "stock": null
       }
@@ -1345,7 +1393,7 @@
   },
   {
     "id": "red-rice-sevai",
-    "brand": "santosh",
+    "brand": "arthy",
     "category": "sevai",
     "nameTamil": "சிவப்பு அரிசி சேவை",
     "nameEnglish": "Red Rice Sevai",
@@ -1356,10 +1404,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 400,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 2000,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 4000,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 10000,
         "salePrice": null,
         "stock": null
       }
@@ -1369,7 +1441,7 @@
   },
   {
     "id": "ragi-sevai",
-    "brand": "santosh",
+    "brand": "mahi",
     "category": "sevai",
     "nameTamil": "ராகி சேவை",
     "nameEnglish": "Ragi Sevai",
@@ -1380,10 +1452,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 280,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1400,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 2800,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7000,
         "salePrice": null,
         "stock": null
       }
@@ -1393,7 +1489,7 @@
   },
   {
     "id": "kambu-sevai",
-    "brand": "santosh",
+    "brand": "mahi",
     "category": "sevai",
     "nameTamil": "கம்பு சேவை",
     "nameEnglish": "Kambu Sevai",
@@ -1404,10 +1500,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 290,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1450,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 2900,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7250,
         "salePrice": null,
         "stock": null
       }
@@ -1417,7 +1537,7 @@
   },
   {
     "id": "samai-sevai",
-    "brand": "santosh",
+    "brand": "mahi",
     "category": "sevai",
     "nameTamil": "சாமை சேவை",
     "nameEnglish": "Samai Sevai",
@@ -1428,10 +1548,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 295,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1475,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 2950,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7375,
         "salePrice": null,
         "stock": null
       }
@@ -1441,7 +1585,7 @@
   },
   {
     "id": "varagu-sevai",
-    "brand": "santosh",
+    "brand": "mahi",
     "category": "sevai",
     "nameTamil": "வரகு சேவை",
     "nameEnglish": "Varagu Sevai",
@@ -1452,10 +1596,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 300,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1500,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3000,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7500,
         "salePrice": null,
         "stock": null
       }
@@ -1465,7 +1633,7 @@
   },
   {
     "id": "thinai-sevai",
-    "brand": "santosh",
+    "brand": "mahi",
     "category": "sevai",
     "nameTamil": "தினை சேவை",
     "nameEnglish": "Thinai Sevai",
@@ -1476,10 +1644,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 305,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1525,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3050,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7625,
         "salePrice": null,
         "stock": null
       }
@@ -1489,7 +1681,7 @@
   },
   {
     "id": "multi-grain-sevai",
-    "brand": "santosh",
+    "brand": "mahi",
     "category": "sevai",
     "nameTamil": "பலதானிய சேவை",
     "nameEnglish": "Multi-Grain Sevai",
@@ -1500,10 +1692,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 310,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1550,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3100,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7750,
         "salePrice": null,
         "stock": null
       }
@@ -1524,10 +1740,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 315,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1575,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3150,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 7875,
         "salePrice": null,
         "stock": null
       }
@@ -1537,7 +1777,7 @@
   },
   {
     "id": "thinai",
-    "brand": "arthy",
+    "brand": "mahi",
     "category": "millets",
     "nameTamil": "தினை",
     "nameEnglish": "Thinai / Foxtail Millet",
@@ -1548,10 +1788,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 320,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1600,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3200,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8000,
         "salePrice": null,
         "stock": null
       }
@@ -1561,7 +1825,7 @@
   },
   {
     "id": "varagu",
-    "brand": "arthy",
+    "brand": "mahi",
     "category": "millets",
     "nameTamil": "வரகு",
     "nameEnglish": "Varagu / Kodo Millet",
@@ -1572,10 +1836,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 325,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1625,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3250,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8125,
         "salePrice": null,
         "stock": null
       }
@@ -1585,7 +1873,7 @@
   },
   {
     "id": "samai",
-    "brand": "arthy",
+    "brand": "mahi",
     "category": "millets",
     "nameTamil": "சாமை",
     "nameEnglish": "Samai / Little Millet",
@@ -1596,10 +1884,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 330,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1650,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3300,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8250,
         "salePrice": null,
         "stock": null
       }
@@ -1609,7 +1921,7 @@
   },
   {
     "id": "kuthiraivali",
-    "brand": "arthy",
+    "brand": "mahi",
     "category": "millets",
     "nameTamil": "குதிரைவாலி",
     "nameEnglish": "Kuthiraivali / Barnyard Millet",
@@ -1620,10 +1932,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 340,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 1700,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 3400,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 8500,
         "salePrice": null,
         "stock": null
       }
@@ -1644,10 +1980,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 100,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 500,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 1000,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 2500,
         "salePrice": null,
         "stock": null
       }
@@ -1657,7 +2017,7 @@
   },
   {
     "id": "white-rice-idiyappam-flour",
-    "brand": "ananthi",
+    "brand": "santosh",
     "category": "flour",
     "nameTamil": "வெள்ளை அரிசி இடியாப்பம் மாவு",
     "nameEnglish": "White Rice Idiyappam Flour",
@@ -1668,10 +2028,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 120,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 600,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 1200,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 3000,
         "salePrice": null,
         "stock": null
       }
@@ -1681,7 +2065,7 @@
   },
   {
     "id": "ragi-flour",
-    "brand": "ananthi",
+    "brand": "mahi",
     "category": "flour",
     "nameTamil": "ராகி மாவு",
     "nameEnglish": "Ragi Flour",
@@ -1692,10 +2076,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 130,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 650,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 1300,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 3250,
         "salePrice": null,
         "stock": null
       }
@@ -1705,7 +2113,7 @@
   },
   {
     "id": "red-rice-puttu-flour",
-    "brand": "ananthi",
+    "brand": "arthy",
     "category": "flour",
     "nameTamil": "சிவப்பு அரிசி புட்டு மாவு",
     "nameEnglish": "Red Rice Puttu Flour",
@@ -1716,10 +2124,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 125,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 625,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 1250,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 3125,
         "salePrice": null,
         "stock": null
       }
@@ -1729,7 +2161,7 @@
   },
   {
     "id": "white-rice-puttu-flour",
-    "brand": "ananthi",
+    "brand": "santosh",
     "category": "flour",
     "nameTamil": "வெள்ளை அரிசி புட்டு மாவு",
     "nameEnglish": "White Rice Puttu Flour",
@@ -1740,10 +2172,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 115,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 575,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 1150,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 2875,
         "salePrice": null,
         "stock": null
       }
@@ -1753,7 +2209,7 @@
   },
   {
     "id": "red-rice-idiyappam-flour",
-    "brand": "ananthi",
+    "brand": "arthy",
     "category": "flour",
     "nameTamil": "சிவப்பு அரிசி இடியாப்பம் மாவு",
     "nameEnglish": "Red Rice Idiyappam Flour",
@@ -1764,10 +2220,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 135,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 675,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 1350,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 3375,
         "salePrice": null,
         "stock": null
       }
@@ -1777,7 +2257,7 @@
   },
   {
     "id": "idli-rava",
-    "brand": "ananthi",
+    "brand": "santosh",
     "category": "flour",
     "nameTamil": "இட்லி ரவை",
     "nameEnglish": "Idli Rava",
@@ -1788,10 +2268,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 140,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 700,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 1400,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 3500,
         "salePrice": null,
         "stock": null
       }
@@ -1812,10 +2316,34 @@
     ],
     "variants": [
       {
-        "id": "unspecified",
-        "packSize": null,
-        "packSizeTamil": null,
-        "price": null,
+        "id": "1kg",
+        "packSize": "1 kg",
+        "packSizeTamil": "1 கிலோ",
+        "price": 145,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "5kg",
+        "packSize": "5 kg",
+        "packSizeTamil": "5 கிலோ",
+        "price": 725,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "10kg",
+        "packSize": "10 kg",
+        "packSizeTamil": "10 கிலோ",
+        "price": 1450,
+        "salePrice": null,
+        "stock": null
+      },
+      {
+        "id": "26kg",
+        "packSize": "26 kg",
+        "packSizeTamil": "26 கிலோ",
+        "price": 3625,
         "salePrice": null,
         "stock": null
       }

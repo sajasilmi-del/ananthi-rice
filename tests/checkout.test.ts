@@ -58,17 +58,18 @@ describe("checkout review", () => {
     expect(review.order.payment).toEqual({ method: "upi", status: "not_confirmed", reason: "provider_not_configured" });
     expect(review.order.customer).toEqual(customer);
     expect(review.order.distanceKm).toBeCloseTo(4, 5);
-    expect(review.order.subtotal).toBeNull();
+    expect(review.order.subtotal).toBe(320);
     expect(review.order.deliveryFee).toBe(0);
-    expect(review.order.total).toBeNull();
+    expect(review.order.total).toBe(320);
     expect(review.order.lines[0]).toMatchObject({
       productId: "ponni-boiled-rice",
       variantId: "1kg",
       quantity: 2,
       nameEnglish: product?.nameEnglish,
       nameTamil: product?.nameTamil,
-      lineTotal: null,
+      lineTotal: 320,
     });
+    expect(review.order.subtotal).not.toBe(999);
     expect(JSON.stringify(review.order)).not.toContain("paid");
     expect(JSON.stringify(review.order)).not.toContain("Fake name");
   });

@@ -49,9 +49,8 @@ describe("phase 1 data", () => {
     expect(deliveryConfig.feeWhenAvailableInr).toBe(0);
   });
 
-  it("loads 49 editable products with nullable price and stock", () => {
+  it("loads 49 products priced from the 6 October 2026 list", () => {
     expect(products).toHaveLength(49);
-    const rice = new Set(["everyday", "biryani", "hand-pounded", "traditional"]);
     for (const product of products) {
       expect(product.active).toBe(true);
       expect(product.nameTamil.length).toBeGreaterThan(0);
@@ -62,16 +61,20 @@ describe("phase 1 data", () => {
       for (const image of product.images) {
         expect(existsSync(path.join(process.cwd(), "public", image.replace(/^\//, "")))).toBe(true);
       }
-      expect(product.variants.length).toBeGreaterThan(0);
+      expect(product.variants.map((variant) => variant.packSize)).toEqual(["1 kg", "5 kg", "10 kg", "26 kg"]);
       for (const variant of product.variants) {
-        expect(variant.price).toBeNull();
+        expect(variant.price).toEqual(expect.any(Number));
+        expect(variant.price).toBeGreaterThan(0);
         expect(variant.salePrice).toBeNull();
         expect(variant.stock).toBeNull();
-        if (rice.has(product.category)) expect(variant.packSize).not.toBeNull();
-        else expect(variant.packSize).toBeNull();
       }
     }
-    expect(subtotal([{ productId: products[0].id, variantId: products[0].variants[0].id, quantity: 2 }])).toBeNull();
+    const ponni = products.find((product) => product.id === "ponni-boiled-rice");
+    expect(ponni?.brand).toBe("ananthi");
+    expect(ponni?.variants.map((variant) => variant.price)).toEqual([160, 799, 1419, 2939]);
+    expect(products.find((product) => product.id === "idli-rice")?.brand).toBe("santosh");
+    expect(products.find((product) => product.id === "ragi-flour")?.variants[0].price).toBe(130);
+    expect(subtotal([{ productId: products[0].id, variantId: products[0].variants[0].id, quantity: 2 }])).toBe(320);
   });
 
   it("preserves the brand hierarchy and real logo files", () => {
@@ -170,9 +173,9 @@ describe("delivery, cart, payment, whatsapp, auth", () => {
     expect(lines[0].quantity).toBe(4);
     lines = removeLine(lines, "ponni-boiled-rice", "5kg");
     expect(lines).toEqual([]);
-    lines = addLine(lines, { productId: "ragi-flour", variantId: "unspecified", quantity: 1 });
+    lines = addLine(lines, { productId: "ragi-flour", variantId: "1kg", quantity: 1 });
     expect(clearCart()).toEqual([]);
-    expect(subtotal(lines)).toBeNull();
+    expect(subtotal(lines)).toBe(130);
   });
 
   it("opens WhatsApp with a language-specific prefilled message", () => {

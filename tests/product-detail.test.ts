@@ -40,17 +40,12 @@ describe("product detail pages", () => {
   });
 
   it("keeps related products in the same category and covers every product type", () => {
-    const rice = new Set(["everyday", "biryani", "hand-pounded", "traditional"]);
     for (const product of products) {
       const related = relatedProducts(product);
       expect(related.length).toBeGreaterThan(0);
       expect(related.length).toBeLessThanOrEqual(4);
       expect(related.every((item) => item.category === product.category && item.id !== product.id)).toBe(true);
-      if (rice.has(product.category)) {
-        expect(product.variants.map((variant) => variant.packSize)).toEqual(["1 kg", "5 kg", "10 kg", "25 kg"]);
-      } else {
-        expect(product.variants.every((variant) => variant.packSize == null)).toBe(true);
-      }
+      expect(product.variants.map((variant) => variant.packSize)).toEqual(["1 kg", "5 kg", "10 kg", "26 kg"]);
     }
     expect(categories.map((category) => category.id).sort()).toEqual(
       [...new Set(products.map((product) => product.category))].sort(),
