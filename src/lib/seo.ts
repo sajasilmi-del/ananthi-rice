@@ -108,7 +108,13 @@ export function siteJsonLd(locale: Locale): Record<string, unknown> {
     legalName: site.legalName,
     url: siteOrigin(),
     email: site.email,
+    vatID: site.gst.gstin,
     telephone: site.phones,
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "FSSAI",
+      value: site.fssai.registrationNumber,
+    },
   };
   if (logo) organization.logo = absoluteUrl(logo);
   if (lines.length > 0) {

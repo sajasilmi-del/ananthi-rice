@@ -43,12 +43,15 @@ describe("Chennai home delivery pincodes", () => {
       street: "Royala Nagar 2nd Main Road",
       locality: "Ramapuram",
       phone: "98765 43210",
+      email: "Anand@Example.com",
       pincode: "600089",
     };
     expect(validateDeliveryAddress(input, "en")).toEqual({});
     expect(composeDeliveryAddress(input, "en")).toBe(
       "4/43 F, Hillcrest, Royala Nagar 2nd Main Road, Ramapuram, Chennai 600089, 9876543210",
     );
+    expect(composeDeliveryAddress(input, "en")).not.toContain("@");
+    expect(validateDeliveryAddress({ ...input, email: "not-an-email" }, "en").email).toBeTruthy();
     expect(composeDeliveryAddress(input, "ta")).toContain("சென்னை 600089");
     expect(Object.keys(validateDeliveryAddress({ ...input, name: "", phone: "123" }, "en"))).toEqual(
       expect.arrayContaining(["name", "mobile"]),

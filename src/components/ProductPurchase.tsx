@@ -11,6 +11,7 @@ import {
   productDescription,
   productName,
   ricePackSizeNote,
+  site,
   variantPackLabel,
 } from "@/lib/catalog";
 import { t } from "@/lib/i18n";
@@ -210,14 +211,20 @@ export function ProductPurchase({ product, detail = false }: { product: Product;
           <dt>{t(locale, "products.category")}</dt>
           <dd>{categoryLabel}</dd>
         </div>
-        <div data-testid="product-availability">
-          <dt>{t(locale, "products.availability")}</dt>
+        {variant.stock != null ? (
+          <div data-testid="product-availability">
+            <dt>{t(locale, "products.availability")}</dt>
+            <dd>{variant.stock > 0 ? String(variant.stock) : t(locale, "products.unavailable")}</dd>
+          </div>
+        ) : null}
+        <div data-testid="product-gstin">
+          <dt>{t(locale, "footer.gstin")}</dt>
+          <dd>{site.gst.gstin}</dd>
+        </div>
+        <div data-testid="product-fssai">
+          <dt>{t(locale, "products.fssai")}</dt>
           <dd>
-            {variant.stock == null
-              ? t(locale, "products.availabilityUnknown")
-              : variant.stock > 0
-                ? String(variant.stock)
-                : t(locale, "products.unavailable")}
+            <a href={site.fssai.lookupUrl} target="_blank" rel="noreferrer">{site.fssai.registrationNumber}</a>
           </dd>
         </div>
       </dl>

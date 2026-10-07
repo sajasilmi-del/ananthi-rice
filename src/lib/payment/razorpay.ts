@@ -163,10 +163,22 @@ async function razorpayFetch(
   return payload && typeof payload === "object" ? payload : null;
 }
 
+function paymentNotes(notes: Record<string, string> | undefined): Record<string, string> {
+  const clean: Record<string, string> = {};
+  for (const [key, value] of Object.entries(notes ?? {})) {
+    if (Object.keys(clean).length >= 15) break;
+    if (!/^[A-Za-z][A-Za-z0-9_]{0,31}$/.test(key)) continue;
+    const text = value.replace(/\s+/g, " ").trim().slice(0, 255);
+    if (text) clean[key] = text;
+  }
+  return Object.keys(clean).length > 0 ? clean : { source: "ananthi-rice" };
+}
+
 export async function createRazorpayOrder(options: {
   config: RazorpayConfig;
   amountPaise: number;
   receipt: string;
+  notes?: Record<string, string>;
   fetchImpl?: typeof fetch;
 }): Promise<{ orderId: string; amount: number; currency: "INR" } | null> {
   if (!Number.isInteger(options.amountPaise) || options.amountPaise < 100) return null;
@@ -180,7 +192,7 @@ export async function createRazorpayOrder(options: {
         amount: options.amountPaise,
         currency: "INR",
         receipt: options.receipt.slice(0, 40),
-        notes: { source: "ananthi-rice" },
+        notes: paymentNotes(options.notes),
       },
     },
     fetchImpl,

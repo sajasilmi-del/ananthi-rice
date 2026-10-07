@@ -15,6 +15,7 @@ import {
   assessPincode,
   cityLabel,
   composeDeliveryAddress,
+  normalizeEmail,
   pincodeStatusText,
   type PincodeDelivery,
   validateDeliveryAddress,
@@ -67,6 +68,13 @@ function SummaryLines({ lines }: { lines: CartLine[] }) {
   );
 }
 
+function readInvoiceMail(value: unknown): { shop: boolean; customer: boolean } | null {
+  if (!value || typeof value !== "object") return null;
+  const mail = (value as { invoiceMail?: { shop?: unknown; customer?: unknown } }).invoiceMail;
+  if (!mail || typeof mail.shop !== "boolean" || typeof mail.customer !== "boolean") return null;
+  return { shop: mail.shop, customer: mail.customer };
+}
+
 function readReview(value: unknown): CheckoutReview | null {
   if (!value || typeof value !== "object") return null;
   const record = value as { ok?: boolean; order?: OrderRequest; issues?: unknown; delivery?: PincodeDelivery };
@@ -108,6 +116,7 @@ export default function CheckoutPage() {
   const savedLabel = useRef("");
   const [name, setName] = useState(user?.name ?? "");
   const [phone, setPhone] = useState(user?.mobile ?? "");
+  const [email, setEmail] = useState(user?.email ?? "");
   const [pincode, setPincode] = useState("");
   const [door, setDoor] = useState("");
   const [building, setBuilding] = useState("");
@@ -118,9 +127,10 @@ export default function CheckoutPage() {
   const [noticeKey, setNoticeKey] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [order, setOrder] = useState<OrderRequest | null>(null);
+  const [invoiceMail, setInvoiceMail] = useState<{ shop: boolean; customer: boolean } | null>(null);
   const [razorpayMode, setRazorpayMode] = useState<"test" | "live" | null>(null);
   const assessed = assessPincode(pincode);
-  const address = { name, door, building, street, locality, phone, pincode };
+  const address = { name, door, building, street, locality, phone, email, pincode };
   const fieldErrors = validateDeliveryAddress(address, locale);
   const addressReady = assessed.status === "available" && Object.keys(fieldErrors).length === 0;
   const allowed = addressReady && lines.length > 0 && method !== "";
@@ -142,6 +152,7 @@ export default function CheckoutPage() {
     if (!user || edited.current) return;
     setName(user.name);
     setPhone(user.mobile);
+    setEmail(user.email);
   }, [user]);
 
   useEffect(() => {
@@ -216,6 +227,7 @@ export default function CheckoutPage() {
           building,
           street,
           locality,
+          email,
           pincode: fresh.pincode,
         },
         lines,
@@ -245,7 +257,7 @@ export default function CheckoutPage() {
           orderId: created.orderId,
           amount: created.amount,
           name,
-          email: "",
+          email: normalizeEmail(email),
           contact: phone,
         });
         if (widget === "cancelled") {
@@ -269,10 +281,12 @@ export default function CheckoutPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...draft, razorpay }),
       });
-      const review = readReview(await response.json());
+      const payload = await response.json();
+      const review = readReview(payload);
       if (!review || !isAccepted(review)) {
         const rejected = validateDeliveryAddress(address, locale);
         const issues = review && !review.ok ? review.issues : ["invalid"];
+        if (issues.includes("email") && !rejected.email) rejected.email = t(locale, "validation.emailInvalid");
         if (issues.includes("method")) rejected.method = t(locale, "validation.methodRequired");
         if (issues.includes("empty")) rejected.cart = t(locale, "checkout.empty");
         if (issues.includes("delivery") && review && !review.ok) {
@@ -284,6 +298,7 @@ export default function CheckoutPage() {
         return;
       }
       saveOrderRequest(window.localStorage, review.order);
+      setInvoiceMail(readInvoiceMail(payload));
       setOrder(review.order);
       clear();
       const captured = review.order.payment.status === "captured" ? review.order.payment : null;
@@ -306,7 +321,7 @@ export default function CheckoutPage() {
         ))}
       </ol>
       {order ? (
-        <CheckoutConfirmation order={order} locale={locale} />
+        <CheckoutConfirmation order={order} locale={locale} invoiceMail={invoiceMail} />
       ) : (
         <form className="stack" noValidate onSubmit={onSubmit}>
           {lines.length === 0 && !noticeKey ? <p>{t(locale, "checkout.empty")}</p> : null}
@@ -379,6 +394,19 @@ export default function CheckoutPage() {
                   onChange={(event) => edit(setPhone)(event.target.value)}
                 />
               </FormField>
+              <FormField label={t(locale, "forms.email")} error={errors.email || (email.trim() && fieldErrors.email ? fieldErrors.email : "")}>
+                <input
+                  data-testid="address-email"
+                  type="email"
+                  value={email}
+                  autoComplete="email"
+                  onChange={(event) => {
+                    edit(setEmail)(event.target.value);
+                    setErrors((current) => ({ ...current, email: "" }));
+                  }}
+                />
+              </FormField>
+              <p className="muted" data-testid="email-for-invoice">{t(locale, "checkout.emailForInvoice")}</p>
               {addressReady ? null : <p className="muted">{t(locale, "checkout.addressNext")}</p>}
             </section>
           ) : null}

@@ -74,6 +74,22 @@ describe("razorpay test keys", () => {
     expect(await createRazorpayOrder({ config, amountPaise: 50, receipt: "receipt-1" })).toBeNull();
   });
 
+  it("attaches the shop order to the Razorpay order notes", async () => {
+    let sent: { notes?: Record<string, string> } | null = null;
+    const created = await createRazorpayOrder({
+      config,
+      amountPaise: 16000,
+      receipt: "receipt-1",
+      notes: { name: "Anand", phone: "9876543210", items1: "2x Ponni Boiled Rice 1 kg", "bad key": "skip" },
+      fetchImpl: async (_input, init) => {
+        sent = JSON.parse(String(init?.body)) as { notes?: Record<string, string> };
+        return jsonResponse({ id: orderId, amount: 16000, currency: "INR" });
+      },
+    });
+    expect(created?.orderId).toBe(orderId);
+    expect(sent?.notes).toEqual({ name: "Anand", phone: "9876543210", items1: "2x Ponni Boiled Rice 1 kg" });
+  });
+
   it("rejects a forged signature before calling Razorpay", async () => {
     const intent = await verifyRazorpayPayment({
       config,

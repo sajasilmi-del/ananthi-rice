@@ -102,7 +102,9 @@ describe("bilingual resources", () => {
     expect(t("ta", "header.tamilName")).toBe("தமிழ்");
     expect(t("en", "header.englishName")).toBe("English");
     expect(t("ta", "header.englishName")).toBe("English");
-    expect(dictionaries.en.account.developmentBanner).not.toBe(dictionaries.ta.account.developmentBanner);
+    expect(dictionaries.en.account.deviceNote).not.toBe(dictionaries.ta.account.deviceNote);
+    const publicText = JSON.stringify({ en: dictionaries.en, ta: dictionaries.ta, legal: legalPages });
+    expect(publicText).not.toMatch(/development build|development store|development adapter|டெவலப்மென்ட்/i);
   });
 
   it("keeps catalog content in Tamil and English instead of one language", () => {

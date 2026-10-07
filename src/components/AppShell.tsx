@@ -208,6 +208,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="footer-bottom">
+            <p className="footer-muted" data-testid="gstin">
+              {t(locale, "footer.gstin")} {site.gst.gstin}
+            </p>
+            <p className="footer-muted" data-testid="fssai-registration">
+              <a href={site.fssai.lookupUrl} target="_blank" rel="noreferrer">
+                {t(locale, "footer.fssai")} {site.fssai.registrationNumber}
+              </a>
+              {" · "}
+              {t(locale, "footer.fssaiValid")} {site.fssai.validUntil}
+            </p>
             <p className="footer-muted">
               © {new Date().getFullYear()} {site.brandName} / {t(locale, "footer.rights")}
             </p>

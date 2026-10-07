@@ -114,6 +114,27 @@ export type SiteConfig = {
   whatsappE164: string;
   email: string;
   website: string;
+  fssai: {
+    registrationNumber: string;
+    licenseeEnglish: string;
+    licenseeTamil: string;
+    kindEnglish: string;
+    kindTamil: string;
+    issuedOn: string;
+    validUntil: string;
+    lookupUrl: string;
+  };
+  gst: {
+    gstin: string;
+    legalName: string;
+    tradeName: string;
+    principalAddress: string;
+    constitution: string;
+    registrationType: string;
+    state: string;
+    stateTamil: string;
+    stateCode: string;
+  };
   freeDeliveryTamil: string;
   freeDeliveryEnglish: string;
 };

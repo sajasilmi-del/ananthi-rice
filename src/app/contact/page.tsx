@@ -60,6 +60,24 @@ export default function ContactPage() {
           <p className="contact-label">{t(locale, "contact.person")}</p>
           <p className="contact-value">{locale === "ta" ? site.contactPersonTamil : site.contactPerson}</p>
         </div>
+        <div className="contact-card" data-testid="gst-card">
+          <LineIcon name="tag" />
+          <p className="contact-label">{t(locale, "contact.gst")}</p>
+          <p className="contact-value">{site.gst.gstin}</p>
+          <p>{site.gst.legalName}</p>
+          <p>{site.gst.tradeName}</p>
+          <p>{site.gst.principalAddress}</p>
+        </div>
+        <div className="contact-card" data-testid="fssai-card">
+          <LineIcon name="tag" />
+          <p className="contact-label">{t(locale, "contact.fssai")}</p>
+          <p className="contact-value">
+            <a href={site.fssai.lookupUrl} target="_blank" rel="noreferrer">{site.fssai.registrationNumber}</a>
+          </p>
+          <p>{locale === "ta" ? site.fssai.licenseeTamil : site.fssai.licenseeEnglish}</p>
+          <p>{locale === "ta" ? site.fssai.kindTamil : site.fssai.kindEnglish}</p>
+          <p>{t(locale, "footer.fssaiValid")} {site.fssai.validUntil}</p>
+        </div>
       </section>
 
       <p className="banner">{locale === "ta" ? site.freeDeliveryTamil : site.freeDeliveryEnglish}</p>

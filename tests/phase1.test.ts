@@ -102,6 +102,9 @@ describe("phase 1 data", () => {
     expect(site.phones).toEqual(["9942034428", "7540034428"]);
     expect(site.whatsappE164).toBe("919942034428");
     expect(site.email).toBe("ananthirice.shop@gmail.com");
+    expect(site.gst.gstin).toBe("33ALVPA6063F2Z4");
+    expect(site.gst.legalName).toBe("Ananthavalli");
+    expect(site.gst.tradeName).toBe("AR Traders");
   });
 
   it("does not hard-code catalog facts into components", () => {

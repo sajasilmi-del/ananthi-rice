@@ -32,7 +32,8 @@ async function checkDetail(page, spec) {
   if (spec.packPrice) {
     check((await page.getByTestId("product-price").innerText()).includes(spec.packPrice), `${spec.path} pack price`);
   }
-  check((await page.getByTestId("product-availability").innerText()).includes("Availability not listed"), `${spec.path} availability`);
+  check((await page.getByTestId("product-availability").count()) === 0, `${spec.path} still lists unknown availability`);
+  check((await page.getByTestId("product-gstin").innerText()).includes("33ALVPA6063F2Z4"), `${spec.path} missed the GSTIN`);
   await page.getByRole("button", { name: "Add to Cart" }).waitFor();
   await page.getByRole("button", { name: "Buy Now" }).waitFor();
   await page.getByTestId("whatsapp-product").waitFor();
@@ -232,6 +233,10 @@ try {
   check((await page.getByTestId("address-pincode").inputValue()) === "600089", "Address pincode did not follow the check");
   check((await page.locator("[data-checkout-step='payment']").count()) === 0, "Payment showed before the phone number");
   await page.getByTestId("address-phone").fill("9876543210");
+  check((await page.locator("[data-checkout-step='payment']").count()) === 0, "Payment showed before the email");
+  await page.getByTestId("address-email").fill("not-an-email");
+  check((await page.locator("[data-checkout-step='payment']").count()) === 0, "Payment showed for an invalid email");
+  await page.getByTestId("address-email").fill("anand@example.com");
   await page.getByTestId("payment-upi").waitFor();
   await page.getByTestId("payment-card").check();
   await page.getByTestId("payment-netbanking").check();
@@ -273,6 +278,49 @@ try {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.getByTestId("lang-en").click();
   await page.getByRole("heading", { name: "Checkout" }).waitFor();
+  await page.getByTestId("delivery-pincode").fill("600089");
+  await page.getByTestId("address-email").waitFor();
+  await page.getByTestId("address-email").fill("");
+  check((await page.locator("[data-checkout-step='payment']").count()) === 0, "Payment stayed open after the email was cleared");
+  await page.getByTestId("address-name").fill("Anand");
+  await page.getByTestId("address-door").fill("12");
+  await page.getByTestId("address-building").fill("Hillcrest");
+  await page.getByTestId("address-street").fill("2nd Main Road");
+  await page.getByTestId("address-locality").fill("Ramapuram");
+  await page.getByTestId("address-phone").fill("9876543210");
+  await page.getByTestId("address-email").fill("anand@example.com");
+  await page.getByTestId("payment-cod").waitFor();
+  await page.getByTestId("payment-cod").check();
+  const popupPromise = page.waitForEvent("popup", { timeout: 8000 }).catch(() => null);
+  await page.getByTestId("checkout-submit").click();
+  const popup = await popupPromise;
+  if (popup) await popup.close();
+  await page.getByTestId("tax-invoice").waitFor();
+  const invoice = await page.getByTestId("tax-invoice").innerText();
+  check(invoice.includes("33ALVPA6063F2Z4"), `Invoice missed the GSTIN: ${invoice}`);
+  check(invoice.includes("Ananthavalli"), "Invoice missed the legal name");
+  check(invoice.includes("2/23B, Gandhiji Street"), "Invoice missed the GST principal place");
+  check(invoice.includes("anand@example.com"), "Invoice missed the customer email");
+  check(invoice.includes("1006"), "Invoice missed the rice HSN");
+  check(invoice.includes("Cash on delivery"), `Invoice payment line was ${invoice}`);
+  check(!/payment successful|paid successfully/i.test(invoice), "Invoice claimed a payment success");
+  const mailNote = await page.getByTestId("invoice-mail").innerText();
+  check(mailNote.toLowerCase().includes("could not be sent"), `Invoice mail note was ${mailNote}`);
+  check((await page.getByTestId("confirmation-address").innerText()).includes("Chennai 600089"), "Confirmation missed the delivery address");
+  check((await page.getByTestId("gstin").innerText()).includes("33ALVPA6063F2Z4"), "Footer missed the GSTIN");
+  await page.setViewportSize({ width: 390, height: 844 });
+  const invoiceOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+  check(!invoiceOverflow, "Invoice overflowed at 390px");
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const desktopInvoiceOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+  check(!desktopInvoiceOverflow, "Invoice overflowed at 1280px");
+  await page.getByTestId("lang-ta").click();
+  await page.getByRole("heading", { name: "வரி இன்வாய்ஸ்" }).waitFor();
+  const tamilInvoice = await page.getByTestId("tax-invoice").innerText();
+  check(tamilInvoice.includes("33ALVPA6063F2Z4"), "Tamil invoice missed the GSTIN");
+  check(tamilInvoice.includes("தமிழ்நாடு"), "Tamil invoice missed the state");
+  await page.getByTestId("lang-en").click();
+  await page.getByRole("heading", { name: "Tax invoice" }).waitFor();
 
   await page.goto(`${base}/products/ponni-boiled-rice`, { waitUntil: "networkidle" });
   await page.getByTestId("product-gallery").waitFor();
@@ -342,9 +390,9 @@ try {
   await page.getByRole("heading", { name: "Page not found" }).waitFor();
 
   await page.goto(`${base}/account`, { waitUntil: "networkidle" });
-  const banner = await page.getByTestId("dev-store-banner").innerText();
-  check(banner.includes("DEVELOPMENT STORE"), "Development store banner is missing");
-  check(/not production authentication/i.test(banner), "Auth banner does not say it is not production authentication");
+  const banner = await page.getByTestId("account-note").innerText();
+  check(banner.includes("this device"), `Account note was ${banner}`);
+  check(!/development/i.test(banner), `Account note still says development: ${banner}`);
   await page.getByRole("button", { name: "Sign Up" }).click();
   const email = `phase1-${Date.now()}@example.com`;
   const form = page.locator("form");

@@ -2,6 +2,7 @@ import { prepareCheckout } from "@/lib/checkout-review";
 import { resolveDeliveryConfig } from "@/lib/delivery";
 import { createRazorpayOrder, readRazorpayConfig, readRazorpayStatus } from "@/lib/payment/razorpay";
 import { PAYMENT_METHODS, type PaymentMethod } from "@/lib/payment/types";
+import { shopOrderNotes } from "@/lib/shop-notice";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +35,17 @@ export async function POST(request: Request) {
     config,
     amountPaise,
     receipt: crypto.randomUUID(),
+    notes: shopOrderNotes({
+      name: quote.customer.name,
+      phone: quote.customer.mobile,
+      email: quote.customer.email,
+      address: quote.customer.address,
+      area: quote.serviceArea.areasEnglish,
+      pincode: quote.serviceArea.pincode,
+      method: quote.method,
+      total: quote.total,
+      lines: quote.lines,
+    }),
   });
   if (!order) return Response.json({ ok: false, issues: ["payment"], delivery: quote.delivery }, { status: 502 });
   return Response.json({

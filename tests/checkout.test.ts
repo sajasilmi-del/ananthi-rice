@@ -60,9 +60,10 @@ describe("checkout review", () => {
     expect(review.order.customer).toEqual({
       name: "Anand",
       mobile: "9876543210",
-      email: "",
+      email: "anand@example.com",
       address: "12, Hillcrest, 2nd Main Road, Ramapuram, Chennai 600089, 9876543210",
     });
+    expect(review.order.customer.address).not.toContain("@");
     expect(review.order.serviceArea).toEqual({
       source: "pincode",
       pincode: "600089",
@@ -86,8 +87,32 @@ describe("checkout review", () => {
     expect(saved).not.toContain("Fake name");
     expect(saved).not.toContain("Paramakudi");
     expect(saved).not.toContain("Mumbai");
-    expect(saved).not.toContain("anand@example.com");
+    expect(saved).toContain("anand@example.com");
     expect(saved).not.toContain("paid");
+  });
+
+  it("requires an email before payment and stores it in lower case", async () => {
+    const base = draft().customer as Record<string, unknown>;
+    const missing = await reviewCheckout({
+      draft: draft("600089", { customer: { ...base, email: "  " } }),
+      config,
+    });
+    expect(missing.ok).toBe(false);
+    if (!missing.ok) expect(missing.issues).toContain("email");
+
+    const invalid = await reviewCheckout({
+      draft: draft("600089", { customer: { ...base, email: "not-an-email" } }),
+      config,
+    });
+    expect(invalid.ok).toBe(false);
+    if (!invalid.ok) expect(invalid.issues).toContain("email");
+
+    const review = await reviewCheckout({
+      draft: draft("600089", { customer: { ...base, email: " Anand@Example.com " } }),
+      config,
+    });
+    expect(review.ok).toBe(true);
+    if (review.ok) expect(review.order.customer.email).toBe("anand@example.com");
   });
 
   it("rejects a pincode outside Chennai, an empty cart, and a payment result that is not the unconfigured state", async () => {
@@ -150,6 +175,8 @@ describe("checkout route", () => {
     const previousLongitude = process.env.DELIVERY_ORIGIN_LONGITUDE;
     delete process.env.DELIVERY_ORIGIN_LATITUDE;
     delete process.env.DELIVERY_ORIGIN_LONGITUDE;
+    const previousPass = process.env.SMTP_PASS;
+    delete process.env.SMTP_PASS;
     try {
       const response = await POST(
         new Request("http://localhost/api/checkout", {
@@ -158,11 +185,16 @@ describe("checkout route", () => {
           body: JSON.stringify(draft()),
         }),
       );
-      const body = (await response.json()) as { ok: boolean; order?: { status?: string; payment?: { status?: string } } };
+      const body = (await response.json()) as {
+        ok: boolean;
+        order?: { status?: string; payment?: { status?: string } };
+        invoiceMail?: { shop: boolean; customer: boolean };
+      };
       expect(response.status).toBe(200);
       expect(body.ok).toBe(true);
       expect(body.order?.status).toBe("request_only");
       expect(body.order?.payment?.status).toBe("not_confirmed");
+      expect(body.invoiceMail).toEqual({ shop: false, customer: false });
 
       const blocked = await POST(
         new Request("http://localhost/api/checkout", {
@@ -179,6 +211,8 @@ describe("checkout route", () => {
       else process.env.DELIVERY_ORIGIN_LATITUDE = previousLatitude;
       if (previousLongitude === undefined) delete process.env.DELIVERY_ORIGIN_LONGITUDE;
       else process.env.DELIVERY_ORIGIN_LONGITUDE = previousLongitude;
+      if (previousPass === undefined) delete process.env.SMTP_PASS;
+      else process.env.SMTP_PASS = previousPass;
     }
   });
 
@@ -191,6 +225,8 @@ describe("checkout route", () => {
     delete process.env.DELIVERY_ORIGIN_LONGITUDE;
     delete process.env.RAZORPAY_KEY_ID;
     delete process.env.RAZORPAY_KEY_SECRET;
+    const previousPass = process.env.SMTP_PASS;
+    delete process.env.SMTP_PASS;
     const forged = {
       ...draft("600116"),
       razorpay: { orderId: "order_forged", paymentId: "pay_forged", signature: "forged" },
@@ -230,6 +266,8 @@ describe("checkout route", () => {
       else process.env.RAZORPAY_KEY_ID = previousKey;
       if (previousSecret === undefined) delete process.env.RAZORPAY_KEY_SECRET;
       else process.env.RAZORPAY_KEY_SECRET = previousSecret;
+      if (previousPass === undefined) delete process.env.SMTP_PASS;
+      else process.env.SMTP_PASS = previousPass;
     }
   });
 });

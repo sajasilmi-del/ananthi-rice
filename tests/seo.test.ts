@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
@@ -45,6 +46,8 @@ describe("production SEO", () => {
     expect(graph).toContain(site.legalName);
     expect(graph).toContain(site.email);
     expect(graph).toContain(site.phones[0]);
+    expect(graph).toContain(site.fssai.registrationNumber);
+    expect(graph).toContain(site.gst.gstin);
     expect(graph).not.toContain("latitude");
     expect(graph).not.toContain("geo");
     expect(graph).not.toContain("\"price\"");
@@ -77,6 +80,9 @@ describe("production SEO", () => {
   });
 
   it("allows public pages and keeps private flows out of the crawl", () => {
+    expect(readFileSync("public/google12b0e83768a8c6a3.html", "utf8").trim()).toBe(
+      "google-site-verification: google12b0e83768a8c6a3.html",
+    );
     expect(robots().sitemap).toBe("https://www.ananthirice.shop/sitemap.xml");
     expect(robots().rules).toMatchObject({ disallow: ["/api/", "/account", "/cart", "/checkout"] });
     const urls = sitemap().map((item) => item.url);

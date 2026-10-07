@@ -14,6 +14,27 @@
   "whatsappE164": "919942034428",
   "email": "ananthirice.shop@gmail.com",
   "website": "www.ananthirice.shop",
+  "fssai": {
+    "registrationNumber": "22423450000052",
+    "licenseeEnglish": "N. Ananthavalli / A.R. Traders",
+    "licenseeTamil": "ந. ஆனந்தவள்ளி / ஏ.ஆர். டிரேடர்ஸ்",
+    "kindEnglish": "Retailer",
+    "kindTamil": "சில்லறை விற்பனையாளர்",
+    "issuedOn": "24-03-2023",
+    "validUntil": "23-03-2028",
+    "lookupUrl": "https://foscos.fssai.gov.in/"
+  },
+  "gst": {
+    "gstin": "33ALVPA6063F2Z4",
+    "legalName": "Ananthavalli",
+    "tradeName": "AR Traders",
+    "principalAddress": "2/23B, Gandhiji Street, Paramakudi, Ramanathapuram, Tamil Nadu, 623707",
+    "constitution": "Proprietorship",
+    "registrationType": "Regular",
+    "state": "Tamil Nadu",
+    "stateTamil": "தமிழ்நாடு",
+    "stateCode": "33"
+  },
   "freeDeliveryTamil": "தேர்ந்தெடுத்த சென்னை அஞ்சல் குறியீடுகளில் இலவச வீட்டு விநியோகம்.",
   "freeDeliveryEnglish": "Free home delivery in selected Chennai pincodes."
 }

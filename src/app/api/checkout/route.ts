@@ -1,5 +1,6 @@
 import { reviewCheckout } from "@/lib/checkout-review";
 import { resolveDeliveryConfig } from "@/lib/delivery";
+import { sendInvoiceCopies } from "@/lib/mail";
 import { readRazorpayConfig, verifyRazorpayPayment, type RazorpayProof } from "@/lib/payment/razorpay";
 import { createUnconfiguredPaymentProvider } from "@/lib/payment/unconfigured";
 import type { PaymentMethod } from "@/lib/payment/types";
@@ -45,5 +46,12 @@ export async function POST(request: Request) {
           }
         : undefined,
   });
-  return Response.json(review);
+  if (!review.ok) return Response.json(review);
+  let invoiceMail = { shop: false, customer: false };
+  try {
+    invoiceMail = await sendInvoiceCopies(review.order);
+  } catch {
+    invoiceMail = { shop: false, customer: false };
+  }
+  return Response.json({ ...review, invoiceMail });
 }

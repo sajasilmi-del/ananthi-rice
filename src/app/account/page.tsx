@@ -107,7 +107,7 @@ export default function AccountPage() {
     const nextErrors = validatePasswordReset({ email, password }, locale);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
-      setNotice(`${t(locale, "account.devResetNote")} ${t(locale, "account.emailNotSent")}`);
+      setNotice(`${t(locale, "account.resetNote")} ${t(locale, "account.emailNotSent")}`);
       return;
     }
     if (adapter.mode === "unconfigured") {
@@ -166,12 +166,12 @@ export default function AccountPage() {
 
   const banner = adapter?.mode === "unconfigured"
     ? t(locale, "account.productionUnconfigured")
-    : t(locale, "account.developmentBanner");
+    : t(locale, "account.deviceNote");
 
   return (
     <div className="stack" data-testid="account-page">
       <SectionHeading as="h1" title={t(locale, "account.title")} />
-      <p className="banner" data-testid="dev-store-banner">
+      <p className="banner" data-testid="account-note">
         {banner}
       </p>
       <div className="row account-tabs">
@@ -214,7 +214,7 @@ export default function AccountPage() {
       ) : null}
       {mode === "forgot" ? (
         <form className="stack account-form" noValidate onSubmit={onForgot}>
-          <p>{t(locale, "account.devResetNote")}</p>
+          <p>{t(locale, "account.resetNote")}</p>
           <p>{t(locale, "account.emailNotSent")}</p>
           <FormField label={t(locale, "forms.email")} error={errors.email}>
             <input data-testid="forgot-email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} />
@@ -222,7 +222,7 @@ export default function AccountPage() {
           <FormField label={t(locale, "forms.newPassword")} error={errors.password}>
             <input data-testid="forgot-password" type="password" autoComplete="new-password" value={password} onChange={(event) => setPassword(event.target.value)} />
           </FormField>
-          <Button type="submit" data-testid="forgot-submit">{t(locale, "account.setDevPassword")}</Button>
+          <Button type="submit" data-testid="forgot-submit">{t(locale, "account.setPassword")}</Button>
         </form>
       ) : null}
       {mode === "profile" ? (

@@ -11,6 +11,10 @@ export type CustomerInput = {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export function isEmailAddress(value: string): boolean {
+  return emailPattern.test(value.trim());
+}
+
 export function validateCustomer(
   input: CustomerInput,
   locale: Locale,

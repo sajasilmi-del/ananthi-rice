@@ -2,6 +2,7 @@ import areasData from "@/data/delivery-areas.json";
 import { DELIVERY_LOCATION_KEY } from "@/lib/delivery-service";
 import { formatMessage, t } from "@/lib/i18n";
 import type { ConfirmedServiceArea, Locale } from "@/lib/types";
+import { isEmailAddress } from "@/lib/validation";
 
 export type ServiceArea = {
   pincode: string;
@@ -26,6 +27,7 @@ export type DeliveryAddressInput = {
   street: string;
   locality: string;
   phone: string;
+  email: string;
   pincode: string;
 };
 
@@ -71,6 +73,10 @@ export function normalizePhone(value: string): string {
   return value.replace(/\s+/g, "");
 }
 
+export function normalizeEmail(value: string): string {
+  return value.trim().toLowerCase();
+}
+
 export function validateDeliveryAddress(input: DeliveryAddressInput, locale: Locale): Record<string, string> {
   const errors: Record<string, string> = {};
   const name = input.name.trim();
@@ -83,6 +89,9 @@ export function validateDeliveryAddress(input: DeliveryAddressInput, locale: Loc
   const phone = normalizePhone(input.phone);
   if (!phone) errors.mobile = t(locale, "validation.mobileRequired");
   else if (!/^[0-9]{10}$/.test(phone)) errors.mobile = t(locale, "validation.mobileInvalid");
+  const email = normalizeEmail(input.email);
+  if (!email) errors.email = t(locale, "validation.emailRequired");
+  else if (!isEmailAddress(email)) errors.email = t(locale, "validation.emailInvalid");
   const assessed = assessPincode(input.pincode);
   if (assessed.status !== "available") errors.pincode = pincodeStatusText(assessed, locale);
   return errors;

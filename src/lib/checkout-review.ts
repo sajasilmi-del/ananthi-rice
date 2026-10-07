@@ -6,6 +6,7 @@ import { PAYMENT_METHODS, type PaymentIntent, type PaymentMethod, type PaymentPr
 import {
   assessPincode,
   composeDeliveryAddress,
+  normalizeEmail,
   normalizePhone,
   type DeliveryAddressInput,
   type PincodeDelivery,
@@ -32,6 +33,7 @@ function readAddress(value: unknown): DeliveryAddressInput {
     street: text(record, "street"),
     locality: text(record, "locality"),
     phone: mobile || text(record, "phone"),
+    email: text(record, "email"),
     pincode: text(record, "pincode"),
   };
 }
@@ -126,7 +128,7 @@ export function prepareCheckout(draft: unknown, config: DeliveryConfig): Checkou
     customer: {
       name: address.name.trim(),
       mobile: normalizePhone(address.phone),
-      email: "",
+      email: normalizeEmail(address.email),
       address: composeDeliveryAddress(address, locale),
     },
     serviceArea: {
