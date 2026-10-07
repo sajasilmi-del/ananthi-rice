@@ -101,7 +101,7 @@ describe("phase 1 data", () => {
   it("keeps phone numbers and the WhatsApp id in site data", () => {
     expect(site.phones).toEqual(["9942034428", "7540034428"]);
     expect(site.whatsappE164).toBe("919942034428");
-    expect(site.email).toBe("artraders11022018@gmail.com");
+    expect(site.email).toBe("ananthirice.shop@gmail.com");
   });
 
   it("does not hard-code catalog facts into components", () => {
