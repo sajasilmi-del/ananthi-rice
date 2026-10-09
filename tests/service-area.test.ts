@@ -10,8 +10,8 @@ import {
   writeConfirmedServiceArea,
 } from "@/lib/service-area";
 
-describe("Chennai home delivery pincodes", () => {
-  it("lists the eight delivery pincodes", () => {
+describe("Chennai and Paramakudi home delivery pincodes", () => {
+  it("lists the delivery pincodes", () => {
     expect(serviceAreas.map((area) => area.pincode)).toEqual([
       "600032",
       "600078",
@@ -21,18 +21,34 @@ describe("Chennai home delivery pincodes", () => {
       "600095",
       "600116",
       "600125",
+      "623707",
+      "623701",
+      "623705",
+      "623706",
+      "623527",
+      "623608",
     ]);
     expect(serviceAreas.find((area) => area.pincode === "600089")?.areasEnglish).toBe("Ramapuram, Nandambakkam");
+    expect(serviceAreas.find((area) => area.pincode === "623707")?.areasEnglish).toContain("Paramakudi (Main)");
+    expect(serviceAreas.find((area) => area.pincode === "623608")?.areasEnglish).toBe("Melaperungarai, Nelmadur");
+    expect(serviceAreas.find((area) => area.pincode === "623707")?.cityEnglish).toBe("Paramakudi");
   });
 
   it("confirms a listed pincode and refuses anything else", () => {
     expect(assessPincode(" 600089 ").status).toBe("available");
-    expect(assessPincode("600032")).toMatchObject({ areasEnglish: "Guindy, Ekkatuthangal" });
+    expect(assessPincode("600032")).toMatchObject({ areasEnglish: "Guindy, Ekkatuthangal", cityEnglish: "Chennai" });
+    expect(assessPincode("623707")).toMatchObject({ status: "available", cityEnglish: "Paramakudi", areasEnglish: expect.stringContaining("Poduvakudi") });
+    expect(assessPincode("623701").status).toBe("available");
     expect(assessPincode("")).toEqual({ status: "required" });
     expect(assessPincode("60008")).toEqual({ status: "invalid" });
-    expect(assessPincode("623707")).toEqual({ status: "unavailable", pincode: "623707" });
-    expect(pincodeStatusText(assessPincode("623707"), "en")).toBe("Sorry, we can't deliver to this pincode right now.");
+    expect(assessPincode("600001")).toEqual({ status: "unavailable", pincode: "600001" });
+    expect(pincodeStatusText(assessPincode("600001"), "en")).toBe("Sorry, we can't deliver to this pincode right now.");
+    expect(pincodeStatusText(assessPincode("600089"), "en")).toContain("Chennai");
     expect(pincodeStatusText(assessPincode("600089"), "ta")).toContain("இராமபுரம்");
+    expect(pincodeStatusText(assessPincode("623608"), "en")).toContain("Paramakudi");
+    expect(pincodeStatusText(assessPincode("623608"), "en")).not.toContain("Chennai");
+    expect(pincodeStatusText(assessPincode("623527"), "ta")).toContain("அரியக்குடி");
+    expect(pincodeStatusText(assessPincode("623527"), "ta")).toContain("பரமக்குடி");
   });
 
   it("builds the address from the fields and ignores a stored map pin", () => {
@@ -53,6 +69,10 @@ describe("Chennai home delivery pincodes", () => {
     expect(composeDeliveryAddress(input, "en")).not.toContain("@");
     expect(validateDeliveryAddress({ ...input, email: "not-an-email" }, "en").email).toBeTruthy();
     expect(composeDeliveryAddress(input, "ta")).toContain("சென்னை 600089");
+    const paramakudi = { ...input, locality: "Ottapalam", pincode: "623707" };
+    expect(composeDeliveryAddress(paramakudi, "en")).toContain("Paramakudi 623707");
+    expect(composeDeliveryAddress(paramakudi, "en")).not.toContain("Chennai");
+    expect(composeDeliveryAddress(paramakudi, "ta")).toContain("பரமக்குடி 623707");
     expect(Object.keys(validateDeliveryAddress({ ...input, name: "", phone: "123" }, "en"))).toEqual(
       expect.arrayContaining(["name", "mobile"]),
     );
@@ -85,12 +105,25 @@ describe("Chennai home delivery pincodes", () => {
     });
     writeConfirmedServiceArea(memory, {
       source: "pincode",
-      pincode: "623707",
+      pincode: "600001",
       areasEnglish: "Paramakudi",
       areasTamil: "பரமக்குடி",
       addressLabel: "Paramakudi",
       confirmedAt: "",
     });
     expect(readConfirmedServiceArea(memory)?.pincode).toBe("600125");
+    writeConfirmedServiceArea(memory, {
+      source: "pincode",
+      pincode: "623707",
+      areasEnglish: "Wrong",
+      areasTamil: "Wrong",
+      addressLabel: "Paramakudi 623707",
+      confirmedAt: "",
+    });
+    expect(readConfirmedServiceArea(memory)).toMatchObject({
+      pincode: "623707",
+      areasEnglish: expect.stringContaining("Paramakudi (Main)"),
+      addressLabel: "Paramakudi 623707",
+    });
   });
 });

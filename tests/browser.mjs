@@ -215,11 +215,15 @@ try {
   check(await page.getByTestId("checkout-submit").isDisabled(), "Checkout was available before a pincode");
   check((await page.locator("[data-checkout-step='address']").count()) === 0, "Address fields showed before a pincode");
   check((await page.locator("[data-checkout-step='payment']").count()) === 0, "Payment showed before a pincode");
-  await page.getByTestId("delivery-pincode").fill("623707");
+  await page.getByTestId("delivery-pincode").fill("600001");
   const sorryText = await page.getByTestId("checkout-delivery").innerText();
   check(sorryText.includes("can't deliver"), `Outside pincode status was ${sorryText}`);
-  check((await page.locator("[data-checkout-step='address']").count()) === 0, "Address fields showed for Paramakudi");
-  check(await page.getByTestId("checkout-submit").isDisabled(), "Paramakudi pincode unblocked checkout");
+  check((await page.locator("[data-checkout-step='address']").count()) === 0, "Address fields showed for an outside pincode");
+  check(await page.getByTestId("checkout-submit").isDisabled(), "An outside pincode unblocked checkout");
+  await page.getByTestId("delivery-pincode").fill("623707");
+  const paramakudiText = await page.getByTestId("checkout-delivery").innerText();
+  check(paramakudiText.includes("Paramakudi") && paramakudiText.includes("623707"), `Paramakudi status was ${paramakudiText}`);
+  check((await page.getByTestId("address-city").inputValue()) === "Paramakudi", "Paramakudi city did not follow the pincode");
   await page.getByTestId("delivery-pincode").fill("600089");
   const confirmedText = await page.getByTestId("checkout-delivery").innerText();
   check(confirmedText.includes("Ramapuram") && confirmedText.includes("600089"), `Confirmed pincode status was ${confirmedText}`);
@@ -357,7 +361,7 @@ try {
   await page.goto(base, { waitUntil: "networkidle" });
   await page.getByTestId("delivery-areas").waitFor();
   const homeAreas = await page.getByTestId("delivery-areas").innerText();
-  check(homeAreas.includes("600089") && homeAreas.includes("Ramapuram"), `Home delivery areas were ${homeAreas}`);
+  check(homeAreas.includes("600089") && homeAreas.includes("Ramapuram") && homeAreas.includes("623707") && homeAreas.includes("Nelmadur"), `Home delivery areas were ${homeAreas}`);
   check((await page.getByTestId("place-note-paramakudi").innerText()).includes("Head office"), "Paramakudi was not kept as the head office");
   check((await page.getByTestId("place-note-chennai").innerText()).includes("Chennai"), "Chennai card omitted the delivery note");
   await page.goto(`${base}/checkout`, { waitUntil: "networkidle" });
@@ -465,7 +469,8 @@ try {
   check((await page.locator("body").innerText()).includes("What rice varieties do you sell?"), "FAQ did not render");
   await page.goto(`${base}/legal/delivery`, { waitUntil: "networkidle" });
   const policy = await page.locator("body").innerText();
-  check(policy.includes("600089") && policy.includes("Paramakudi") && policy.includes("not available"), `Delivery policy was ${policy.slice(0, 400)}`);
+  check(policy.includes("600089") && policy.includes("623707") && policy.includes("not available"), `Delivery policy was ${policy.slice(0, 500)}`);
+  check(!policy.includes("not available from Paramakudi"), "Delivery policy still excluded Paramakudi");
   check(!policy.includes("5 km"), "Delivery policy still promised a 5 km radius");
 
   await page.setViewportSize({ width: 1280, height: 800 });

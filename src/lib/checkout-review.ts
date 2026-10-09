@@ -147,7 +147,7 @@ export function prepareCheckout(draft: unknown, config: DeliveryConfig): Checkou
 }
 
 /**
- * Re-checks the cart, Chennai pincode, delivery address, and payment provider.
+ * Re-checks the cart, delivery pincode, delivery address, and payment provider.
  * Client coordinates, composed address text, prices, and payment claims are ignored.
  */
 export async function reviewCheckout(options: {

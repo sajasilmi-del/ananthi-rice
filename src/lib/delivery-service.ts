@@ -4,7 +4,7 @@ import type { ConfirmedLocation, DeliveryConfig, LatLng, Locale } from "@/lib/ty
 
 /**
  * Distance helper kept for the map circle. Checkout does not use it.
- * Home delivery is the Chennai pincode list in delivery-areas.json.
+ * Home delivery is the Chennai and Paramakudi pincode list in delivery-areas.json.
  */
 export const DELIVERY_RADIUS_KM = 5;
 

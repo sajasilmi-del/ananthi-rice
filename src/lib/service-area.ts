@@ -6,6 +6,8 @@ import { isEmailAddress } from "@/lib/validation";
 
 export type ServiceArea = {
   pincode: string;
+  cityEnglish: string;
+  cityTamil: string;
   areasEnglish: string;
   areasTamil: string;
 };
@@ -14,10 +16,15 @@ export type PincodeDelivery =
   | { status: "required" }
   | { status: "invalid" }
   | { status: "unavailable"; pincode: string }
-  | { status: "available"; pincode: string; areasEnglish: string; areasTamil: string };
+  | {
+      status: "available";
+      pincode: string;
+      cityEnglish: string;
+      cityTamil: string;
+      areasEnglish: string;
+      areasTamil: string;
+    };
 
-export const DELIVERY_CITY_EN = areasData.cityEnglish;
-export const DELIVERY_CITY_TA = areasData.cityTamil;
 export const serviceAreas = areasData.areas as ServiceArea[];
 
 export type DeliveryAddressInput = {
@@ -44,13 +51,15 @@ export function assessPincode(value: string): PincodeDelivery {
   return {
     status: "available",
     pincode: area.pincode,
+    cityEnglish: area.cityEnglish,
+    cityTamil: area.cityTamil,
     areasEnglish: area.areasEnglish,
     areasTamil: area.areasTamil,
   };
 }
 
-export function cityLabel(locale: Locale): string {
-  return locale === "ta" ? DELIVERY_CITY_TA : DELIVERY_CITY_EN;
+export function cityLabel(locale: Locale, result: Extract<PincodeDelivery, { status: "available" }>): string {
+  return locale === "ta" ? result.cityTamil : result.cityEnglish;
 }
 
 export function areaLabel(result: Extract<PincodeDelivery, { status: "available" }>, locale: Locale): string {
@@ -61,6 +70,7 @@ export function pincodeStatusText(result: PincodeDelivery, locale: Locale): stri
   if (result.status === "available") {
     return formatMessage(t(locale, "delivery.pincodeConfirmed"), {
       areas: areaLabel(result, locale),
+      city: cityLabel(locale, result),
       pincode: result.pincode,
     });
   }
@@ -100,7 +110,9 @@ export function validateDeliveryAddress(input: DeliveryAddressInput, locale: Loc
 export function composeDeliveryAddress(input: DeliveryAddressInput, locale: Locale): string {
   const pincode = normalizePincode(input.pincode);
   const phone = normalizePhone(input.phone);
-  return [input.door.trim(), input.building.trim(), input.street.trim(), input.locality.trim(), `${cityLabel(locale)} ${pincode}`, phone]
+  const assessed = assessPincode(pincode);
+  const city = assessed.status === "available" ? cityLabel(locale, assessed) : "";
+  return [input.door.trim(), input.building.trim(), input.street.trim(), input.locality.trim(), `${city} ${pincode}`.trim(), phone]
     .filter((part) => part.length > 0)
     .join(", ");
 }

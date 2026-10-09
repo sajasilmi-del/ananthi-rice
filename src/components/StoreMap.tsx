@@ -10,14 +10,17 @@ export function StoreMap({ location }: { location: LocationRecord }) {
   if (!src) return null;
   const title = locale === "ta" ? location.nameTamil : location.nameEnglish;
   return (
-    <iframe
-      className="store-map"
-      title={title}
-      src={src}
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-      allowFullScreen
-      data-testid={`store-map-${location.id}`}
-    />
+    <figure className="store-map-figure">
+      <figcaption>{title}</figcaption>
+      <iframe
+        className="store-map"
+        title={title}
+        src={src}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        allowFullScreen
+        data-testid={`store-map-${location.id}`}
+      />
+    </figure>
   );
 }

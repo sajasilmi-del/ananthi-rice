@@ -1,46 +1,102 @@
 {
-  "cityEnglish": "Chennai",
-  "cityTamil": "சென்னை",
   "areas": [
     {
       "pincode": "600032",
+      "cityEnglish": "Chennai",
+      "cityTamil": "சென்னை",
       "areasEnglish": "Guindy, Ekkatuthangal",
       "areasTamil": "கிண்டி, எக்கட்டுத்தாங்கல்"
     },
     {
       "pincode": "600078",
+      "cityEnglish": "Chennai",
+      "cityTamil": "சென்னை",
       "areasEnglish": "K.K. Nagar, MGR Nagar, Nesapakkam",
       "areasTamil": "கே.கே. நகர், எம்.ஜி.ஆர். நகர், நேசபாக்கம்"
     },
     {
       "pincode": "600083",
+      "cityEnglish": "Chennai",
+      "cityTamil": "சென்னை",
       "areasEnglish": "Ashok Nagar",
       "areasTamil": "அசோக் நகர்"
     },
     {
       "pincode": "600087",
+      "cityEnglish": "Chennai",
+      "cityTamil": "சென்னை",
       "areasEnglish": "Valasaravakkam",
       "areasTamil": "வளசரவாக்கம்"
     },
     {
       "pincode": "600089",
+      "cityEnglish": "Chennai",
+      "cityTamil": "சென்னை",
       "areasEnglish": "Ramapuram, Nandambakkam",
       "areasTamil": "இராமபுரம், நந்தம்பாக்கம்"
     },
     {
       "pincode": "600095",
+      "cityEnglish": "Chennai",
+      "cityTamil": "சென்னை",
       "areasEnglish": "Maduravoyal",
       "areasTamil": "மதுரவாயல்"
     },
     {
       "pincode": "600116",
+      "cityEnglish": "Chennai",
+      "cityTamil": "சென்னை",
       "areasEnglish": "Porur",
       "areasTamil": "பூரூர்"
     },
     {
       "pincode": "600125",
+      "cityEnglish": "Chennai",
+      "cityTamil": "சென்னை",
       "areasEnglish": "Manapakkam",
       "areasTamil": "மணப்பாக்கம்"
+    },
+    {
+      "pincode": "623707",
+      "cityEnglish": "Paramakudi",
+      "cityTamil": "பரமக்குடி",
+      "areasEnglish": "Paramakudi (Main), Paramakudi Bazaar, Paramakudi ITI, Bharathinagar (PMK), Ariyanendal, Sangankottai, Thiruvadi, Mavilangai, Karuthanendal, Vananganendal, Theivendranallur, Nemmeni, Vilathur, Madanthai, Kumarakudi, Poduvakudi",
+      "areasTamil": "பரமக்குடி (முக்கிய), பரமக்குடி பஜார், பரமக்குடி ஐ.டி.ஐ, பாரதிநகர் (பரமக்குடி), அரியனேந்தல், சங்கன்கோட்டை, திருவாடி, மாவிலங்கை, கருத்தனேந்தல், வணங்கனேந்தல், தெய்வேந்திரநல்லூர், நெம்மேனி, விளாத்தூர், மடந்தை, குமரக்குடி, பொதுவக்குடி"
+    },
+    {
+      "pincode": "623701",
+      "cityEnglish": "Paramakudi",
+      "cityTamil": "பரமக்குடி",
+      "areasEnglish": "Alimadurai, Pandiyur, T. Pudukottai, Ariyanendal, Nemmeni, Kumarakurichi",
+      "areasTamil": "அலிமதுரை, பாண்டியூர், டி. புதுக்கோட்டை, அரியனேந்தல், நெம்மேனி, குமரகுறிச்சி"
+    },
+    {
+      "pincode": "623705",
+      "cityEnglish": "Paramakudi",
+      "cityTamil": "பரமக்குடி",
+      "areasEnglish": "Akkiramesi, Nagaram, Nainarkoil, P. Sirahikottai, Chathurvethamangalam",
+      "areasTamil": "அக்கிரமேசி, நகரம், நயினார்கோயில், பி. சிராஹிக்கோட்டை, சதுர்வேதமங்கலம்"
+    },
+    {
+      "pincode": "623706",
+      "cityEnglish": "Paramakudi",
+      "cityTamil": "பரமக்குடி",
+      "areasEnglish": "M M Pattinam, Melakavanur, Melayakudi, Pambur, Sambakulam, Kilathooval, Sathanur (PMK)",
+      "areasTamil": "எம்.எம். பட்டினம், மேலக்கவனூர், மேலயக்குடி, பாம்பூர், சாம்பாகுளம், கீழத்தூவல், சாத்தனூர் (பரமக்குடி)"
+    },
+    {
+      "pincode": "623527",
+      "cityEnglish": "Paramakudi",
+      "cityTamil": "பரமக்குடி",
+      "areasEnglish": "Paramakudi ITI area, Ariyakudi, Kamankottai, Muthuvayal, Mennanthi, Pandikanmoi, Manjur, Pananganendal, Pottithatti",
+      "areasTamil": "பரமக்குடி ஐ.டி.ஐ பகுதி, அரியக்குடி, காமன்கோட்டை, முத்துவாயல், மென்னாந்தி, பாண்டிக்கன்மொய், மஞ்சூர், பனங்கனேந்தல், பொட்டித்தட்டி"
+    },
+    {
+      "pincode": "623608",
+      "cityEnglish": "Paramakudi",
+      "cityTamil": "பரமக்குடி",
+      "areasEnglish": "Melaperungarai, Nelmadur",
+      "areasTamil": "மேலப்பெருங்கரை, நெல்மதுர்"
     }
   ]
 }

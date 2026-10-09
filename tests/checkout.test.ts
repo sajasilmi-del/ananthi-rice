@@ -115,8 +115,8 @@ describe("checkout review", () => {
     if (review.ok) expect(review.order.customer.email).toBe("anand@example.com");
   });
 
-  it("rejects a pincode outside Chennai, an empty cart, and a payment result that is not the unconfigured state", async () => {
-    const outside = await reviewCheckout({ draft: draft("623707"), config });
+  it("rejects a pincode outside the delivery list, an empty cart, and a payment result that is not the unconfigured state", async () => {
+    const outside = await reviewCheckout({ draft: draft("600001"), config });
     expect(outside.ok).toBe(false);
     if (!outside.ok) {
       expect(outside.issues).toContain("delivery");
@@ -155,6 +155,21 @@ describe("checkout review", () => {
       expect(review.order.serviceArea.pincode).toBe("600032");
       expect(review.order.serviceArea.areasEnglish).toBe("Guindy, Ekkatuthangal");
       expect(review.order.customer.address).toContain("Chennai 600032");
+    }
+
+    const paramakudi = await reviewCheckout({
+      draft: draft("623707", {
+        locale: "ta",
+        customer: { ...draft("623707").customer, locality: "Ottapalam", city: "Chennai" },
+      }),
+      config: { ...config, origin: { latitude: null, longitude: null } },
+    });
+    expect(paramakudi.ok).toBe(true);
+    if (paramakudi.ok) {
+      expect(paramakudi.order.serviceArea.pincode).toBe("623707");
+      expect(paramakudi.order.serviceArea.areasEnglish).toContain("Paramakudi Bazaar");
+      expect(paramakudi.order.customer.address).toContain("பரமக்குடி 623707");
+      expect(paramakudi.order.customer.address).not.toContain("Chennai");
     }
 
     const pin = await reviewCheckout({
@@ -200,7 +215,7 @@ describe("checkout route", () => {
         new Request("http://localhost/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(draft("623707")),
+          body: JSON.stringify(draft("600001")),
         }),
       );
       const blockedBody = (await blocked.json()) as { ok: boolean; issues?: string[] };

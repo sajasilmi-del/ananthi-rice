@@ -143,7 +143,7 @@ export default function CheckoutPage() {
     assessed.status === "available"
       ? addressReady
         ? composeDeliveryAddress(address, locale)
-        : `${areaLabel(assessed, locale)}, ${cityLabel(locale)} ${assessed.pincode}`
+        : `${areaLabel(assessed, locale)}, ${cityLabel(locale, assessed)} ${assessed.pincode}`
       : "";
   const fallbackHref = cartWhatsAppUrl(locale, name, lines, fallbackAddress);
   const statusClass = assessed.status === "available" ? "notice" : assessed.status === "required" ? "muted" : "error";
@@ -165,7 +165,7 @@ export default function CheckoutPage() {
     if (assessed.status !== "available") return;
     const label = addressReady
       ? composeDeliveryAddress(address, locale)
-      : `${areaLabel(assessed, locale)}, ${cityLabel(locale)} ${assessed.pincode}`;
+      : `${areaLabel(assessed, locale)}, ${cityLabel(locale, assessed)} ${assessed.pincode}`;
     const token = `${assessed.pincode}|${label}`;
     if (savedLabel.current === token) return;
     savedLabel.current = token;
@@ -379,7 +379,7 @@ export default function CheckoutPage() {
                 <input data-testid="address-locality" value={locality} autoComplete="address-level3" onChange={(event) => edit(setLocality)(event.target.value)} />
               </FormField>
               <FormField label={t(locale, "forms.city")}>
-                <input data-testid="address-city" value={cityLabel(locale)} readOnly autoComplete="address-level2" />
+                <input data-testid="address-city" value={cityLabel(locale, assessed)} readOnly autoComplete="address-level2" />
               </FormField>
               <FormField label={t(locale, "forms.pincode")}>
                 <input data-testid="address-pincode" value={assessed.pincode} readOnly autoComplete="postal-code" />

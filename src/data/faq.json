@@ -17,8 +17,8 @@
     "id": "home-delivery",
     "questionTamil": "வீட்டு டெலிவரி உண்டா?",
     "questionEnglish": "Do you provide home delivery?",
-    "answerTamil": "ஆம். 600032, 600078, 600083, 600087, 600089, 600095, 600116, 600125 ஆகிய சென்னை அஞ்சல் குறியீடுகளுக்கு இலவச வீட்டு டெலிவரி உண்டு. வேறு அஞ்சல் குறியீட்டிற்கு இப்போது டெலிவரி இல்லை. பரமக்குடி தலைமை அலுவலகம். அங்கிருந்து இப்போது வீட்டு டெலிவரி இல்லை.",
-    "answerEnglish": "Yes. Free home delivery is available for these Chennai pincodes: 600032, 600078, 600083, 600087, 600089, 600095, 600116 and 600125. Other pincodes are not served right now. Paramakudi is the head office and has no home delivery right now."
+    "answerTamil": "ஆம். 600032, 600078, 600083, 600087, 600089, 600095, 600116, 600125 ஆகிய சென்னை அஞ்சல் குறியீடுகளுக்கும், 623707, 623701, 623705, 623706, 623527, 623608 ஆகிய பரமக்குடி அஞ்சல் குறியீடுகளுக்கும் இலவச வீட்டு டெலிவரி உண்டு. வேறு அஞ்சல் குறியீட்டிற்கு இப்போது டெலிவரி இல்லை.",
+    "answerEnglish": "Yes. Free home delivery is available for these Chennai pincodes: 600032, 600078, 600083, 600087, 600089, 600095, 600116 and 600125. It is also available for these Paramakudi pincodes: 623707, 623701, 623705, 623706, 623527 and 623608. Other pincodes are not served right now."
   },
   {
     "id": "whatsapp",
@@ -38,7 +38,7 @@
     "id": "delivery-distance",
     "questionTamil": "எவ்வளவு தூரத்திற்கு டெலிவரி செய்வீர்கள்?",
     "questionEnglish": "How far do you deliver?",
-    "answerTamil": "வீட்டு டெலிவரி அந்த சென்னை அஞ்சல் குறியீடுகளுக்கு மட்டும். இது கடையிலிருந்து ஒரு தூரம் அல்ல. பரமக்குடி தலைமை அலுவலகத்திலிருந்து இப்போது வீட்டு டெலிவரி இல்லை.",
-    "answerEnglish": "Home delivery covers only those Chennai pincodes. It is not measured as a distance from the shop. Home delivery is not available from the Paramakudi head office right now."
+    "answerTamil": "வீட்டு டெலிவரி இந்த தளத்தில் உள்ள சென்னை மற்றும் பரமக்குடி அஞ்சல் குறியீடுகளுக்கு மட்டும். இது கடையிலிருந்து ஒரு தூரம் அல்ல.",
+    "answerEnglish": "Home delivery covers the Chennai and Paramakudi pincodes listed on this site. It is not measured as a distance from the shop."
   }
 ]

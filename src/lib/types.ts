@@ -150,7 +150,7 @@ export type ConfirmedLocation = LatLng & {
   confirmedAt: string;
 };
 
-/** A Chennai pincode the shop can deliver to. Coordinates are not part of this check. */
+/** A Chennai or Paramakudi pincode the shop can deliver to. Coordinates are not part of this check. */
 export type ConfirmedServiceArea = {
   source: "pincode";
   pincode: string;
