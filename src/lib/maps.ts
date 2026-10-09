@@ -16,12 +16,12 @@ export function locationDirectionsUrl(location: LocationRecord): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.addressEnglish.join(", "))}`;
 }
 
-/** Embedded map for a location that has a Google listing or coordinates. */
+/** Embedded map for a location that has a Google listing or coordinates. t=k keeps satellite view. */
 export function locationEmbedUrl(location: LocationRecord, locale: Locale): string | null {
   const hl = locale === "ta" ? "ta" : "en";
   if (location.mapCid) {
-    return `https://maps.google.com/maps?cid=${encodeURIComponent(location.mapCid)}&hl=${hl}&z=17&output=embed`;
+    return `https://maps.google.com/maps?cid=${encodeURIComponent(location.mapCid)}&hl=${hl}&t=k&z=17&output=embed`;
   }
   if (location.latitude == null || location.longitude == null) return null;
-  return `https://maps.google.com/maps?q=${location.latitude},${location.longitude}&hl=${hl}&z=17&output=embed`;
+  return `https://maps.google.com/maps?q=${location.latitude},${location.longitude}&hl=${hl}&t=k&z=17&output=embed`;
 }

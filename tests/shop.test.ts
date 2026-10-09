@@ -20,18 +20,20 @@ describe("shop catalog", () => {
     );
     expect(locationDirectionsUrl(chennai!)).not.toContain("maps/search");
     expect(locationEmbedUrl(chennai!, "en")).toBe(
-      "https://maps.google.com/maps?cid=9659080878046730364&hl=en&z=17&output=embed",
+      "https://maps.google.com/maps?cid=9659080878046730364&hl=en&t=k&z=17&output=embed",
     );
     expect(locationEmbedUrl(chennai!, "ta")).toContain("hl=ta");
+    expect(locationEmbedUrl(chennai!, "ta")).toContain("t=k");
     expect(paramakudi).toMatchObject({ latitude: 9.5505556, longitude: 78.58425 });
     expect(locationDirectionsUrl(paramakudi!)).toBe(
       "https://www.google.com/maps/place/9%C2%B033'02.0%22N+78%C2%B035'03.3%22E/@9.5505299,78.5842031,21z/data=!4m4!3m3!8m2!3d9.5505556!4d78.58425!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MTAwNi4wIKXMDSoASAFQAw%3D%3D",
     );
     expect(locationDirectionsUrl(paramakudi!)).not.toContain("maps/search");
     expect(locationEmbedUrl(paramakudi!, "en")).toBe(
-      "https://maps.google.com/maps?q=9.5505556,78.58425&hl=en&z=17&output=embed",
+      "https://maps.google.com/maps?q=9.5505556,78.58425&hl=en&t=k&z=17&output=embed",
     );
     expect(locationEmbedUrl(paramakudi!, "ta")).toContain("hl=ta");
+    expect(locationEmbedUrl(paramakudi!, "ta")).toContain("t=k");
     expect(mapViewCenter(null, { latitude: chennai!.latitude!, longitude: chennai!.longitude! })).toEqual({
       latitude: 13.0280447,
       longitude: 80.1868165,
