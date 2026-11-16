@@ -82,7 +82,13 @@ export function variantPackLabel(variant: Variant, locale: Locale): string | nul
   return locale === "ta" ? variant.packSizeTamil : variant.packSize;
 }
 
-export function isPurchasable(variant: Variant): boolean {
+/** Only the ANANTHI brand is sold online. Other brands stay on the site as out of stock. */
+export function productInStock(product: Pick<Product, "brand">): boolean {
+  return product.brand === "ananthi";
+}
+
+export function isPurchasable(product: Pick<Product, "brand">, variant: Variant): boolean {
+  if (!productInStock(product)) return false;
   if (variant.stock == null) return true;
   return variant.stock > 0;
 }

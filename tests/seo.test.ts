@@ -56,17 +56,19 @@ describe("production SEO", () => {
     expect(product).toBeDefined();
     const plain = productJsonLd(product as Product, "en");
     expect(plain.name).toBe(product?.nameEnglish);
-    const offers = plain.offers as { price: number; priceCurrency: string }[];
+    const offers = plain.offers as { price: number; priceCurrency: string; availability: string }[];
     expect(offers.map((offer) => offer.price)).toEqual([160, 799, 1419, 2939]);
-    expect(offers.every((offer) => offer.priceCurrency === "INR" && !("availability" in offer))).toBe(true);
+    expect(offers.every((offer) => offer.priceCurrency === "INR" && offer.availability === "https://schema.org/InStock")).toBe(true);
 
     const priced = {
       ...(product as Product),
       variants: [{ ...(product as Product).variants[0], price: 120, salePrice: null, stock: null }],
     };
-    const offer = productJsonLd(priced, "en").offers as { price: number; priceCurrency: string };
-    expect(offer).toMatchObject({ price: 120, priceCurrency: "INR" });
-    expect(offer).not.toHaveProperty("availability");
+    const offer = productJsonLd(priced, "en").offers as { price: number; priceCurrency: string; availability: string };
+    expect(offer).toMatchObject({ price: 120, priceCurrency: "INR", availability: "https://schema.org/InStock" });
+
+    const soldOut = productJsonLd(getProduct("idli-rice") as Product, "en").offers as { availability: string }[];
+    expect(soldOut.every((item) => item.availability === "https://schema.org/OutOfStock")).toBe(true);
 
     const crumbs = breadcrumbJsonLd(
       [

@@ -17,7 +17,7 @@ export function clampQuantity(quantity: number, stock: number | null): number | 
 function purchasableVariant(productId: string, variantId: string): Variant | null {
   const product = getProduct(productId);
   const variant = product ? getVariant(product, variantId) : undefined;
-  if (!product?.active || !variant || !isPurchasable(variant)) return null;
+  if (!product?.active || !variant || !isPurchasable(product, variant)) return null;
   return variant;
 }
 

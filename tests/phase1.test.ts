@@ -3,7 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { createDevAuthAdapter } from "@/lib/auth/dev-adapter";
 import { addLine, clearCart, itemCount, removeLine, setQuantity, subtotal } from "@/lib/cart";
-import { brands, categories, deliveryConfig, products, site } from "@/lib/catalog";
+import { brands, categories, deliveryConfig, isPurchasable, productInStock, products, site } from "@/lib/catalog";
 import { checkoutAllowed, evaluateDelivery, DELIVERY_UNAVAILABLE_EN, DELIVERY_UNAVAILABLE_TA } from "@/lib/delivery";
 import { dictionaries, leafKeys, t } from "@/lib/i18n";
 import { detectBrowserLocale, LANGUAGE_STORAGE_KEY, readStoredLocale } from "@/lib/language";
@@ -168,6 +168,17 @@ describe("delivery, cart, payment, whatsapp, auth", () => {
     expect(checkoutAllowed(evaluateDelivery(deliveryConfig, null))).toBe(false);
   });
 
+  it("keeps only ANANTHI products in stock", () => {
+    for (const product of products) {
+      const inStock = product.brand === "ananthi";
+      expect(productInStock(product)).toBe(inStock);
+      for (const variant of product.variants) {
+        expect(isPurchasable(product, variant)).toBe(inStock);
+      }
+    }
+    expect(addLine([], { productId: "idli-rice", variantId: "1kg", quantity: 1 })).toEqual([]);
+  });
+
   it("updates a persistent cart without inventing a total", () => {
     let lines = addLine([], { productId: "ponni-boiled-rice", variantId: "5kg", quantity: 1 });
     lines = addLine(lines, { productId: "ponni-boiled-rice", variantId: "5kg", quantity: 1 });
@@ -177,8 +188,11 @@ describe("delivery, cart, payment, whatsapp, auth", () => {
     lines = removeLine(lines, "ponni-boiled-rice", "5kg");
     expect(lines).toEqual([]);
     lines = addLine(lines, { productId: "ragi-flour", variantId: "1kg", quantity: 1 });
+    expect(lines).toEqual([]);
+    expect(subtotal(lines)).toBe(0);
+    lines = addLine(lines, { productId: "rice-flour", variantId: "1kg", quantity: 1 });
+    expect(subtotal(lines)).toBe(100);
     expect(clearCart()).toEqual([]);
-    expect(subtotal(lines)).toBe(130);
   });
 
   it("opens WhatsApp with a language-specific prefilled message", () => {

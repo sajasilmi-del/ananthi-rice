@@ -29,6 +29,8 @@
     "price": "Price",
     "priceAtCheckout": "Price available at checkout",
     "availability": "Availability",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
     "unavailable": "Unavailable",
     "fssai": "FSSAI",
     "quantity": "Quantity",

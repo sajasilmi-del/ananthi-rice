@@ -70,9 +70,7 @@ describe("shopping cart", () => {
     expect(addLine(lines, { productId: ponni, variantId: "1kg", quantity: 1.2 })).toBe(lines);
     expect(addLine(lines, { productId: ponni, variantId: "no-such-pack", quantity: 1 })).toBe(lines);
     expect(addLine(lines, { productId: "missing-product", variantId: "1kg", quantity: 1 })).toEqual(lines);
-    expect(addLine([], { productId: flour, variantId: "1kg", quantity: 1 })).toEqual([
-      { productId: flour, variantId: "1kg", quantity: 1 },
-    ]);
+    expect(addLine([], { productId: flour, variantId: "1kg", quantity: 1 })).toEqual([]);
     expect(addLine([], { productId: flour, variantId: "unspecified", quantity: 1 })).toEqual([]);
   });
 
@@ -97,6 +95,7 @@ describe("shopping cart", () => {
       variantId: "1kg",
       quantity: 1,
     });
+    expect(lines).toEqual([{ productId: ponni, variantId: "5kg", quantity: 2 }]);
     writeCart(storage, lines);
     expect(readCart(storage)).toEqual(lines);
     storage.setItem(
@@ -109,10 +108,7 @@ describe("shopping cart", () => {
         { productId: flour, variantId: "1kg", quantity: 1 },
       ]),
     );
-    expect(readCart(storage)).toEqual([
-      { productId: ponni, variantId: "5kg", quantity: 2 },
-      { productId: flour, variantId: "1kg", quantity: 1 },
-    ]);
+    expect(readCart(storage)).toEqual([{ productId: ponni, variantId: "5kg", quantity: 2 }]);
     storage.setItem(CART_STORAGE_KEY, "{");
     expect(readCart(storage)).toEqual([]);
   });

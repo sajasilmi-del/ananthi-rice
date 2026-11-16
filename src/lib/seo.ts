@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getBrand, getCategory, locations, site, unitPrice } from "@/lib/catalog";
+import { getBrand, getCategory, isPurchasable, locations, site, unitPrice } from "@/lib/catalog";
 import { productPageMeta } from "@/lib/product-page";
 import type { Locale, Product } from "@/lib/types";
 
@@ -156,8 +156,9 @@ export function productJsonLd(product: Product, locale: Locale): Record<string, 
       price,
       url: absoluteUrl(localePath(meta.path, locale)),
     };
-    if (variant.stock === 0) offer.availability = "https://schema.org/OutOfStock";
-    else if (variant.stock != null && variant.stock > 0) offer.availability = "https://schema.org/InStock";
+    offer.availability = isPurchasable(product, variant)
+      ? "https://schema.org/InStock"
+      : "https://schema.org/OutOfStock";
     return [offer];
   });
   const data: Record<string, unknown> = {

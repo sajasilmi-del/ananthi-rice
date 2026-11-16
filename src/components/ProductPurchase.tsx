@@ -18,12 +18,20 @@ import { t } from "@/lib/i18n";
 import { productPath } from "@/lib/product-page";
 import { displayPrice, formatInr } from "@/lib/shop";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import type { Product } from "@/lib/types";
+import type { Locale, Product } from "@/lib/types";
 import { useAuth, useCart, useDeliveryLocation, useLanguage } from "@/components/Providers";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+
+function StockStatus({ inStock, locale }: { inStock: boolean; locale: Locale }) {
+  return (
+    <span className={inStock ? "stock-badge stock-in" : "stock-badge stock-out"} data-testid="stock-status" data-stock={inStock ? "in" : "out"}>
+      {inStock ? t(locale, "products.inStock") : t(locale, "products.outOfStock")}
+    </span>
+  );
+}
 
 export function ProductPurchase({ product, detail = false }: { product: Product; detail?: boolean }) {
   const { locale } = useLanguage();
@@ -47,7 +55,7 @@ export function ProductPurchase({ product, detail = false }: { product: Product;
   const category = getCategory(product.category);
   const name = productName(product, locale);
   const pack = variant ? variantPackLabel(variant, locale) : null;
-  const purchasable = variant ? isPurchasable(variant) : false;
+  const purchasable = variant ? isPurchasable(product, variant) : false;
   const whatsappHref = buildWhatsAppUrl(locale, {
     customerName: user?.name ?? "",
     lines: [
@@ -73,7 +81,7 @@ export function ProductPurchase({ product, detail = false }: { product: Product;
   }
 
   function addCurrent() {
-    if (!isPurchasable(variant)) return;
+    if (!isPurchasable(product, variant)) return;
     const next = clampQuantity(quantity, variant.stock);
     if (next == null) return;
     add({ productId: product.id, variantId: variant.id, quantity: next });
@@ -108,7 +116,10 @@ export function ProductPurchase({ product, detail = false }: { product: Product;
         images={product.images}
         imageAlt={name}
       >
-        <Badge tone={product.brand}>{brandLabel}</Badge>
+        <div className="product-badges">
+          <Badge tone={product.brand}>{brandLabel}</Badge>
+          <StockStatus inStock={purchasable} locale={locale} />
+        </div>
         <h3>
           <Link href={productPath(product.id)}>{name}</Link>
         </h3>
@@ -138,9 +149,12 @@ export function ProductPurchase({ product, detail = false }: { product: Product;
       images={product.images}
       imageAlt={name}
     >
-      <Badge tone={product.brand} testId="product-brand">
-        {brandLabel}
-      </Badge>
+      <div className="product-badges">
+        <Badge tone={product.brand} testId="product-brand">
+          {brandLabel}
+        </Badge>
+        <StockStatus inStock={purchasable} locale={locale} />
+      </div>
       <div className="product-title">
         <h1 data-testid={locale === "ta" ? "product-name-ta" : "product-name-en"}>{name}</h1>
         <p className="product-name-alt" data-testid={locale === "ta" ? "product-name-en" : "product-name-ta"}>
@@ -175,6 +189,7 @@ export function ProductPurchase({ product, detail = false }: { product: Product;
               step={1}
               max={variant.stock != null && variant.stock > 0 ? variant.stock : undefined}
               value={quantity}
+              disabled={!purchasable}
               aria-label={t(locale, "products.quantity")}
               data-testid="product-quantity"
               onChange={onQuantity}
@@ -211,12 +226,10 @@ export function ProductPurchase({ product, detail = false }: { product: Product;
           <dt>{t(locale, "products.category")}</dt>
           <dd>{categoryLabel}</dd>
         </div>
-        {variant.stock != null ? (
-          <div data-testid="product-availability">
-            <dt>{t(locale, "products.availability")}</dt>
-            <dd>{variant.stock > 0 ? String(variant.stock) : t(locale, "products.unavailable")}</dd>
-          </div>
-        ) : null}
+        <div data-testid="product-availability">
+          <dt>{t(locale, "products.availability")}</dt>
+          <dd>{purchasable ? t(locale, "products.inStock") : t(locale, "products.outOfStock")}</dd>
+        </div>
         <div data-testid="product-gstin">
           <dt>{t(locale, "footer.gstin")}</dt>
           <dd>{site.gst.gstin}</dd>

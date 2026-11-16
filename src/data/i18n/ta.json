@@ -29,6 +29,8 @@
     "price": "விலை",
     "priceAtCheckout": "விலை செக்அவுட்டில் தெரிவிக்கப்படும்",
     "availability": "இருப்பு",
+    "inStock": "இருப்பில் உள்ளது",
+    "outOfStock": "இருப்பில் இல்லை",
     "unavailable": "கிடைக்கவில்லை",
     "fssai": "FSSAI",
     "quantity": "அளவு",

@@ -32,7 +32,16 @@ async function checkDetail(page, spec) {
   if (spec.packPrice) {
     check((await page.getByTestId("product-price").innerText()).includes(spec.packPrice), `${spec.path} pack price`);
   }
-  check((await page.getByTestId("product-availability").count()) === 0, `${spec.path} still lists unknown availability`);
+  const inStock = spec.brand === "ANANTHI";
+  const stock = page.getByTestId("stock-status");
+  check((await stock.getAttribute("data-stock")) === (inStock ? "in" : "out"), `${spec.path} stock status`);
+  check((await stock.innerText()) === (inStock ? "In Stock" : "Out of Stock"), `${spec.path} stock label`);
+  check(
+    (await page.getByTestId("product-availability").innerText()).includes(inStock ? "In Stock" : "Out of Stock"),
+    `${spec.path} availability`,
+  );
+  check((await page.getByRole("button", { name: "Add to Cart" }).isDisabled()) === !inStock, `${spec.path} add button state`);
+  check((await page.getByRole("button", { name: "Buy Now" }).isDisabled()) === !inStock, `${spec.path} buy button state`);
   check((await page.getByTestId("product-gstin").innerText()).includes("33ALVPA6063F2Z4"), `${spec.path} missed the GSTIN`);
   await page.getByRole("button", { name: "Add to Cart" }).waitFor();
   await page.getByRole("button", { name: "Buy Now" }).waitFor();
@@ -480,6 +489,15 @@ try {
   await page.getByTestId("product-ponni-boiled-rice").waitFor();
   check((await page.getByTestId("product-ragi-sevai").count()) === 0, "Category filter showed a product from another category");
   check((await page.getByTestId("product-ponni-boiled-rice").innerText()).includes("₹160.00"), "Shop card hid the 1 kg price");
+  check((await page.getByTestId("product-ponni-boiled-rice").getByTestId("stock-status").innerText()) === "In Stock", "ANANTHI card was not in stock");
+  const everydayCards = page.locator("[data-testid^='product-']");
+  const everydayCount = await everydayCards.count();
+  for (let index = 0; index < everydayCount; index += 1) {
+    const card = everydayCards.nth(index);
+    const brand = await card.getAttribute("data-brand");
+    const stock = await card.getByTestId("stock-status").getAttribute("data-stock");
+    check(stock === (brand === "ananthi" ? "in" : "out"), `Everyday card ${await card.getAttribute("data-testid")} stock was ${stock} for ${brand}`);
+  }
 
   await page.goto(`${base}/products`, { waitUntil: "networkidle" });
   const countText = await page.getByTestId("shop-count").innerText();
@@ -516,8 +534,8 @@ try {
   await page.getByTestId("product-ragi-sevai").waitFor();
   check((await page.getByTestId("product-ponni-boiled-rice").count()) === 0, "Brand filter kept another brand");
   check((await page.getByTestId("product-karuppu-kavuni-rice").count()) === 0, "MAHI filter kept an ANANTHI rice");
-  await page.getByTestId("add-ragi-sevai").click();
-  await page.getByTestId("cart-drawer").waitFor();
+  check((await page.getByTestId("product-ragi-sevai").getByTestId("stock-status").innerText()) === "Out of Stock", "MAHI card was not out of stock");
+  check(await page.getByTestId("add-ragi-sevai").isDisabled(), "Out of stock MAHI product could be added");
 
   await page.goto(`${base}/products?sort=name-asc`, { waitUntil: "networkidle" });
   check((await page.getByTestId("shop-sort").inputValue()) === "name-asc", "Sort did not stay in the URL");
