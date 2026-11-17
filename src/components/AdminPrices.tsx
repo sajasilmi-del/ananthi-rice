@@ -8,11 +8,20 @@ import { isMoney, priceKey, type AdminProductRow } from "@/lib/price-book";
 import type { PriceStorageMode } from "@/lib/price-store-mode";
 
 type Draft = Record<string, string>;
+type StockDraft = Record<string, boolean>;
 
 function draftFrom(rows: AdminProductRow[]): Draft {
   const draft: Draft = {};
   for (const row of rows) {
     for (const variant of row.variants) draft[priceKey(row.id, variant.id)] = variant.price == null ? "" : String(variant.price);
+  }
+  return draft;
+}
+
+function stockFrom(rows: AdminProductRow[]): StockDraft {
+  const draft: StockDraft = {};
+  for (const row of rows) {
+    for (const variant of row.variants) draft[priceKey(row.id, variant.id)] = variant.inStock;
   }
   return draft;
 }
@@ -43,7 +52,9 @@ export function AdminPrices({
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [draft, setDraft] = useState<Draft>(() => draftFrom(rows));
+  const [stock, setStock] = useState<StockDraft>(() => stockFrom(rows));
   const initial = useMemo(() => draftFrom(rows), [rows]);
+  const initialStock = useMemo(() => stockFrom(rows), [rows]);
   const text = (key: string) => t(locale, `admin.${key}`);
 
   if (!authed) {
@@ -111,7 +122,9 @@ export function AdminPrices({
     else groups.push({ id: row.categoryId, titleTamil: row.categoryTamil, titleEnglish: row.categoryEnglish, rows: [row] });
   }
   const invalid = Object.values(draft).some((value) => parseDraft(value) === "invalid");
-  const changed = Object.keys(draft).some((key) => draft[key] !== initial[key]);
+  const changed =
+    Object.keys(draft).some((key) => draft[key] !== initial[key]) ||
+    Object.keys(stock).some((key) => stock[key] !== initialStock[key]);
 
   return (
     <div className="admin-page">
@@ -174,20 +187,43 @@ export function AdminPrices({
                     const key = priceKey(row.id, variant.id);
                     const value = draft[key] ?? "";
                     const bad = parseDraft(value) === "invalid";
+                    const inStock = stock[key] ?? variant.inStock;
                     const pack = locale === "ta" ? variant.packTamil : variant.packEnglish;
                     return (
-                      <label key={variant.id} className="field">
-                        {pack}
-                        <input
-                          data-testid={`admin-price-${row.id}-${variant.id}`}
-                          inputMode="decimal"
-                          autoComplete="off"
-                          value={value}
-                          aria-invalid={bad}
-                          className={bad ? "admin-bad" : undefined}
-                          onChange={(event) => setDraft((current) => ({ ...current, [key]: event.target.value }))}
-                        />
-                      </label>
+                      <div key={variant.id} className="admin-pack">
+                        <label className="field">
+                          {pack}
+                          <input
+                            data-testid={`admin-price-${row.id}-${variant.id}`}
+                            inputMode="decimal"
+                            autoComplete="off"
+                            value={value}
+                            aria-invalid={bad}
+                            className={bad ? "admin-bad" : undefined}
+                            onChange={(event) => setDraft((current) => ({ ...current, [key]: event.target.value }))}
+                          />
+                        </label>
+                        <div className="admin-stock" role="group" aria-label={pack}>
+                          <button
+                            type="button"
+                            className="is-in"
+                            aria-pressed={inStock}
+                            data-testid={`admin-stock-${row.id}-${variant.id}-in`}
+                            onClick={() => setStock((current) => ({ ...current, [key]: true }))}
+                          >
+                            {t(locale, "products.inStock")}
+                          </button>
+                          <button
+                            type="button"
+                            className="is-out"
+                            aria-pressed={!inStock}
+                            data-testid={`admin-stock-${row.id}-${variant.id}-out`}
+                            onClick={() => setStock((current) => ({ ...current, [key]: false }))}
+                          >
+                            {t(locale, "products.outOfStock")}
+                          </button>
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
@@ -214,11 +250,18 @@ export function AdminPrices({
                 price: parseDraft(draft[priceKey(row.id, variant.id)] ?? ""),
               })),
             );
+            const stockUpdates = rows.flatMap((row) =>
+              row.variants.map((variant) => ({
+                productId: row.id,
+                variantId: variant.id,
+                inStock: stock[priceKey(row.id, variant.id)] ?? variant.inStock,
+              })),
+            );
             try {
               const response = await fetch("/api/admin/prices", {
                 method: "PUT",
                 headers: { "content-type": "application/json" },
-                body: JSON.stringify({ prices }),
+                body: JSON.stringify({ prices, stock: stockUpdates }),
               });
               if (!response.ok) {
                 setError(text("saveFailed"));

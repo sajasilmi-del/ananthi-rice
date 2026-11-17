@@ -65,7 +65,38 @@
 .admin-packs {
   display: grid;
   gap: var(--space-3);
-  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.admin-pack { display: grid; gap: var(--space-2); align-content: start; }
+
+.admin-stock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+}
+
+.admin-stock button {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--color-ink);
+  padding: 0.45rem 0.3rem;
+  font-weight: 700;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.admin-stock button[aria-pressed="true"].is-in {
+  background: #e7f6ee;
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.admin-stock button[aria-pressed="true"].is-out {
+  background: #fdecef;
+  color: var(--color-danger);
+  border-color: var(--color-danger);
 }
 
 .admin-packs input {

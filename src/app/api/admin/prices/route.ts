@@ -21,7 +21,7 @@ export async function PUT(request: Request) {
   const draft = validatePriceDraft(body, products);
   if (!draft.ok) return Response.json({ ok: false, error: "invalid" }, { status: 400 });
   try {
-    await savePriceUpdates(draft.updates);
+    await savePriceUpdates(draft.updates, draft.stock);
   } catch (error) {
     console.error("Price save failed", error instanceof Error ? error.message : "unknown");
     return Response.json({ ok: false, error: "storage" }, { status: 503 });

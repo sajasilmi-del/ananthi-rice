@@ -99,6 +99,7 @@ export function productInStock(product: Pick<Product, "brand">): boolean {
 }
 
 export function isPurchasable(product: Pick<Product, "brand">, variant: Variant): boolean {
+  if (typeof variant.forSale === "boolean") return variant.forSale;
   if (!productInStock(product)) return false;
   if (variant.stock == null) return true;
   return variant.stock > 0;

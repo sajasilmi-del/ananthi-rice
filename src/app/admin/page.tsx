@@ -7,7 +7,7 @@ import { liveAdminRows } from "@/lib/price-store";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Change prices",
+  title: "Prices and stock",
   robots: { index: false, follow: false },
 };
 

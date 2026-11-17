@@ -10,8 +10,8 @@ import {
   recordLoginFailure,
 } from "@/lib/admin-auth";
 import { lineAmount } from "@/lib/cart";
-import { products, publishCatalog } from "@/lib/catalog";
-import { applyPriceBook, validatePriceDraft } from "@/lib/price-book";
+import { isPurchasable, products, publishCatalog } from "@/lib/catalog";
+import { applyPriceBook, parsePriceBook, validatePriceDraft } from "@/lib/price-book";
 import { readPriceBookFile, writePriceBookFile } from "@/lib/price-store";
 import { priceStorageMode } from "@/lib/price-store-mode";
 
@@ -20,20 +20,29 @@ afterEach(() => {
   clearLoginFailures();
 });
 
-function fullDraft(priceFor?: { productId: string; variantId: string; price: number | null }) {
+function fullDraft(change?: { productId: string; variantId: string; price?: number | null; inStock?: boolean }) {
+  const active = products.filter((product) => product.active);
   return {
-    prices: products
-      .filter((product) => product.active)
-      .flatMap((product) =>
-        product.variants.map((variant) => ({
-          productId: product.id,
-          variantId: variant.id,
-          price:
-            priceFor && product.id === priceFor.productId && variant.id === priceFor.variantId
-              ? priceFor.price
-              : variant.price,
-        })),
-      ),
+    prices: active.flatMap((product) =>
+      product.variants.map((variant) => ({
+        productId: product.id,
+        variantId: variant.id,
+        price:
+          change && "price" in change && product.id === change.productId && variant.id === change.variantId
+            ? change.price
+            : variant.price,
+      })),
+    ),
+    stock: active.flatMap((product) =>
+      product.variants.map((variant) => ({
+        productId: product.id,
+        variantId: variant.id,
+        inStock:
+          change && "inStock" in change && product.id === change.productId && variant.id === change.variantId
+            ? change.inStock
+            : isPurchasable(product, variant),
+      })),
+    ),
   };
 }
 
@@ -42,23 +51,48 @@ describe("admin prices", () => {
     const draft = validatePriceDraft(fullDraft({ productId: "ponni-boiled-rice", variantId: "1kg", price: 161 }), products);
     expect(draft.ok).toBe(true);
     if (!draft.ok) return;
-    publishCatalog(applyPriceBook(products, { updatedAt: "2026-11-17T00:00:00.000Z", prices: draft.updates }));
+    publishCatalog(applyPriceBook(products, { updatedAt: "2026-11-17T00:00:00.000Z", prices: draft.updates, stock: draft.stock }));
     expect(lineAmount({ productId: "ponni-boiled-rice", variantId: "1kg", quantity: 2 })).toBe(322);
     expect(lineAmount({ productId: "ponni-boiled-rice", variantId: "5kg", quantity: 1 })).toBe(799);
   });
 
   it("rejects a partial list, text, and extra decimal places", () => {
-    expect(validatePriceDraft({ prices: [{ productId: "ponni-boiled-rice", variantId: "1kg", price: 10 }] }, products).ok).toBe(false);
+    expect(validatePriceDraft({ prices: [{ productId: "ponni-boiled-rice", variantId: "1kg", price: 10 }], stock: [] }, products).ok).toBe(false);
     const bad = fullDraft({ productId: "ponni-boiled-rice", variantId: "1kg", price: 10 });
     bad.prices[0].price = 10.555 as unknown as number;
     expect(validatePriceDraft(bad, products).ok).toBe(false);
+    const noStock = fullDraft();
+    noStock.stock = [];
+    expect(validatePriceDraft(noStock, products).ok).toBe(false);
+  });
+
+  it("takes one pack out of stock and can put another brand on sale", () => {
+    const hidden = validatePriceDraft(fullDraft({ productId: "ponni-boiled-rice", variantId: "1kg", inStock: false }), products);
+    expect(hidden.ok).toBe(true);
+    if (!hidden.ok) return;
+    publishCatalog(applyPriceBook(products, { updatedAt: "2026-11-17T00:00:00.000Z", prices: hidden.updates, stock: hidden.stock }));
+    expect(lineAmount({ productId: "ponni-boiled-rice", variantId: "1kg", quantity: 1 })).toBeNull();
+    expect(lineAmount({ productId: "ponni-boiled-rice", variantId: "5kg", quantity: 1 })).toBe(799);
+
+    const opened = validatePriceDraft(fullDraft({ productId: "idli-rice", variantId: "1kg", inStock: true }), products);
+    expect(opened.ok).toBe(true);
+    if (!opened.ok) return;
+    publishCatalog(applyPriceBook(products, { updatedAt: "2026-11-17T00:00:00.000Z", prices: opened.updates, stock: opened.stock }));
+    expect(lineAmount({ productId: "idli-rice", variantId: "1kg", quantity: 2 })).toBe(280);
+    expect(lineAmount({ productId: "idli-rice", variantId: "5kg", quantity: 1 })).toBeNull();
   });
 
   it("stores and reads a price book file", () => {
     const dir = mkdtempSync(path.join(tmpdir(), "ananthi-prices-"));
     const file = path.join(dir, "price-book.json");
-    writePriceBookFile(file, { updatedAt: "today", prices: { "ponni-boiled-rice/1kg": 170 } });
+    writePriceBookFile(file, {
+      updatedAt: "today",
+      prices: { "ponni-boiled-rice/1kg": 170 },
+      stock: { "ponni-boiled-rice/1kg": false },
+    });
     expect(readPriceBookFile(file).prices["ponni-boiled-rice/1kg"]).toBe(170);
+    expect(readPriceBookFile(file).stock["ponni-boiled-rice/1kg"]).toBe(false);
+    expect(parsePriceBook({ updatedAt: "today", prices: { "ponni-boiled-rice/1kg": 170 } })?.stock).toEqual({});
     writeFileSync(file, "{");
     expect(readPriceBookFile(file).prices).toEqual({});
   });

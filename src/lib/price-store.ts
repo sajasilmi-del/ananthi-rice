@@ -90,9 +90,13 @@ export async function publishLiveCatalog(): Promise<void> {
   await getLiveCatalog();
 }
 
-export async function savePriceUpdates(updates: Record<string, number | null>, now = new Date().toISOString()): Promise<PriceBook> {
+export async function savePriceUpdates(
+  updates: Record<string, number | null>,
+  stock: Record<string, boolean>,
+  now = new Date().toISOString(),
+): Promise<PriceBook> {
   const current = await readPriceBook();
-  const next = mergePriceBook(current, updates, now);
+  const next = mergePriceBook(current, updates, stock, now);
   await writePriceBook(next);
   publishCatalog(applyPriceBook(products, next));
   return next;

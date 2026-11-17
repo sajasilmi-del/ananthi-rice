@@ -18,6 +18,8 @@ export type Variant = {
   price: number | null;
   salePrice: number | null;
   stock: number | null;
+  /** Saved from the price page. When set, this replaces the brand stock rule. */
+  forSale?: boolean;
 };
 
 export type Product = {
