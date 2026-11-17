@@ -1,6 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { applyPriceBook, parsePriceBook, type PriceBook } from "@/lib/price-book";
+import { products, publishCatalog } from "@/lib/catalog";
 import { createAuthAdapter } from "@/lib/auth";
 import type { AuthAdapter, AuthUser } from "@/lib/auth/types";
 import { addLine, clearCart, itemCount, readCart, removeLine, setQuantity, writeCart } from "@/lib/cart";
@@ -67,14 +69,39 @@ export function useAuth(): AuthValue {
   return value;
 }
 
-export function Providers({ children, initialLocale = "en" }: { children: React.ReactNode; initialLocale?: Locale }) {
+export function Providers({
+  children,
+  initialLocale = "en",
+  initialPriceBook = null,
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+  initialPriceBook?: PriceBook | null;
+}) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
+  const [priceBook, setPriceBook] = useState<PriceBook | null>(initialPriceBook);
   const [lines, setLines] = useState<CartLine[]>([]);
   const [cartReady, setCartReady] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [confirmed, setConfirmed] = useState<ConfirmedServiceArea | null>(null);
   const [adapter, setAdapter] = useState<AuthAdapter | null>(null);
   const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    let ignore = false;
+    fetch("/api/prices", { cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((body) => {
+        if (ignore) return;
+        const next = parsePriceBook(body);
+        if (!next) return;
+        setPriceBook((current) => (JSON.stringify(current) === JSON.stringify(next) ? current : next));
+      })
+      .catch(() => undefined);
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   useEffect(() => {
     const fromQuery = parseLocale(new URLSearchParams(window.location.search).get("lang"));
@@ -156,6 +183,8 @@ export function Providers({ children, initialLocale = "en" }: { children: React.
     }),
     [adapter, user],
   );
+
+  publishCatalog(applyPriceBook(products, priceBook));
 
   return (
     <LanguageContext.Provider value={language}>

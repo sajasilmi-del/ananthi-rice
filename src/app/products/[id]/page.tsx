@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductDetail } from "@/components/ProductDetail";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getCategory, getProduct, productName, products, relatedProducts } from "@/lib/catalog";
+import { getCategory, productName, products, relatedProducts } from "@/lib/catalog";
+import { getLiveCatalog } from "@/lib/price-store";
 import { t } from "@/lib/i18n";
 import { productPageMeta, productPath } from "@/lib/product-page";
 import { requestLocale } from "@/lib/request-locale";
@@ -12,13 +13,20 @@ type ProductPageProps = {
   params: Promise<{ id: string }>;
 };
 
+export const dynamic = "force-dynamic";
+
+async function liveProduct(id: string) {
+  const catalog = await getLiveCatalog();
+  return catalog.find((product) => product.id === id);
+}
+
 export function generateStaticParams() {
   return products.filter((product) => product.active).map((product) => ({ id: product.id }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { id } = await params;
-  const product = getProduct(id);
+  const product = await liveProduct(id);
   if (!product || !product.active) return {};
   const locale = await requestLocale();
   const meta = productPageMeta(product, locale);
@@ -35,7 +43,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
-  const product = getProduct(id);
+  const product = await liveProduct(id);
   if (!product || !product.active) notFound();
   const locale = await requestLocale();
   const category = getCategory(product.category);

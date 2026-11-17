@@ -32,12 +32,23 @@ export const legalPages = legalData as LegalPage[];
 export const deliveryConfig = deliveryData as DeliveryConfig;
 export const site = siteData as SiteConfig;
 
+let publishedProducts: Product[] | null = null;
+
+/** Shop pages publish the saved price list before they render. */
+export function publishCatalog(next: Product[] | null): void {
+  publishedProducts = next;
+}
+
+export function activeProducts(): Product[] {
+  return publishedProducts ?? products;
+}
+
 export function getProduct(id: string): Product | undefined {
-  return products.find((product) => product.id === id);
+  return activeProducts().find((product) => product.id === id);
 }
 
 export function visibleProducts(): Product[] {
-  return products.filter((product) => product.active);
+  return activeProducts().filter((product) => product.active);
 }
 
 export function featuredProducts(): Product[] {

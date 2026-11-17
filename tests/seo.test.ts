@@ -86,12 +86,12 @@ describe("production SEO", () => {
       "google-site-verification: google12b0e83768a8c6a3.html",
     );
     expect(robots().sitemap).toBe("https://www.ananthirice.shop/sitemap.xml");
-    expect(robots().rules).toMatchObject({ disallow: ["/api/", "/account", "/cart", "/checkout"] });
+    expect(robots().rules).toMatchObject({ disallow: ["/api/", "/account", "/admin", "/cart", "/checkout"] });
     const urls = sitemap().map((item) => item.url);
     expect(urls).toContain("https://www.ananthirice.shop/");
     expect(urls).toContain("https://www.ananthirice.shop/products/ponni-boiled-rice");
     expect(urls).toContain("https://www.ananthirice.shop/legal/delivery");
-    expect(urls.some((url) => url.includes("/cart") || url.includes("/checkout") || url.includes("/account"))).toBe(false);
+    expect(urls.some((url) => url.includes("/cart") || url.includes("/checkout") || url.includes("/account") || url.includes("/admin"))).toBe(false);
     const home = sitemap().find((item) => item.url.endsWith("www.ananthirice.shop/"));
     expect(home?.alternates?.languages?.ta).toBe("https://www.ananthirice.shop/?lang=ta");
   });

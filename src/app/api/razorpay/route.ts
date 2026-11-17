@@ -1,4 +1,5 @@
 import { prepareCheckout } from "@/lib/checkout-review";
+import { publishLiveCatalog } from "@/lib/price-store";
 import { resolveDeliveryConfig } from "@/lib/delivery";
 import { createRazorpayOrder, readRazorpayConfig, readRazorpayStatus } from "@/lib/payment/razorpay";
 import { PAYMENT_METHODS, type PaymentMethod } from "@/lib/payment/types";
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, issues: ["method"] }, { status: 400 });
   }
 
+  await publishLiveCatalog();
   const quote = prepareCheckout(body, resolveDeliveryConfig());
   if (!quote.ok) return Response.json(quote);
   const amountPaise = Math.round(quote.total * 100);

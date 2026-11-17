@@ -7,6 +7,7 @@ import { clampQuantity } from "@/lib/cart";
 import {
   getBrand,
   getCategory,
+  getProduct,
   isPurchasable,
   productDescription,
   productName,
@@ -33,7 +34,8 @@ function StockStatus({ inStock, locale }: { inStock: boolean; locale: Locale }) 
   );
 }
 
-export function ProductPurchase({ product, detail = false }: { product: Product; detail?: boolean }) {
+export function ProductPurchase({ product: supplied, detail = false }: { product: Product; detail?: boolean }) {
+  const product = getProduct(supplied.id) ?? supplied;
   const { locale } = useLanguage();
   const { add } = useCart();
   const { user } = useAuth();

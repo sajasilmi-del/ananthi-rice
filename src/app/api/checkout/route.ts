@@ -1,4 +1,5 @@
 import { reviewCheckout } from "@/lib/checkout-review";
+import { publishLiveCatalog } from "@/lib/price-store";
 import { resolveDeliveryConfig } from "@/lib/delivery";
 import { sendInvoiceCopies } from "@/lib/mail";
 import { readRazorpayConfig, verifyRazorpayPayment, type RazorpayProof } from "@/lib/payment/razorpay";
@@ -14,7 +15,10 @@ function readProof(value: unknown): RazorpayProof | null {
   return { orderId: record.orderId, paymentId: record.paymentId, signature: record.signature };
 }
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: Request) {
+  await publishLiveCatalog();
   let body: unknown;
   try {
     body = await request.json();

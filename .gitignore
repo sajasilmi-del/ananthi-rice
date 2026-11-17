@@ -37,6 +37,9 @@ rzp-key.csv
 # vercel
 .vercel
 
+# Prices saved from the /admin page on this computer.
+/data/price-book.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

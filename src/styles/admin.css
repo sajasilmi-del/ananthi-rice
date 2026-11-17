@@ -1,0 +1,109 @@
+.admin-page {
+  display: grid;
+  gap: var(--space-4);
+  padding-bottom: 6.5rem;
+}
+
+.admin-kicker {
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.admin-page h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+
+.admin-lede { color: var(--color-muted); max-width: 42rem; }
+
+.admin-top,
+.admin-top-actions,
+.admin-savebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-card,
+.admin-login {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.admin-login {
+  width: min(28rem, 100%);
+  margin: var(--space-6) auto;
+}
+
+.admin-login input { max-width: none; }
+
+.admin-list,
+.admin-group { display: grid; gap: var(--space-3); }
+
+.admin-group h2,
+.admin-card h3 {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.admin-group h2 { font-size: 1.45rem; margin-top: var(--space-2); }
+
+.admin-group h2 span,
+.admin-card h3 span {
+  color: var(--color-muted);
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.admin-packs {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+}
+
+.admin-packs input {
+  max-width: none;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.admin-bad { border-color: var(--color-danger) !important; }
+
+.admin-search input { max-width: 28rem; }
+
+.admin-success,
+.admin-error {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+}
+
+.admin-success {
+  background: #eef8f2;
+  color: var(--color-success);
+}
+
+.admin-error {
+  background: #fff1f3;
+  color: var(--color-danger);
+}
+
+.admin-savebar {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  padding: var(--space-3);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hover);
+}
+
+.admin-savebar p { margin: 0; }
